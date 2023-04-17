@@ -8,19 +8,19 @@ public class Koerperdaten {
     private int taeglicheNaehrwerte;
     private double bmi;
 
-    public Koerperdaten(double groesse) {
-        this.groesse = groesse;
-    }
+    /**
+     * Berechnet den BMI einer Person anhand der Groesse und des Gewichtes
+     */
+   public void bmiBerechnen(){
+       bmi = gewicht/Math.sqrt(groesse);
+       System.out.println("BMI: " + bmi);
+   }
 
-    public Koerperdaten(double groesse, double gewicht, char geschlecht, int alter, int taeglicheNaehrwerte) {
-        this.groesse = groesse;
-        this.gewicht = gewicht;
-        this.geschlecht = geschlecht;
-        this.alter = alter;
-        this.taeglicheNaehrwerte = taeglicheNaehrwerte;
-        this.bmi = gewicht/Math.sqrt(groesse);
-    }
 
+
+
+
+    //________________getter und setter______________________
     public double getGroesse() {
         return groesse;
     }
@@ -43,5 +43,25 @@ public class Koerperdaten {
 
     public double getBmi() {
         return bmi;
+    }
+
+    public void setGroesse(double groesse) {
+        this.groesse = groesse;
+    }
+
+    public void setGewicht(double gewicht) {
+        this.gewicht = gewicht;
+    }
+
+    public void setGeschlecht(char geschlecht) {
+        this.geschlecht = geschlecht;
+    }
+
+    public void setAlter(int alter) {
+        this.alter = alter;
+    }
+
+    public void setTaeglicheNaehrwerte(int taeglicheNaehrwerte) {
+        this.taeglicheNaehrwerte = taeglicheNaehrwerte;
     }
 }

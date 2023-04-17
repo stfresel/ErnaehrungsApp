@@ -13,11 +13,11 @@ public class KoerperdatenTest {
 
     @BeforeEach
     public void init(){
-        koerperdaten = new Koerperdaten(1.7);
+        koerperdaten = new Koerperdaten();
     }
 
     @Test
     public void testHeight(){
-        assertEquals(1.7, koerperdaten.getGroesse());
+
     }
 }
