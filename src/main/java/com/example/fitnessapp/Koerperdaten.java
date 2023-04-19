@@ -1,12 +1,12 @@
 package com.example.fitnessapp;
 
 public class Koerperdaten {
-    private double groesse;
-    private double gewicht;
+    private double groesse; // in m
+    private double gewicht; // in kg
     private char geschlecht;
     private int alter;
 
-    private int tagesUmsatzKcal;
+    private double tagesUmsatzKcal;
     private double bmi;
 
     /**
@@ -21,17 +21,12 @@ public class Koerperdaten {
        // Kalorien
        switch (geschlecht){
            case 'w':
-               tagesUmsatzKcal = ((int) (665 + (9.6 * gewicht) + (1.8 * groesse*100) - (4.7 * alter)));
+               tagesUmsatzKcal = 655 + (9.6 * gewicht) + (1.8 * groesse * 100) - (4.7 * alter);
                break;
            case 'm':
-               tagesUmsatzKcal = ((int) (66.5 + (13.7 * gewicht) + (5.0 * groesse*100) - (6.8 * alter)));
+               tagesUmsatzKcal =  66.5 + (13.7 * gewicht) + (5.0 * groesse*100) - (6.8 * alter);
                break;
        }
-       // fette
-       //tagesUmsatz.setFett((int)(tagesUmsatz.getKcal()*0.25));
-       //System.out.println("Fette: " + tagesUmsatz.getFett());
-
-
    }
 
 
@@ -52,12 +47,13 @@ public class Koerperdaten {
         return alter;
     }
 
-    public int getTaeglicheNaehrwerte() {
-        return taeglicheNaehrwerte;
-    }
 
     public double getBmi() {
         return bmi;
+    }
+
+    public double getTagesUmsatzKcal() {
+        return tagesUmsatzKcal;
     }
 
     public void setGroesse(double groesse) {
@@ -76,7 +72,15 @@ public class Koerperdaten {
         this.alter = alter;
     }
 
-    public void setTaeglicheNaehrwerte(int taeglicheNaehrwerte) {
-        this.taeglicheNaehrwerte = taeglicheNaehrwerte;
+    @Override
+    public String toString() {
+        return "Koerperdaten{" +
+                "groesse=" + groesse +
+                ", gewicht=" + gewicht +
+                ", geschlecht=" + geschlecht +
+                ", alter=" + alter +
+                ", tagesUmsatzKcal=" + tagesUmsatzKcal +
+                ", bmi=" + bmi +
+                '}';
     }
 }

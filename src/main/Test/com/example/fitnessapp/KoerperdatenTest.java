@@ -17,12 +17,18 @@ public class KoerperdatenTest {
     }
 
     @Test
-    public void testBMIcalc(){
-        koerperdaten.setGroesse(1.6);
-        koerperdaten.setGewicht(70);
+    public void testTagesUmsatzBerechnen(){
+        koerperdaten.setGroesse(1.7);
+        koerperdaten.setGewicht(60);
         koerperdaten.setAlter(20);
-        koerperdaten.setGeschlecht('m');
+        koerperdaten.setGeschlecht('w');
+        koerperdaten.tagesUmsatzBerechnen();
+        assertEquals(1443.0, koerperdaten.getTagesUmsatzKcal());
 
+        koerperdaten.setGeschlecht('m');
+        koerperdaten.tagesUmsatzBerechnen();
+        assertEquals(1602.5, koerperdaten.getTagesUmsatzKcal());
 
     }
+
 }
