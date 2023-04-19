@@ -23,7 +23,6 @@ public class KoerperdatenTest {
         koerperdaten.setAlter(20);
         koerperdaten.setGeschlecht('m');
 
-        assertEquals();
 
     }
 }
