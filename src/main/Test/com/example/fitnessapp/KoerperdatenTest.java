@@ -17,7 +17,13 @@ public class KoerperdatenTest {
     }
 
     @Test
-    public void testHeight(){
+    public void testBMIcalc(){
+        koerperdaten.setGroesse(1.6);
+        koerperdaten.setGewicht(70);
+        koerperdaten.setAlter(20);
+        koerperdaten.setGeschlecht('m');
+
+        assertEquals();
 
     }
 }

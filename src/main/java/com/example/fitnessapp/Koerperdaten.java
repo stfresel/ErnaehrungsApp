@@ -5,7 +5,8 @@ public class Koerperdaten {
     private double gewicht;
     private char geschlecht;
     private int alter;
-    private int taeglicheNaehrwerte;
+
+    private int tagesUmsatzKcal;
     private double bmi;
 
     /**
@@ -16,8 +17,22 @@ public class Koerperdaten {
        System.out.println("BMI: " + bmi);
    }
 
+   public void tagesUmsatzBerechnen(){
+       // Kalorien
+       switch (geschlecht){
+           case 'w':
+               tagesUmsatzKcal = ((int) (665 + (9.6 * gewicht) + (1.8 * groesse*100) - (4.7 * alter)));
+               break;
+           case 'm':
+               tagesUmsatzKcal = ((int) (66.5 + (13.7 * gewicht) + (5.0 * groesse*100) - (6.8 * alter)));
+               break;
+       }
+       // fette
+       //tagesUmsatz.setFett((int)(tagesUmsatz.getKcal()*0.25));
+       //System.out.println("Fette: " + tagesUmsatz.getFett());
 
 
+   }
 
 
     //________________getter und setter______________________
