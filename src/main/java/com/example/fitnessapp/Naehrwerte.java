@@ -1,6 +1,8 @@
 package com.example.fitnessapp;
 
-public class Naehrwerte {
+import java.io.Serializable;
+
+public class Naehrwerte implements Serializable {
     private int kcal;
     private int fett;
     private int kohlenhydrate;
@@ -46,5 +48,15 @@ public class Naehrwerte {
 
     public int getProtein() {
         return protein;
+    }
+
+    @Override
+    public String toString() {
+        return "Naehrwerte{" +
+                "kcal=" + kcal +
+                ", fett=" + fett +
+                ", kohlenhydrate=" + kohlenhydrate +
+                ", protein=" + protein +
+                '}';
     }
 }

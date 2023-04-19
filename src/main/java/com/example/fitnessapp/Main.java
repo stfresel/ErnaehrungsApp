@@ -15,6 +15,14 @@ public class Main extends Application {
         stage.setTitle("Miau!");
         stage.setScene(scene);
         stage.show();
+        Controller controller = new Controller();
+
+        Meal m = new Meal();
+        m.neueZutatErstellen("Milch", 20, 100, new Naehrwerte(100, 100, 100, 100));
+        m.neueZutatErstellen("Honig", 20, 100, new Naehrwerte(200, 200, 200, 200));
+
+
+        m.addZutat("Milch");
     }
 
     public static void main(String[] args) {
