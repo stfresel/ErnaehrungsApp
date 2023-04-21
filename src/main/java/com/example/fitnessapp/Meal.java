@@ -1,7 +1,6 @@
 package com.example.fitnessapp;
 
 import java.io.*;
-import java.nio.Buffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,39 +16,38 @@ public class Meal {
 
     /**
      * Holt die Zutat aus dem Zutaten File(dort wo alle Zutaten gespeichert sind).
-     * @param name Name der Zutat
+     * @param name Name der Zutat, nachdem in ZutatenFile.ser gesucht wird
      */
     public void addZutat(String name) {
         try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
-            Zutat temp = (Zutat) whereToReadFrom.readObject();
-            boolean flag = true;
-
-            while (temp != null && flag){
-                if (Objects.equals(temp.getName(), name)){
-                    zutaten.add(temp);
-                    flag = false;
+            Main.gespeicherteZutaten = (ArrayList<Zutat>) whereToReadFrom.readObject();
+            System.out.println("auslesen vom file");
+            System.out.println(Main.gespeicherteZutaten);
+            for (int i = 0; i < Main.gespeicherteZutaten.size(); i++) {
+                if (Objects.equals(Main.gespeicherteZutaten.get(i).getName(), name)) {
+                    zutaten.add(Main.gespeicherteZutaten.get(i));
+                    break;
                 }
-                temp = (Zutat) whereToReadFrom.readObject();
             }
-
-
-            //_____________________________ auchtung ignorierd
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Fehler beim Meal, weil while! " + e.getMessage());
+            System.out.println("File: Meal --> Fehler bei addZutat");
+            throw new RuntimeException();
         }
         System.out.println(zutaten);
     }
 
     public void neueZutatErstellen(String name, int mengeGegessen, int mengeDerAngaben, Naehrwerte naehrwerte) {
         Zutat z = new Zutat(name, mengeGegessen, mengeDerAngaben, naehrwerte);
-        zutaten.add(z);
-        saveZutat(z);
+        zutaten.add(z);     // zum Gericht hinzufügen
+        Main.gespeicherteZutaten.add(z);    // zum Speicher, wo alle Zutaten sind, hinzufügen
+        saveZutaten();
     }
 
-    private void saveZutat(Zutat z){
+    private void saveZutaten (){
         try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
-            whereToWrite.writeObject(z);
-
+            whereToWrite.reset();
+            whereToWrite.writeObject(Main.gespeicherteZutaten);
+            System.out.println("Saved Zutaten");
         } catch (IOException e) {
             System.out.println("Can't serialize file: " + e.getMessage());
         }
@@ -68,8 +66,6 @@ public class Meal {
     public String toString() {
         return "Meal{" +
                 "zutaten=" + zutaten +
-                ", path=" + path +
-                ", zutatenFile=" + zutatenFile +
                 '}';
     }
 }
