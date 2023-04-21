@@ -24,8 +24,6 @@ public class Main extends Application {
         //m.neueZutatErstellen("Milch", 20, 100, new Naehrwerte(100, 100, 100, 100));
         //m.neueZutatErstellen("Schoko", 100, 200, new Naehrwerte(300,300,300,300));
 
-
-
         m.addZutat("Milch");
         //m.addZutat("Honig");
         m.addZutat("Schoko");
