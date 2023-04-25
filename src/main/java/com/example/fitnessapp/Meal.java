@@ -1,5 +1,13 @@
 package com.example.fitnessapp;
 
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,10 +17,34 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Meal {
+
+    private String name;
     private ArrayList<Zutat> zutaten = new ArrayList<>();
     Path path = Paths.get("ZutatenFile.ser");
 
-    private File zutatenFile = new File("ZutatenFile.ser");
+    public void loadMealScene() {
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPrefWidth(Main.pane.getPrefWidth());
+        gridPane.setPrefHeight(Main.pane.getPrefHeight());
+        Scene scene = new Scene(gridPane);
+        TextField nameTextField = new TextField();
+        gridPane.addRow(0, new Label("Name des Gerichtes: "), nameTextField);
+        Button addZutatBtn = new Button("Zutat hinzufügen");
+        addZutatBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                // zutaten fenster laden
+                System.out.println("neue Ztat");
+            }
+        });
+        gridPane.addRow(1, addZutatBtn);
+        Main.stage.setScene(scene);
+
+    }
+
+    //private File zutatenFile = new File("ZutatenFile.ser");
 
     /**
      * Holt die Zutat aus dem Zutaten File(dort wo alle Zutaten gespeichert sind).
@@ -62,10 +94,22 @@ public class Meal {
         }
     }
 
+    //_________________________getter und setter ________________________________________
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getMealString() {
+        String string = name + "\n\t" + zutaten;
+        return string;
+    }
+
     @Override
     public String toString() {
-        return "Meal{" +
-                "zutaten=" + zutaten +
+        return name +
+                " zutaten=" + zutaten +
                 '}';
     }
 }

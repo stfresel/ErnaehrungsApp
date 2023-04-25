@@ -7,35 +7,44 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Main extends Application {
     static ArrayList<Zutat> gespeicherteZutaten = new ArrayList<>();
 
     static Pane pane = new Pane();
+    static Stage stage;
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage1) throws IOException {
         //FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
         //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage = stage1;
         pane.setPrefHeight(500);
         pane.setPrefWidth(500);
         Scene scene = new Scene(pane);
-        stage.setTitle("Miau!");
+        stage.setTitle("FitnessApp");
         stage.setScene(scene);
         stage.show();
+        Tagebuch tagebuch = new Tagebuch();
+
+        Tag t1 = new Tag(new Date(2023, Calendar.APRIL, 23));
+        t1.addMeal(new Meal());
+        tagebuch.addTag(t1);
+        Tag t2 = new Tag(new Date(2023, Calendar.APRIL, 24));
+        tagebuch.addTag(t2);
+        Tag t3 = new Tag(new Date(2023, Calendar.APRIL, 25));
+        tagebuch.addTag(t3);
+        tagebuch.loadTagebuchScene();
+
+
         Controller controller = new Controller(stage, scene, pane);
-        controller.addZutaten2Meal();
-        Meal m = new Meal();
+        //controller.addZutaten2Meal();
 
-        //m.neueZutatErstellen("Honig", 20, 100, new Naehrwerte(200, 200, 200, 200));
-        //m.neueZutatErstellen("Milch", 20, 100, new Naehrwerte(100, 100, 100, 100));
-        //m.neueZutatErstellen("Schoko", 100, 200, new Naehrwerte(300,300,300,300));
 
-        m.addZutat("Milch");
-        //m.addZutat("Honig");
-        m.addZutat("Schoko");
 
-        System.out.println(m);
     }
 
     public static void main(String[] args) {
