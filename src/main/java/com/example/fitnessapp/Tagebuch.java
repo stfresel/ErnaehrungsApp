@@ -5,27 +5,25 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-
 import java.util.ArrayList;
-import java.util.Date;
+
 
 public class Tagebuch {
-    private ArrayList<Tag> tage = new ArrayList<>();
+    private final ArrayList<Tag> tage = new ArrayList<>();
     private VBox tagebuchVbox;
-
-    private TabPane tabPane;
-
 
 
     public void addTag(Tag t) {
         tage.add(t);
     }
+
+    /**
+     * Ladet die Start-Scene des Tagebuches.
+     * Im Tagebuch gibt es zwei Tabs (Heute und Vergangenheit) wo man die jeweiligen Einträge sehen kann.
+     */
     public void loadTagebuchScene() {
-        tabPane = new TabPane();
+        TabPane tabPane = new TabPane();
         Tab heute = new Tab("Heute", loadHeute());
         Tab vergangeneTage = new Tab("Vergangenheit", loadVergangeneTage());
         heute.setClosable(false);
@@ -34,6 +32,10 @@ public class Tagebuch {
         Main.stage.setScene(new Scene(tabPane, Main.pane.getPrefWidth(), Main.pane.getPrefHeight()));
     }
 
+    /**
+     * Die Funktion ladet den Tab heute, welcher in der Scene des Tagesbuches ist.
+     * @return Gibt das ScrollPane zurück, welches als Node beim Tab heute verwendet wird.
+     */
     private ScrollPane loadHeute() {
         VBox vBox = new VBox();
         vBox.setSpacing(10);
@@ -64,6 +66,10 @@ public class Tagebuch {
         return scrollPane;
     }
 
+    /**
+     * Die Funktion git ein ScrollPane zurück, auf welchem alle Tage (außer der heutige) zur Übersicht dargestellt werden.
+     * @return Gibt ebenfalls ein ScrollPane zurück, welches man bei dem Tab Vergangenheit als Node verwenden.
+     */
     public ScrollPane loadVergangeneTage(){
         tagebuchVbox = new VBox();
         tagebuchVbox.setSpacing(10);
@@ -85,12 +91,16 @@ public class Tagebuch {
         //Main.stage.setScene(tagebuchScene);
     }
 
+    /**
+     * Die Funktion erstellt für einen Tag i einen EventHandler, welcher beim Klicken auf die detailansicht des jeweiligen Tages springt.
+     * @param i Der Parameter i steht für den Index. Die Funktion wird in einer Schleife aufgerufen.
+     */
     private void showTag(int i) {
         Group group = new Group();
         group.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                tage.get(i).loadDayScene();
+                tage.get(i).ladeDetailansichtTag();
             }
         });
         group.getChildren().add(new Label(tage.get(i).getDateString()));

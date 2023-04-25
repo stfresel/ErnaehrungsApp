@@ -2,6 +2,7 @@ package com.example.fitnessapp;
 
 import java.io.Serializable;
 
+
 public class Zutat implements Serializable {
     private String name;
     private int mengeGegessen;
@@ -18,6 +19,10 @@ public class Zutat implements Serializable {
         berechenGegesseneNaehrwerte();
     }
 
+    public Zutat(){
+
+    }
+
     //___________methoden_______________
 
     /**
@@ -32,7 +37,6 @@ public class Zutat implements Serializable {
     }
 
 
-
     //______________getter und setter______________
 
 
@@ -40,40 +44,20 @@ public class Zutat implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getMengeGegessen() {
         return mengeGegessen;
-    }
-
-    public void setMengeGegessen(int mengeGegessen) {
-        this.mengeGegessen = mengeGegessen;
     }
 
     public int getMengeDerNaehrwertangaben() {
         return mengeDerNaehrwertangaben;
     }
 
-    public void setMengeDerNaehrwertangaben(int mengeDerNaehrwertangaben) {
-        this.mengeDerNaehrwertangaben = mengeDerNaehrwertangaben;
-    }
-
     public Naehrwerte getNaehrwerteProXGramm() {
         return naehrwerteProXGramm;
     }
 
-    public void setNaehrwerteProXGramm(Naehrwerte naehrwerteProXGramm) {
-        this.naehrwerteProXGramm = naehrwerteProXGramm;
-    }
-
     public Naehrwerte getNaehrwerteEffektivGegessen() {
         return naehrwerteEffektivGegessen;
-    }
-
-    public void setNaehrwerteEffektivGegessen(Naehrwerte naehrwerteEffektivGegessen) {
-        this.naehrwerteEffektivGegessen = naehrwerteEffektivGegessen;
     }
 
     @Override
