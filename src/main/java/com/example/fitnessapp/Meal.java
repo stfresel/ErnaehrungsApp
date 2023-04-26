@@ -26,8 +26,8 @@ public class Meal implements Serializable{
     private final ArrayList<Zutat> zutaten = new ArrayList<>();
 
     private Naehrwerte naehrwerte = new Naehrwerte(0,0,0,0);
-    private Path path = Paths.get("ZutatenFile.ser");
-    private VBox zutatenPane = new VBox();
+    private final Path path = Paths.get("ZutatenFile.ser");
+    private final VBox zutatenPane = new VBox();
 
     private final VBox bereitsHinzugefuegteZutaten = new VBox();
     //private HBox hBox;
@@ -176,7 +176,7 @@ public class Meal implements Serializable{
     /**
      *
      * @param name Name der Zutat, welche man zum Gericht hinzufügen möchte und sie bereits benutzt hat.
-     * @return
+     * @return xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
      */
     private Zutat getZutatausSpeicher(String name){
         System.out.println(name);
@@ -237,10 +237,6 @@ public class Meal implements Serializable{
         hBox.getChildren().add(delZutatBtn);
         hBox.getChildren().add(new Label(z.toString()));
         bereitsHinzugefuegteZutaten.getChildren().add(hBox);
-    }
-
-    private void reloadZutatenListe() {
-
     }
 
     public void delZutat(Zutat z) {
