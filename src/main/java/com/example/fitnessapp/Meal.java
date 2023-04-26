@@ -10,8 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,11 +20,17 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Meal {
+public class Meal implements Serializable{
 
     private String name;
     private final ArrayList<Zutat> zutaten = new ArrayList<>();
-    Path path = Paths.get("ZutatenFile.ser");
+
+    private Naehrwerte naehrwerte = new Naehrwerte(0,0,0,0);
+    private Path path = Paths.get("ZutatenFile.ser");
+    private VBox zutatenPane = new VBox();
+
+    private final VBox bereitsHinzugefuegteZutaten = new VBox();
+    //private HBox hBox;
 
     public void loadMealScene() {
         GridPane gridPane = new GridPane();
@@ -34,7 +40,8 @@ public class Meal {
         gridPane.setPrefHeight(Main.pane.getPrefHeight());
         Scene scene = new Scene(gridPane);
         TextField nameTextField = new TextField();
-        gridPane.addRow(0, new Label("Name des Gerichtes: "), nameTextField);
+        //gridPane.addRow(0, bereitsHinzugefuegteZutaten);
+        gridPane.addRow(1, new Label("Name des Gerichtes: "), nameTextField);
         Button addZutatBtn = new Button("Zutat hinzufügen");
         addZutatBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -52,17 +59,17 @@ public class Meal {
      * Ladet die Zutaten Scene, bei welcher man Zutaten zum Gericht hinzufügen kann.
      */
     public void loadZutatenScene(){
-        VBox zutatenPane = new VBox();
         zutatenPane.setPrefWidth(Main.pane.getWidth());
         zutatenPane.setPrefHeight(Main.pane.getHeight());
 
         GridPane zutatSuchen = new GridPane();
         GridPane zutatErstellen = new GridPane();
+
         // zutat suchen
         CheckBox checkbox = new CheckBox("neue Zutat erstellen");
 
         Label nameDerZutat = new Label("Name: ");
-        NumericTextField textFieldName = new NumericTextField();
+        TextField textFieldName = new TextField();
 
         Label mengeGegessen = new Label("Gegessene Menge (in g): ");
         NumericTextField textFieldGegessen = new NumericTextField();
@@ -108,7 +115,7 @@ public class Meal {
 
         zutatenPane.getChildren().add(zutatSuchen);
         // erstellen des Submit-Buttons
-        Button fertigBtn = new Button("Fertig");
+        Button fertigBtn = new Button("Zutat Hinzufügen");
         fertigBtn.setPrefWidth(30*2);
         fertigBtn.setPrefHeight(30);
         fertigBtn.setLayoutY(zutatenPane.getHeight()-100);
@@ -126,9 +133,10 @@ public class Meal {
                     if (ztemp != null) {
                         z = new Zutat(nameDerZutat.getText(),Integer.parseInt(textFieldGegessen.getText()), ztemp.getMengeDerNaehrwertangaben(),
                                 ztemp.getNaehrwerteProXGramm());
-                        zutaten.add(z);
+                        addZutate2Meal(z);      // achtung olle zutaten.add methoden ersetzen
+
                     }else{
-                        System.out.println("gesuchte ZUtat ist null");
+                        System.out.println("gesuchte Zutat ist null");
                     }
                     System.out.println("Zutat aus Speicher geholen");
                     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -142,11 +150,24 @@ public class Meal {
                                     Integer.parseInt(kolenhydrateTextField.getText()), Integer.parseInt(proteineTextField.getText())));
                     System.out.println(z);
                     Main.gespeicherteZutaten.add(z);
+                    addZutate2Meal(z);
                     saveZutaten();
                 }
                 //---------------------------------------------
             }
         });
+
+        Button alle_zutaten_wurden_eingegeben = new Button("das waren alle zutaten");
+        alle_zutaten_wurden_eingegeben.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("fetrigggg");
+                loadMealScene();
+            }
+        });
+        zutatenPane.getChildren().add(0, bereitsHinzugefuegteZutaten);
+        zutatenPane.getChildren().add(alle_zutaten_wurden_eingegeben);
+
         zutatenPane.getChildren().add(fertigBtn);
         Scene zutatenScene = new Scene(zutatenPane);
         Main.stage.setScene(zutatenScene);
@@ -154,7 +175,7 @@ public class Meal {
 
     /**
      *
-     * @param name NAme der Zutat, welche man zum Gericht hinzufügen möchte und sie bereits benutzt hat.
+     * @param name Name der Zutat, welche man zum Gericht hinzufügen möchte und sie bereits benutzt hat.
      * @return
      */
     private Zutat getZutatausSpeicher(String name){
@@ -192,56 +213,38 @@ public class Meal {
         }
     }
 
-    /**
-     * Holt die Zutat aus dem Zutaten File(dort wo alle Zutaten gespeichert sind).
-     * @param name Name der Zutat, nachdem in ZutatenFile.ser gesucht wird
-     */
-    /*
-    public void zutatHinzufuegen(String name) {
-        Zutat z = new Zutat();
-        z.loadZutatenScene();
+    private void addZutate2Meal(Zutat z) {
         zutaten.add(z);
-         /*
-        try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
-            Main.gespeicherteZutaten = (ArrayList<Zutat>) whereToReadFrom.readObject();
-            System.out.println("auslesen vom file");
-            System.out.println(Main.gespeicherteZutaten);
-            for (int i = 0; i < Main.gespeicherteZutaten.size(); i++) {
-                if (Objects.equals(Main.gespeicherteZutaten.get(i).getName(), name)) {
-                    zutaten.add(Main.gespeicherteZutaten.get(i));
-                    break;
-                }
+        naehrwerte.setKcal(naehrwerte.getKcal() + z.getNaehrwerteEffektivGegessen().getKcal());
+        naehrwerte.setKohlenhydrate(naehrwerte.getKohlenhydrate() + z.getNaehrwerteEffektivGegessen().getKohlenhydrate());
+        naehrwerte.setFett(naehrwerte.getFett() + z.getNaehrwerteEffektivGegessen().getFett());
+        naehrwerte.setProtein(naehrwerte.getProtein() + z.getNaehrwerteEffektivGegessen().getProtein());
+        HBox hBox = new HBox();
+        Button delZutatBtn = new Button("-");
+        delZutatBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("delete Zutat");
+                System.out.println(zutaten);
+                delZutat(z);
+                bereitsHinzugefuegteZutaten.getChildren().remove(hBox);
+                //hBox.getChildren().removeAll();     // achtung beim löschen--> evt alle zutaten in ein VBox tun
+                System.out.println("a-" + zutaten);
+                //reloadZutatenListe();
+
             }
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("File: Meal --> Fehler bei addZutat");
-            throw new RuntimeException();
-        }
-        System.out.println(zutaten);
-
-
-          */
-   // }
-
-
-    /*
-    public void neueZutatErstellen(String name, int mengeGegessen, int mengeDerAngaben, Naehrwerte naehrwerte) {
-        Zutat z = new Zutat(name, mengeGegessen, mengeDerAngaben, naehrwerte);
-        zutaten.add(z);     // zum Gericht hinzufügen
-        Main.gespeicherteZutaten.add(z);    // zum Speicher, wo alle Zutaten sind, hinzufügen
-        saveZutaten();
+        });
+        hBox.getChildren().add(delZutatBtn);
+        hBox.getChildren().add(new Label(z.toString()));
+        bereitsHinzugefuegteZutaten.getChildren().add(hBox);
     }
 
-     */
+    private void reloadZutatenListe() {
 
+    }
 
-
-    public void delZutat(String name) {
-        for (int i = 0; i < zutaten.size(); i++) {
-            if (Objects.equals(zutaten.get(i).getName(), name)){
-                zutaten.remove(i);
-                break;
-            }
-        }
+    public void delZutat(Zutat z) {
+        zutaten.remove(z);
     }
 
     //_________________________getter und setter ________________________________________

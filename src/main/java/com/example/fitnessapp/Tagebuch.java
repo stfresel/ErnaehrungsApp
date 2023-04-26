@@ -6,12 +6,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+
+import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
-public class Tagebuch {
+public class Tagebuch implements Serializable {
     private final ArrayList<Tag> tage = new ArrayList<>();
     private VBox tagebuchVbox;
+
 
 
     public void addTag(Tag t) {
@@ -46,7 +51,7 @@ public class Tagebuch {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-        vBox.getChildren().add(new Label("Heute " + tage.get(tage.size()-1).getDateString()));
+        vBox.getChildren().add(new Label("Heute " + tage.get(tage.size()-1).getDate()));
         vBox.getChildren().add(new Label(tage.get(tage.size()-1).getMealsString()));
 
         Button addMealBtn = new Button("neue Mahlzeit");
@@ -103,7 +108,7 @@ public class Tagebuch {
                 tage.get(i).ladeDetailansichtTag();
             }
         });
-        group.getChildren().add(new Label(tage.get(i).getDateString()));
+        group.getChildren().add(new Label(tage.get(i).getDate().toString()));
         tagebuchVbox.getChildren().add(group);
     }
 

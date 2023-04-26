@@ -7,6 +7,13 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,10 +24,10 @@ public class Main extends Application {
 
     static Pane pane = new Pane();
     static Stage stage;
+    private Path path = Paths.get("TagebuchFile.ser");
+
     @Override
-    public void start(Stage stage1) throws IOException {
-        //FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
-        //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+    public void start(Stage stage1) {
         stage = stage1;
         pane.setPrefHeight(500);
         pane.setPrefWidth(500);
@@ -29,25 +36,44 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
         Tagebuch tagebuch = new Tagebuch();
-
-        Tag t1 = new Tag(new Date(2023, Calendar.APRIL, 23));
-        t1.addMeal(new Meal());
+        Tag t1 = new Tag(LocalDate.of(2023, 5, 23));
         tagebuch.addTag(t1);
-        Tag t2 = new Tag(new Date(2023, Calendar.APRIL, 24));
+        Tag t2 = new Tag(LocalDate.of(2023, 5, 24));
         tagebuch.addTag(t2);
-        Tag t3 = new Tag(new Date(2023, Calendar.APRIL, 25));
+        Tag t3 = new Tag(LocalDate.of(2023, 5, 25));
+        t3.addMeal(new Meal());
         tagebuch.addTag(t3);
         tagebuch.loadTagebuchScene();
-
-
-        Controller controller = new Controller(stage, scene, pane);
-        //controller.addZutaten2Meal();
-
 
 
     }
 
     public static void main(String[] args) {
         launch();
+    }
+
+    // im Benutzer schreiben + in Path vom .ser file
+    // evt konn man a es .ser file wegtien wo die zutaten gespeichert sein
+    public void saveTagebuch(Tagebuch t) {
+        try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(
+                path, StandardOpenOption.CREATE))) {
+
+            whereToWrite.writeObject(t);
+        } catch (IOException ioe) {
+            System.out.println("Can't serialize file: " + ioe.getMessage());
+        }
+    }
+
+    public Tagebuch loadTagebuch(Tagebuch t) {// des t net übergeben! ->in der Main bzw Benutzer uebergeben
+        try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))){
+
+            t = (Tagebuch) whereToReadFrom.readObject();
+
+        } catch (ClassNotFoundException cnfe) {
+            System.out.println("Can't find the declaration of Tagebuch: " + cnfe.getMessage());
+        }  catch (IOException ioe) {
+            System.out.println("Can't deserialize file: " + ioe.getMessage());
+        }
+        return t;
     }
 }

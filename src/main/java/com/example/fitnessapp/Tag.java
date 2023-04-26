@@ -8,18 +8,17 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
 
-public class Tag {
+public class Tag implements Serializable {
     private final ArrayList<Meal> meals = new ArrayList<>();
-    private final Date date;
+    private final LocalDate date;
     private Naehrwerte insgesamteNaehrwerte = new Naehrwerte(0,0,0,0);
 
-    public Tag(Date date) {
+    public Tag(LocalDate date) {
         this.date = date;
     }
 
@@ -41,7 +40,7 @@ public class Tag {
      * Dort gibt es zwei Tabs: Gerichte und Nährwerte.
      */
     public void ladeDetailansichtTag() {
-        System.out.println(getDateString());
+        System.out.println(date);
         TabPane tagTabPane = new TabPane();
         Scene tagScene = new Scene(tagTabPane);
         tagTabPane.setPrefWidth(Main.pane.getPrefWidth());
@@ -54,7 +53,7 @@ public class Tag {
         scrollPane.setContent(vbox);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        vbox.getChildren().add(new Label("Mahlzeiten vom " + getDateString()));
+        vbox.getChildren().add(new Label("Mahlzeiten vom " + date));
 
         Group group = new Group();
         for (Meal meal : meals) {
@@ -77,9 +76,16 @@ public class Tag {
     //------------------------------ getter und setter ____________________________________
 
 
+    /*
     public String getDateString() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         return dateFormat.format(date);
+    }
+
+     */
+
+    public LocalDate getDate() {
+        return date;
     }
 
     public String getMealsString() {

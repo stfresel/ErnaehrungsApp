@@ -1,6 +1,8 @@
 package com.example.fitnessapp;
 
-public class Koerperdaten {
+import java.io.Serializable;
+
+public class Koerperdaten implements Serializable {
     private double groesse; // in m
     private double gewicht; // in kg
     private char geschlecht;

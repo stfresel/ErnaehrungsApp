@@ -16,24 +16,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.ObjectOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
 public class Controller {
+
 
     private final double abstandZuRand = 40;
 
     private final double prefSize = 30;
-    private Pane pane;
-    private Scene scene;
-    private Stage stage;
 
-    public Controller(Stage stage, Scene scene,Pane pane) {
-        this.pane = pane;
-        this.scene = scene;
-        this.stage = stage;
-    }
 
-    /**
-     * Ruft die Funktion auf, die eine neue oder bereitsbestehende Zutat zum Meal hinzufügt, auf.
-     * Sie wird aufgerufen, sobald man sich im Layout Tagebucheintrag befindet.
-     */
 
 }
