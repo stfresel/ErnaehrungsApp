@@ -25,10 +25,11 @@ public class Meal implements Serializable{
     private String name;
     private final ArrayList<Zutat> zutaten = new ArrayList<>();
 
+    private String tempName = null;
+    private int tempMenge = 0;
     private Naehrwerte naehrwerte = new Naehrwerte(0,0,0,0);
     private final Path path = Paths.get("ZutatenFile.ser");
     private final VBox zutatenPane = new VBox();
-
     private final VBox bereitsHinzugefuegteZutaten = new VBox();
     //private HBox hBox;
 
@@ -39,7 +40,12 @@ public class Meal implements Serializable{
         gridPane.setPrefWidth(Main.pane.getPrefWidth());
         gridPane.setPrefHeight(Main.pane.getPrefHeight());
         Scene scene = new Scene(gridPane);
-        TextField nameTextField = new TextField();
+        TextField nameTextField;
+        if (tempName != null) {
+            nameTextField = new TextField(tempName);
+        }else{
+            nameTextField = new TextField();
+        }
         //gridPane.addRow(0, bereitsHinzugefuegteZutaten);
         gridPane.addRow(1, new Label("Name des Gerichtes: "), nameTextField);
         Button addZutatBtn = new Button("Zutat hinzufügen");
@@ -47,11 +53,22 @@ public class Meal implements Serializable{
             @Override
             public void handle(MouseEvent mouseEvent) {
                 // zutaten fenster laden
+                tempName = nameTextField.getText();
                 System.out.println("neue Zutat");
                 loadZutatenScene();
             }
         });
+
+        Button mealFertig = new Button("fertig");
+        mealFertig.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        });
+        // sie sind immer die letzten elemente im gridPane
         gridPane.addRow(1, addZutatBtn);
+        gridPane.addRow(2, mealFertig);
         Main.stage.setScene(scene);
     }
 
