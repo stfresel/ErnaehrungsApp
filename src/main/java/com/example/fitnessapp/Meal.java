@@ -62,10 +62,10 @@ public class Meal {
         CheckBox checkbox = new CheckBox("neue Zutat erstellen");
 
         Label nameDerZutat = new Label("Name: ");
-        TextField textFieldName = new TextField();
+        NumericTextField textFieldName = new NumericTextField();
 
         Label mengeGegessen = new Label("Gegessene Menge (in g): ");
-        TextField textFieldGegessen = new TextField();
+        NumericTextField textFieldGegessen = new NumericTextField();
         //zutatenPane.getChildren().addAll(nameDerZutat, textFieldName, mengeGegessen, textFieldGegessen);
 
         zutatSuchen.addRow(0, checkbox);
@@ -74,30 +74,19 @@ public class Meal {
 
         // zutat erstellen
         Label naehrwerteaufXgramm = new Label("Menge der Nährwertangabe (in g): ");
-        TextField grammTextField = new TextField();
-
-        grammTextField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(
-                    ObservableValue<? extends String> observable,
-                    String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    grammTextField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
+        NumericTextField grammTextField = new NumericTextField();
 
         Label proteine = new Label("Proteine: ");
-        TextField proteineTextField = new TextField();
+        NumericTextField proteineTextField = new NumericTextField();
 
         Label fette = new Label("Fette: ");
-        TextField fetteTextField = new TextField();
+        NumericTextField fetteTextField = new NumericTextField();
 
         Label kolenhydrate = new Label("Kolenhydrate: ");
-        TextField kolenhydrateTextField = new TextField();
+        NumericTextField kolenhydrateTextField = new NumericTextField();
 
         Label kcal = new Label("Kalorien: ");
-        TextField kcalTextField = new TextField();
+        NumericTextField kcalTextField = new NumericTextField();
 
         zutatErstellen.addRow(0, naehrwerteaufXgramm, grammTextField);
         zutatErstellen.addRow(1, kcal, kcalTextField);
