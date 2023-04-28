@@ -35,8 +35,6 @@ public class Tag implements Serializable {
         }
     }
 
-
-
     /**
      * Ladet sie detailansicht eines Tages.
      * Dort gibt es zwei Tabs: Gerichte und Nährwerte.
@@ -44,7 +42,7 @@ public class Tag implements Serializable {
     public void ladeDetailansichtTag() {
         System.out.println(date);
         TabPane tagTabPane = new TabPane();
-        Main.s = new Scene(tagTabPane);
+        Scene tabScene = new Scene(tagTabPane);
         tagTabPane.setPrefWidth(Main.pane.getPrefWidth());
         tagTabPane.setPrefHeight(Main.pane.getPrefHeight());
 
@@ -71,7 +69,7 @@ public class Tag implements Serializable {
         naehrwerte.setClosable(false);
 
         tagTabPane.getTabs().addAll(gerichte, naehrwerte);
-        //Main.stage.setScene(tagScene);
+        Main.stage.setScene(tabScene);
     }
 
 

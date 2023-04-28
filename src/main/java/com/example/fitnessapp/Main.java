@@ -63,7 +63,6 @@ public class Main extends Application {
     public void saveTagebuch(Tagebuch t) {
         try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(
                 path, StandardOpenOption.CREATE))) {
-
             whereToWrite.writeObject(t);
         } catch (IOException ioe) {
             System.out.println("Can't serialize file: " + ioe.getMessage());

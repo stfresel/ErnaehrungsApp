@@ -35,7 +35,7 @@ public class Tagebuch implements Serializable {
         vergangeneTage.setClosable(false);
         tabPane.getTabs().addAll(heute, vergangeneTage);
         System.out.println("..");
-        Main.s = new Scene(tabPane, Main.pane.getPrefWidth(), Main.pane.getPrefHeight());
+        Main.stage.setScene(new Scene(tabPane, Main.pane.getPrefWidth(), Main.pane.getPrefHeight()));
         System.out.println("x");
 
     }

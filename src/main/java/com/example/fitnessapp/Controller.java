@@ -23,11 +23,4 @@ import java.nio.file.StandardOpenOption;
 
 public class Controller {
 
-
-    private final double abstandZuRand = 40;
-
-    private final double prefSize = 30;
-
-
-
 }
