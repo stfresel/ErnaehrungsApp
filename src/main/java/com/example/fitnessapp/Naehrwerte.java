@@ -15,7 +15,7 @@ public class Naehrwerte implements Serializable {
         this.protein = protein;
     }
 
-    //_________________getter und setter__________________________
+    //_________________getter und setter__________________________//
 
 
     public void setKcal(int kcal) {

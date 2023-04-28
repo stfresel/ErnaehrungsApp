@@ -24,11 +24,14 @@ public class Main extends Application {
         stage = stage1;
         pane.setPrefHeight(500);
         pane.setPrefWidth(500);
-        Scene scene = new Scene(pane);
         stage.setTitle("FitnessApp");
+        Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
+        Benutzer b1=new Benutzer();
+        b1.initialize();
         Tagebuch tagebuch = new Tagebuch();
+
 
         Tag t1 = new Tag(new Date(2023, Calendar.APRIL, 23));
         t1.addMeal(new Meal());
@@ -37,7 +40,8 @@ public class Main extends Application {
         tagebuch.addTag(t2);
         Tag t3 = new Tag(new Date(2023, Calendar.APRIL, 25));
         tagebuch.addTag(t3);
-        tagebuch.loadTagebuchScene();
+
+        //tagebuch.loadTagebuchScene();
 
 
         Controller controller = new Controller(stage, scene, pane);
