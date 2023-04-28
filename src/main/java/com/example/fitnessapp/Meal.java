@@ -29,17 +29,23 @@ public class Meal implements Serializable{
     private int tempMenge = 0;
     private Naehrwerte naehrwerte = new Naehrwerte(0,0,0,0);
     private final Path path = Paths.get("ZutatenFile.ser");
-    private final VBox zutatenPane = new VBox();
+
     private final VBox bereitsHinzugefuegteZutaten = new VBox();
+    VBox zutatenPane = null;
+
+
+    Scene mealScene;
+
+    GridPane mealPane;
     //private HBox hBox;
 
     public void loadMealScene() {
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPrefWidth(Main.pane.getPrefWidth());
-        gridPane.setPrefHeight(Main.pane.getPrefHeight());
-        Scene scene = new Scene(gridPane);
+        mealPane = new GridPane();
+        mealPane.setHgap(10);
+        mealPane.setVgap(10);
+        //gridPane.setPrefWidth(Main.pane.getPrefWidth());
+        //gridPane.setPrefHeight(Main.pane.getPrefHeight());
+        mealScene = new Scene(mealPane);
         TextField nameTextField;
         if (tempName != null) {
             nameTextField = new TextField(tempName);
@@ -47,7 +53,7 @@ public class Meal implements Serializable{
             nameTextField = new TextField();
         }
         //gridPane.addRow(0, bereitsHinzugefuegteZutaten);
-        gridPane.addRow(1, new Label("Name des Gerichtes: "), nameTextField);
+        mealPane.addRow(1, new Label("Name des Gerichtes: "), nameTextField);
         Button addZutatBtn = new Button("Zutat hinzufügen");
         addZutatBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -55,7 +61,12 @@ public class Meal implements Serializable{
                 // zutaten fenster laden
                 tempName = nameTextField.getText();
                 System.out.println("neue Zutat");
-                loadZutatenScene();
+                if (zutatenPane == null) {
+                    loadZutatenScene();
+                } else {
+                    reloadZutatenScene();
+                }
+                //loadZutatenScene();
             }
         });
 
@@ -63,19 +74,30 @@ public class Meal implements Serializable{
         mealFertig.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
+                System.out.println("feritgggg meal");
             }
         });
         // sie sind immer die letzten elemente im gridPane
-        gridPane.addRow(1, addZutatBtn);
-        gridPane.addRow(2, mealFertig);
-        Main.stage.setScene(scene);
+        mealPane.addRow(1, addZutatBtn);
+        mealPane.addRow(2, mealFertig);
+        Main.stage.setScene(mealScene);
+    }
+
+    public void reloadZutatenScene() {
+        GridPane g = new GridPane();
+        g.getChildren().addAll(zutatenPane.getChildren());
+        Scene scene = new Scene(g);
+        //Main.stage.setScene(scene);
+        Main.s = scene;
     }
 
     /**
      * Ladet die Zutaten Scene, bei welcher man Zutaten zum Gericht hinzufügen kann.
      */
     public void loadZutatenScene(){
+        zutatenPane = new VBox();
+        Scene zutatenScene = new Scene(zutatenPane);
+
         zutatenPane.setPrefWidth(Main.pane.getWidth());
         zutatenPane.setPrefHeight(Main.pane.getHeight());
 
@@ -151,7 +173,8 @@ public class Meal implements Serializable{
                         z = new Zutat(nameDerZutat.getText(),Integer.parseInt(textFieldGegessen.getText()), ztemp.getMengeDerNaehrwertangaben(),
                                 ztemp.getNaehrwerteProXGramm());
                         addZutate2Meal(z);      // achtung olle zutaten.add methoden ersetzen
-
+                        textFieldGegessen.setText("0");
+                        // evt no nome auf 0 setzten
                     }else{
                         System.out.println("gesuchte Zutat ist null");
                     }
@@ -168,6 +191,14 @@ public class Meal implements Serializable{
                     System.out.println(z);
                     Main.gespeicherteZutaten.add(z);
                     addZutate2Meal(z);
+                    // alle TextFelder zurücksetzten
+                    textFieldName.setText("");
+                    textFieldGegessen.setText("");
+                    grammTextField.setText("");
+                    fetteTextField.setText("");
+                    kcalTextField.setText("");
+                    kolenhydrateTextField.setText("");
+                    proteineTextField.setText("");
                     saveZutaten();
                 }
                 //---------------------------------------------
@@ -178,16 +209,22 @@ public class Meal implements Serializable{
         alle_zutaten_wurden_eingegeben.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("fetrigggg");
-                loadMealScene();
+                System.out.println("fertigggg");
+                reloadMealScene();
             }
         });
         zutatenPane.getChildren().add(0, bereitsHinzugefuegteZutaten);
         zutatenPane.getChildren().add(alle_zutaten_wurden_eingegeben);
 
         zutatenPane.getChildren().add(fertigBtn);
-        Scene zutatenScene = new Scene(zutatenPane);
-        Main.stage.setScene(zutatenScene);
+        Main.s = zutatenScene;
+    }
+
+    public void reloadMealScene(){
+        GridPane g = new GridPane();
+        g.getChildren().addAll(mealPane.getChildren());
+        Scene scene = new Scene(g);
+        Main.s = scene;
     }
 
     /**

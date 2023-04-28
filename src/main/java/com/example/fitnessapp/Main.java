@@ -26,14 +26,22 @@ public class Main extends Application {
     static Stage stage;
     private Path path = Paths.get("TagebuchFile.ser");
 
+    static Scene s;
+
     @Override
     public void start(Stage stage1) {
         stage = stage1;
         pane.setPrefHeight(500);
         pane.setPrefWidth(500);
-        Scene scene = new Scene(pane);
+
+
+        s =  new Scene(pane);
+        //Scene scene = new Scene(pane);
+
         stage.setTitle("FitnessApp");
-        stage.setScene(scene);
+        //stage.setScene(scene);
+        stage.setScene(s);
+
         stage.show();
         Tagebuch tagebuch = new Tagebuch();
         Tag t1 = new Tag(LocalDate.of(2023, 5, 23));
@@ -44,8 +52,6 @@ public class Main extends Application {
         t3.addMeal(new Meal());
         tagebuch.addTag(t3);
         tagebuch.loadTagebuchScene();
-
-
     }
 
     public static void main(String[] args) {

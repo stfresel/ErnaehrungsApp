@@ -44,7 +44,7 @@ public class Tag implements Serializable {
     public void ladeDetailansichtTag() {
         System.out.println(date);
         TabPane tagTabPane = new TabPane();
-        Scene tagScene = new Scene(tagTabPane);
+        Main.s = new Scene(tagTabPane);
         tagTabPane.setPrefWidth(Main.pane.getPrefWidth());
         tagTabPane.setPrefHeight(Main.pane.getPrefHeight());
 
@@ -71,7 +71,7 @@ public class Tag implements Serializable {
         naehrwerte.setClosable(false);
 
         tagTabPane.getTabs().addAll(gerichte, naehrwerte);
-        Main.stage.setScene(tagScene);
+        //Main.stage.setScene(tagScene);
     }
 
 

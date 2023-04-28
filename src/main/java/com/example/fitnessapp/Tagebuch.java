@@ -26,13 +26,18 @@ public class Tagebuch implements Serializable {
      * Im Tagebuch gibt es zwei Tabs (Heute und Vergangenheit) wo man die jeweiligen Einträge sehen kann.
      */
     public void loadTagebuchScene() {
+        System.out.println("LTTTTT");
         TabPane tabPane = new TabPane();
         Tab heute = new Tab("Heute", loadHeute());
         Tab vergangeneTage = new Tab("Vergangenheit", loadVergangeneTage());
+        System.out.println("mm");
         heute.setClosable(false);
         vergangeneTage.setClosable(false);
         tabPane.getTabs().addAll(heute, vergangeneTage);
-        Main.stage.setScene(new Scene(tabPane, Main.pane.getPrefWidth(), Main.pane.getPrefHeight()));
+        System.out.println("..");
+        Main.s = new Scene(tabPane, Main.pane.getPrefWidth(), Main.pane.getPrefHeight());
+        System.out.println("x");
+
     }
 
     /**
