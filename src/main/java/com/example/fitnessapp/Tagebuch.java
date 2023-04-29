@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -108,6 +109,14 @@ public class Tagebuch implements Serializable {
         });
         group.getChildren().add(new Label(tage.get(i).getDate().toString()));
         tagebuchVbox.getChildren().add(group);
+    }
+
+    //----------getter---------------
+    public LocalDate getLastDay(){
+        return tage.get(tage.size()-1).getDate();
+    }
+    public int getAnzahlTage(){
+        return tage.size();
     }
 
 

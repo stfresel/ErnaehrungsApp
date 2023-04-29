@@ -81,7 +81,7 @@ public class Meal implements Serializable{
         zutatenPane.setPrefWidth(Main.pane.getWidth());
         zutatenPane.setPrefHeight(Main.pane.getHeight());
 
-        GridPane zutatSuchen = new GridPane();
+        //GridPane zutatSuchen = new GridPane();
         GridPane zutatErstellen = new GridPane();
 
         // zutat suchen
@@ -94,9 +94,9 @@ public class Meal implements Serializable{
         NumericTextField textFieldGegessen = new NumericTextField();
         //zutatenPane.getChildren().addAll(nameDerZutat, textFieldName, mengeGegessen, textFieldGegessen);
 
-        zutatSuchen.addRow(0, checkbox);
-        zutatSuchen.addRow(1, nameDerZutat, textFieldName);
-        zutatSuchen.addRow(2, mengeGegessen, textFieldGegessen);
+        zutatenPane.getChildren().add(0, checkbox);
+        zutatErstellen.addRow(0, nameDerZutat, textFieldName);
+        zutatErstellen.addRow(1, mengeGegessen, textFieldGegessen);
 
         // zutat erstellen
         Label naehrwerteaufXgramm = new Label("Menge der Nährwertangabe (in g): ");
@@ -114,11 +114,11 @@ public class Meal implements Serializable{
         Label kcal = new Label("Kalorien: ");
         NumericTextField kcalTextField = new NumericTextField();
 
-        zutatErstellen.addRow(0, naehrwerteaufXgramm, grammTextField);
-        zutatErstellen.addRow(1, kcal, kcalTextField);
-        zutatErstellen.addRow(2, kolenhydrate, kolenhydrateTextField);
-        zutatErstellen.addRow(3, proteine, proteineTextField);
-        zutatErstellen.addRow(4, fette,fetteTextField);
+        zutatErstellen.addRow(2, naehrwerteaufXgramm, grammTextField);
+        zutatErstellen.addRow(3, kcal, kcalTextField);
+        zutatErstellen.addRow(4, kolenhydrate, kolenhydrateTextField);
+        zutatErstellen.addRow(5, proteine, proteineTextField);
+        zutatErstellen.addRow(6, fette,fetteTextField);
 
         checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -132,7 +132,7 @@ public class Meal implements Serializable{
             }
         });
 
-        zutatenPane.getChildren().add(zutatSuchen);
+        //zutatenPane.getChildren().add(zutatSuchen);
         // erstellen des Submit-Buttons
         Button fertigBtn = new Button("Zutat Hinzufügen");
         fertigBtn.setPrefWidth(30*2);
@@ -153,19 +153,7 @@ public class Meal implements Serializable{
                             System.out.println("Autofilllllll-----wichtig");
                         }
                     }
-                    /*
-                    System.out.println(ztemp);
-                    Zutat z;
-                    if (ztemp != null) {
-                        z = new Zutat(nameDerZutat.getText(),Integer.parseInt(textFieldGegessen.getText()), ztemp.getMengeDerNaehrwertangaben(),
-                                ztemp.getNaehrwerteProXGramm());
-                        addZutate2Meal(z);      // achtung olle zutaten.add methoden ersetzen
 
-                    }else{
-                        System.out.println("gesuchte Zutat ist null");
-                    }
-
-                     */
                     System.out.println("feritggg");
                     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 } else {
@@ -194,9 +182,10 @@ public class Meal implements Serializable{
             }
         });
         zutatenPane.getChildren().add(0, bereitsHinzugefuegteZutaten);
-        zutatenPane.getChildren().add(alle_zutaten_wurden_eingegeben);
+        zutatenPane.getChildren().add(zutatenPane.getChildren().size(),fertigBtn);
+        zutatenPane.getChildren().add(zutatenPane.getChildren().size(),alle_zutaten_wurden_eingegeben);
 
-        zutatenPane.getChildren().add(fertigBtn);
+
         Scene zutatenScene = new Scene(zutatenPane);
         Main.stage.setScene(zutatenScene);
     }

@@ -1,8 +1,13 @@
 package com.example.fitnessapp;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -21,6 +26,7 @@ public class Main extends Application {
     public void start(Stage stage1) throws IOException {
         //FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
         //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+
         stage = stage1;
         pane.setPrefHeight(500);
         pane.setPrefWidth(500);
@@ -30,22 +36,7 @@ public class Main extends Application {
         stage.show();
         Benutzer b1=new Benutzer();
         b1.initialize();
-        Tagebuch tagebuch = new Tagebuch();
 
-
-        Tag t1 = new Tag(new Date(2023, Calendar.APRIL, 23));
-        t1.addMeal(new Meal());
-        tagebuch.addTag(t1);
-        Tag t2 = new Tag(new Date(2023, Calendar.APRIL, 24));
-        tagebuch.addTag(t2);
-        Tag t3 = new Tag(new Date(2023, Calendar.APRIL, 25));
-        tagebuch.addTag(t3);
-
-        //tagebuch.loadTagebuchScene();
-
-
-        Controller controller = new Controller(stage, scene, pane);
-        //controller.addZutaten2Meal();
 
 
 

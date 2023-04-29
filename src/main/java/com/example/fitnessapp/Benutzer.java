@@ -1,24 +1,28 @@
 package com.example.fitnessapp;
 
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
+
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
-import java.util.Scanner;
 
-import static javafx.scene.text.FontSmoothingType.LCD;
-
-public class Benutzer {
+public class Benutzer implements Serializable{
     public Group group=new Group();
     //JavaF
     public Rectangle table=new Rectangle(Main.pane.getPrefWidth(),Main.pane.getPrefHeight());
@@ -38,10 +42,14 @@ public class Benutzer {
     private String passwort;
     private String[] benutzer = new String[2];
     private String zeile;
+
+    private Tagebuch meinTagebuch;
+
+    private Path path = null;
     //------------------------------
 
 
-    public Benutzer() throws FileNotFoundException {
+    public Benutzer() {
     }
     public void initialize(){
         Main.stage.setScene(new Scene(group,Main.pane.getPrefWidth(),Main.pane.getPrefHeight()));
@@ -91,6 +99,8 @@ public class Benutzer {
     }
 
     public void neuesKonto() {
+        meinTagebuch = new Tagebuch();
+        //meinTagebuch.start();
         textfehler.setVisible(false);
         int counter = 400;
         group.requestFocus();
@@ -123,9 +133,7 @@ public class Benutzer {
             counter -= 100;
             passwordField[i].setPromptText("Neues Passwort");
 
-
             group.getChildren().add(passwordField[i]);
-
 
         }
         counter = 400;
@@ -139,7 +147,6 @@ public class Benutzer {
 
 
         for (int i = 0; i < 3; i++) {
-
             text[0].setText("Benutzer");
             text[1].setText("Neues Passwort");
             text[2].setText("Wiederholen des Passwotes");
@@ -160,18 +167,23 @@ public class Benutzer {
     }
 
     private void speichern() throws IOException {
+        boolean loggedIn = false;
+        // Speichern im File, wo alle Benutzernamen und Passwörter stehen
         FileWriter fr = new FileWriter("Benutzer.txt");
         BufferedWriter br = new BufferedWriter(fr);
         textfehler.setFill(Color.RED);
         textfehler.setLayoutY(350);
         textfehler.setLayoutX(table.getWidth() / 2 - 149 / 2);
         if (passwordField[0].getText().equals(passwordField[1].getText()) && txt.getText().length() != 0) {
+            loggedIn = true;
             System.out.println("Passwort richtig");
             System.out.println(txt.getText());
             System.out.println(passwordField[1].getText());
-            br.write(txt.getText());
+            benutzername = txt.getText();
+            passwort = passwordField[1].getText();
+            br.write(benutzername);
             br.write(" ");
-            br.write(passwordField[1].getText());
+            br.write(passwort);
             br.newLine();
 
         } else {
@@ -182,7 +194,24 @@ public class Benutzer {
             }
         }
         br.close();
+        if (loggedIn){
+            tagebuchSpeichern();
+        }
 
+
+        tagebuchStarten();
+    }
+
+    private void tagebuchSpeichern(){
+        // Erstellen des Paths zum .ser File
+        path = Paths.get(benutzername + passwort + ".ser");
+        // Erstellen eines .ser Files wo das Tagebuch gespeichert wird
+        try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
+            whereToWrite.writeObject(meinTagebuch);
+            System.out.println("Saved Tagebuch");
+        } catch (IOException e) {
+            System.out.println("Can't serialize " + path.getFileName() + ": " + e.getMessage());
+        }
     }
 
     public void einloggen() throws IOException {
@@ -195,6 +224,7 @@ public class Benutzer {
         passwort = passwortfieldbenutzer.getText();
         //System.out.println(textfieldbenutzer.getText());
         //System.out.println(passwortfieldbenutzer.getText());
+        boolean loggedIn = false;
         zeile = br.readLine();
         do {
 
@@ -202,7 +232,10 @@ public class Benutzer {
             if (Objects.equals(textfieldbenutzer.getText(), benutzer[0]) && Objects.equals(passwortfieldbenutzer.getText(), benutzer[1])) {
                 textfehler.setText("");
                 System.out.println("Passwort und Benutzer stimmern überein");
-                System.exit(0);
+
+                benutzername = textfieldbenutzer.getText();
+                passwort = passwortfieldbenutzer.getText();
+                loggedIn = true;
 
             } else {
                 group.requestFocus();
@@ -211,7 +244,6 @@ public class Benutzer {
                 passwortfieldbenutzer.setText("");
                 textfehler.setFill(Color.RED);
                 textfehler.setText("Passwort oder Benutzername falsch!");
-                //textField.setText("Passwort oder Benutzername falsch");
 
             }
             zeile = br.readLine();
@@ -219,7 +251,38 @@ public class Benutzer {
         } while (zeile != null);
         br.close();
 
+        if (loggedIn){
+            // path wieder erstellen evt funktion?
+            path = Paths.get(benutzername + passwort + ".ser");
+            try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
+                meinTagebuch = (Tagebuch) whereToReadFrom.readObject();
+                System.out.println("auslesen vom file");
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Fehler beim Auslesen aus dem Tagebuch" + e.getMessage());
+            }
+            tagebuchStarten();
+        }
+    }
 
+    private void tagebuchStarten() {
+        if (meinTagebuch.getAnzahlTage() < 1){
+            Tag t1 = new Tag(LocalDate.now());
+            meinTagebuch.addTag(t1);
+        } else if (!Objects.equals(meinTagebuch.getLastDay(), LocalDate.now())){
+            Tag t1 = new Tag(LocalDate.now());
+            meinTagebuch.addTag(t1);
+        }
+        meinTagebuch.loadTagebuchScene();
+        EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.S && !(keyEvent.getTarget() instanceof TextInputControl)) {
+                    tagebuchSpeichern();
+                    System.out.println("gespeichert");
+                }
+            }
+        };
+        Main.stage.addEventFilter(KeyEvent.ANY, keyEventEventHandler);
     }
 
 }
