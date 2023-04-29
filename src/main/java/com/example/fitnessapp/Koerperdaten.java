@@ -7,6 +7,7 @@ public class Koerperdaten implements Serializable {
     private double gewicht; // in kg
     private char geschlecht;
     private int alter;
+    private int taeglicheNaehrwerte;
 
     private double tagesUmsatzKcal;
     private double bmi;
@@ -32,7 +33,7 @@ public class Koerperdaten implements Serializable {
    }
 
 
-    //________________getter und setter______________________
+    //________________getter und setter______________________//
     public double getGroesse() {
         return groesse;
     }
