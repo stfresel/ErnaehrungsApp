@@ -26,18 +26,13 @@ public class Tagebuch implements Serializable {
      * Im Tagebuch gibt es zwei Tabs (Heute und Vergangenheit) wo man die jeweiligen Einträge sehen kann.
      */
     public void loadTagebuchScene() {
-        System.out.println("LTTTTT");
         TabPane tabPane = new TabPane();
         Tab heute = new Tab("Heute", loadHeute());
         Tab vergangeneTage = new Tab("Vergangenheit", loadVergangeneTage());
-        System.out.println("mm");
         heute.setClosable(false);
         vergangeneTage.setClosable(false);
         tabPane.getTabs().addAll(heute, vergangeneTage);
-        System.out.println("..");
         Main.stage.setScene(new Scene(tabPane, Main.pane.getPrefWidth(), Main.pane.getPrefHeight()));
-        System.out.println("x");
-
     }
 
     /**
@@ -47,6 +42,7 @@ public class Tagebuch implements Serializable {
     private ScrollPane loadHeute() {
         VBox vBox = new VBox();
         vBox.setSpacing(10);
+        // vllt funktion die für alle identisch koniguriert?
         vBox.setPrefHeight(Main.pane.getPrefHeight());
         vBox.setPrefWidth(Main.pane.getPrefWidth());
         ScrollPane scrollPane = new ScrollPane();
@@ -96,7 +92,6 @@ public class Tagebuch implements Serializable {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         return scrollPane;
-        //Main.stage.setScene(tagebuchScene);
     }
 
     /**

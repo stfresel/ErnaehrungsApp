@@ -26,10 +26,10 @@ public class Meal implements Serializable{
     private final ArrayList<Zutat> zutaten = new ArrayList<>();
 
     private String tempName = null;
-    private int tempMenge = 0;
     private Naehrwerte naehrwerte = new Naehrwerte(0,0,0,0);
     private final Path path = Paths.get("ZutatenFile.ser");
-    private final VBox zutatenPane = new VBox();
+    private VBox zutatenPane;
+
     private final VBox bereitsHinzugefuegteZutaten = new VBox();
     //private HBox hBox;
 
@@ -76,6 +76,8 @@ public class Meal implements Serializable{
      * Ladet die Zutaten Scene, bei welcher man Zutaten zum Gericht hinzufügen kann.
      */
     public void loadZutatenScene(){
+        zutatenPane = new VBox();
+
         zutatenPane.setPrefWidth(Main.pane.getWidth());
         zutatenPane.setPrefHeight(Main.pane.getHeight());
 
@@ -144,7 +146,14 @@ public class Meal implements Serializable{
                 // Zutat aus Speicher holen
                 if (!checkbox.isSelected()){
                     // Achtung die nutritions miasn no an die menge des gegessenen ungepasst werdn
-                    Zutat ztemp = getZutatausSpeicher(nameDerZutat.getText());
+                    for (int i = 0; i < Main.gespeicherteZutaten.size(); i++) {
+                        if (Objects.equals(Main.gespeicherteZutaten.get(i).getName(), nameDerZutat.getText())){
+                            // trefeerrrrrrr
+                            //Autofilll();
+                            System.out.println("Autofilllllll-----wichtig");
+                        }
+                    }
+                    /*
                     System.out.println(ztemp);
                     Zutat z;
                     if (ztemp != null) {
@@ -155,7 +164,9 @@ public class Meal implements Serializable{
                     }else{
                         System.out.println("gesuchte Zutat ist null");
                     }
-                    System.out.println("Zutat aus Speicher geholen");
+
+                     */
+                    System.out.println("feritggg");
                     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 } else {
                     // Zutat neu Hinzufügen
@@ -195,6 +206,7 @@ public class Meal implements Serializable{
      * @param name Name der Zutat, welche man zum Gericht hinzufügen möchte und sie bereits benutzt hat.
      * @return xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
      */
+    /*
     private Zutat getZutatausSpeicher(String name){
         System.out.println(name);
         System.out.println("weiter mochn----------------------------------");
@@ -217,6 +229,8 @@ public class Meal implements Serializable{
         // evt mit a combo box
     }
 
+     */
+
     /**
      * Speichert die neuen Zutaten ab.
      */
@@ -236,6 +250,7 @@ public class Meal implements Serializable{
         naehrwerte.setKohlenhydrate(naehrwerte.getKohlenhydrate() + z.getNaehrwerteEffektivGegessen().getKohlenhydrate());
         naehrwerte.setFett(naehrwerte.getFett() + z.getNaehrwerteEffektivGegessen().getFett());
         naehrwerte.setProtein(naehrwerte.getProtein() + z.getNaehrwerteEffektivGegessen().getProtein());
+        System.out.println("insgesamt NW" + naehrwerte);
         HBox hBox = new HBox();
         Button delZutatBtn = new Button("-");
         delZutatBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -247,7 +262,7 @@ public class Meal implements Serializable{
                 bereitsHinzugefuegteZutaten.getChildren().remove(hBox);
                 //hBox.getChildren().removeAll();     // achtung beim löschen--> evt alle zutaten in ein VBox tun
                 System.out.println("a-" + zutaten);
-                //reloadZutatenListe();
+                loadZutatenScene();
 
             }
         });
