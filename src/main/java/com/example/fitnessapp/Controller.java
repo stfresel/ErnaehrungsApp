@@ -23,4 +23,8 @@ import java.nio.file.StandardOpenOption;
 
 public class Controller {
 
+    public void start() {
+        Benutzer b1=new Benutzer();
+        b1.initialize();
+    }
 }

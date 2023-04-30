@@ -2,14 +2,13 @@ package com.example.fitnessapp;
 
 import javafx.event.EventHandler;
 
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.*;
@@ -18,33 +17,24 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 
 public class Benutzer implements Serializable{
-    public Group group=new Group();
-    //JavaF
-    public Rectangle table=new Rectangle(Main.pane.getPrefWidth(),Main.pane.getPrefHeight());
-    Button buttonReg=new Button();
-    TextField txt = new TextField();
-    PasswordField[] passwordField = new PasswordField[2];
-    Text[] text = new Text[3];
-    Text textfehler=new Text();
-    Text textregri=new Text();
-    TextField textfieldbenutzer=new TextField();
-    PasswordField passwortfieldbenutzer=new PasswordField();
-    Button login=new Button();
+    public Pane pane=new Pane();
+    private TextField txt = new TextField();
+    private PasswordField[] passwordField = new PasswordField[2];
+    private Text[] text = new Text[3];
+    private Text textfehler=new Text();
+    private Text textregi=new Text();
+    private TextField textfieldbenutzer=new TextField();
+    private PasswordField passwortfieldbenutzer=new PasswordField();
+    private Button login=new Button();
 
     //--------------------------------------------
     //Atribute für Benutzer und Passwort
     private String benutzername;
     private String passwort;
-    private String[] benutzer = new String[2];
-    private String zeile;
-
     private Tagebuch meinTagebuch;
-
     private Path path = null;
     //------------------------------
 
@@ -52,7 +42,9 @@ public class Benutzer implements Serializable{
     public Benutzer() {
     }
     public void initialize(){
-        Main.stage.setScene(new Scene(group,Main.pane.getPrefWidth(),Main.pane.getPrefHeight()));
+        pane.setPrefHeight(Main.pane.getPrefHeight());
+        pane.setPrefWidth(Main.pane.getPrefWidth());
+        Main.stage.setScene(new Scene(pane));
 
         //Textfeld
         textfieldbenutzer.setLayoutY(109);
@@ -81,21 +73,21 @@ public class Benutzer implements Serializable{
         textfehler.setLayoutX(159);
         textfehler.setLayoutY(225);
         //Text regristieren
-        textregri.setLayoutY(210);
-        textregri.setLayoutX(250);
-        textregri.setText("Regristrieren");
-        textregri.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        textregi.setLayoutY(210);
+        textregi.setLayoutX(250);
+        textregi.setText("Registrieren");
+        textregi.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 neuesKonto();
             }
         });
         //Hinzufügen
-        group.getChildren().add(textfieldbenutzer);
-        group.getChildren().add(passwortfieldbenutzer);
-        group.getChildren().add(login);
-        group.getChildren().add(textfehler);
-        group.getChildren().add(textregri);
+        pane.getChildren().add(textfieldbenutzer);
+        pane.getChildren().add(passwortfieldbenutzer);
+        pane.getChildren().add(login);
+        pane.getChildren().add(textfehler);
+        pane.getChildren().add(textregi);
     }
 
     public void neuesKonto() {
@@ -103,42 +95,42 @@ public class Benutzer implements Serializable{
         //meinTagebuch.start();
         textfehler.setVisible(false);
         int counter = 400;
-        group.requestFocus();
+        pane.requestFocus();
         textfieldbenutzer.setVisible(false);
         passwortfieldbenutzer.setVisible(false);
         login.setVisible(false);
-        textregri.setVisible(false);
-        buttonReg = new Button();
+        textregi.setVisible(false);
+        Button buttonReg = new Button();
         buttonReg.setText("Regristrieren");
         System.out.println();
-        buttonReg.setLayoutX(table.getWidth() / 2 - 149 / 2);
+        buttonReg.setLayoutX(pane.getWidth() / 2 - 149.0/ 2);
         buttonReg.setLayoutY(400);
-        group.getChildren().add(buttonReg);
+        pane.getChildren().add(buttonReg);
 
         txt = new TextField();
         txt.setMinHeight(25);
         txt.setMinWidth(149);
-        double x = table.getWidth() / 2 - txt.getMinWidth() / 2;
+        double x = pane.getWidth() / 2 - txt.getMinWidth() / 2;
         txt.setLayoutX(x);
-        double y = table.getHeight() - counter;
+        double y = pane.getHeight() - counter;
         txt.setLayoutY(y);
         txt.setPromptText("Neuen Benutzer");
         counter -= 100;
-        group.getChildren().add(txt);
+        pane.getChildren().add(txt);
         for (int i = 0; i < 2; i++) {
-            y = table.getHeight() - counter;
+            y = pane.getHeight() - counter;
             passwordField[i] = new PasswordField();
             passwordField[i].setLayoutX(x);
             passwordField[i].setLayoutY(y);
             counter -= 100;
             passwordField[i].setPromptText("Neues Passwort");
 
-            group.getChildren().add(passwordField[i]);
+            pane.getChildren().add(passwordField[i]);
 
         }
         counter = 400;
         for (int i = 0; i < 3; i++) {
-            y = table.getHeight() - counter;
+            y = pane.getHeight() - counter;
             text[i] = new Text();
             text[i].setLayoutX(x);
             text[i].setLayoutY(y - 1);
@@ -149,8 +141,8 @@ public class Benutzer implements Serializable{
         for (int i = 0; i < 3; i++) {
             text[0].setText("Benutzer");
             text[1].setText("Neues Passwort");
-            text[2].setText("Wiederholen des Passwotes");
-            group.getChildren().add(text[i]);
+            text[2].setText("Wiederholen des Passwortes");
+            pane.getChildren().add(text[i]);
         }
         buttonReg.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -166,6 +158,7 @@ public class Benutzer implements Serializable{
 
     }
 
+    // registration speichern
     private void speichern() throws IOException {
         boolean loggedIn = false;
         // Speichern im File, wo alle Benutzernamen und Passwörter stehen
@@ -173,7 +166,7 @@ public class Benutzer implements Serializable{
         BufferedWriter br = new BufferedWriter(fr);
         textfehler.setFill(Color.RED);
         textfehler.setLayoutY(350);
-        textfehler.setLayoutX(table.getWidth() / 2 - 149 / 2);
+        textfehler.setLayoutX(pane.getWidth() / 2 - 149.0/ 2);
         if (passwordField[0].getText().equals(passwordField[1].getText()) && txt.getText().length() != 0) {
             loggedIn = true;
             System.out.println("Passwort richtig");
@@ -187,6 +180,7 @@ public class Benutzer implements Serializable{
             br.newLine();
 
         } else {
+            textfehler.setVisible(true);
             if (txt.getText().length() == 0 && !Objects.equals(passwordField[0].getText(), passwordField[1].getText())) {
                 textfehler.setText("Kein Benutzername und Passwort falsch");
             } else {
@@ -196,13 +190,11 @@ public class Benutzer implements Serializable{
         br.close();
         if (loggedIn){
             tagebuchSpeichern();
+            tagebuchStarten();
         }
-
-
-        tagebuchStarten();
     }
 
-    private void tagebuchSpeichern(){
+    public void tagebuchSpeichern(){
         // Erstellen des Paths zum .ser File
         path = Paths.get(benutzername + passwort + ".ser");
         // Erstellen eines .ser Files wo das Tagebuch gespeichert wird
@@ -215,20 +207,18 @@ public class Benutzer implements Serializable{
     }
 
     public void einloggen() throws IOException {
-        group.requestFocus();
+        pane.requestFocus();
         FileReader fr = new FileReader("Benutzer.txt");
         BufferedReader br = new BufferedReader(fr);
 
 
         benutzername = textfieldbenutzer.getText();
         passwort = passwortfieldbenutzer.getText();
-        //System.out.println(textfieldbenutzer.getText());
-        //System.out.println(passwortfieldbenutzer.getText());
         boolean loggedIn = false;
-        zeile = br.readLine();
+        String zeile = br.readLine();
         do {
 
-            benutzer = zeile.split(" ");
+            String[] benutzer = zeile.split(" ");
             if (Objects.equals(textfieldbenutzer.getText(), benutzer[0]) && Objects.equals(passwortfieldbenutzer.getText(), benutzer[1])) {
                 textfehler.setText("");
                 System.out.println("Passwort und Benutzer stimmern überein");
@@ -238,7 +228,7 @@ public class Benutzer implements Serializable{
                 loggedIn = true;
 
             } else {
-                group.requestFocus();
+                pane.requestFocus();
 
                 textfieldbenutzer.setText("");
                 passwortfieldbenutzer.setText("");
@@ -277,8 +267,15 @@ public class Benutzer implements Serializable{
             @Override
             public void handle(KeyEvent keyEvent) {
                 if (keyEvent.getCode() == KeyCode.S && !(keyEvent.getTarget() instanceof TextInputControl)) {
+                    /*
+                    Scene temp = Main.stage.getScene();
+                    VBox vBox = temp.();
+                    Scene x = new Scene(new Pane());
+                    Main.stage.setScene(x);
                     tagebuchSpeichern();
-                    System.out.println("gespeichert");
+
+                     */
+                    System.out.println(" nicht gespeichert");
                 }
             }
         };

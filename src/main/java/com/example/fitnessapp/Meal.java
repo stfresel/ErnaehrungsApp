@@ -2,12 +2,10 @@ package com.example.fitnessapp;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -40,7 +38,13 @@ public class Meal implements Serializable{
         gridPane.setPrefWidth(Main.pane.getPrefWidth());
         gridPane.setPrefHeight(Main.pane.getPrefHeight());
         Scene scene = new Scene(gridPane);
+
+        // wenn bereits eine Zutat zum meal hinzugefügt wurde
+        if (zutaten.size() > 0){
+            gridPane.getChildren().add(bereitsHinzugefuegteZutaten);
+        }
         TextField nameTextField;
+        // wenn man den namen des gerichtes eingegeben hat und man dann zutaten hinzufügt, damit namen neu geladen wird
         if (tempName != null) {
             nameTextField = new TextField(tempName);
         }else{
@@ -66,7 +70,7 @@ public class Meal implements Serializable{
 
             }
         });
-        // sie sind immer die letzten elemente im gridPane
+        // sie sollten immer die letzten elemente im gridPane sein
         gridPane.addRow(1, addZutatBtn);
         gridPane.addRow(2, mealFertig);
         Main.stage.setScene(scene);
@@ -83,10 +87,26 @@ public class Meal implements Serializable{
 
         //GridPane zutatSuchen = new GridPane();
         GridPane zutatErstellen = new GridPane();
+        GridPane loadZutate = new GridPane();
 
-        // zutat suchen
+
+
         CheckBox checkbox = new CheckBox("neue Zutat erstellen");
 
+        // gespeicherte zutat verwenden
+        String[] zutatenNames = new String[Main.gespeicherteZutaten.size()];
+        for (int i = 0; i < Main.gespeicherteZutaten.size(); i++) {
+            zutatenNames[i] = Main.gespeicherteZutaten.get(i).getName();
+        }
+        ComboBox<String> comboBox = new ComboBox<>(FXCollections.observableArrayList(zutatenNames));
+        NumericTextField mengeGespeicherteZutat = new NumericTextField();
+
+        // no in eventhandler mochn
+        loadZutate.getChildren().addAll(comboBox, mengeGespeicherteZutat);
+
+
+
+        // zutat neu erstellen ----------------------------------------------------------------
         Label nameDerZutat = new Label("Name: ");
         TextField textFieldName = new TextField();
 
@@ -95,10 +115,11 @@ public class Meal implements Serializable{
         //zutatenPane.getChildren().addAll(nameDerZutat, textFieldName, mengeGegessen, textFieldGegessen);
 
         zutatenPane.getChildren().add(0, checkbox);
+        zutatenPane.getChildren().add(loadZutate);
         zutatErstellen.addRow(0, nameDerZutat, textFieldName);
         zutatErstellen.addRow(1, mengeGegessen, textFieldGegessen);
 
-        // zutat erstellen
+
         Label naehrwerteaufXgramm = new Label("Menge der Nährwertangabe (in g): ");
         NumericTextField grammTextField = new NumericTextField();
 
@@ -125,9 +146,12 @@ public class Meal implements Serializable{
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 System.out.println("change");
                 if (checkbox.isSelected()){ // neue Zutat erstellen
+                    zutatenPane.getChildren().remove(loadZutate);
                     zutatenPane.getChildren().add(zutatErstellen);
+
                 } else {                    // Zutat aus Speicher holen
                     zutatenPane.getChildren().remove(zutatErstellen);
+                    zutatenPane.getChildren().add(loadZutate);
                 }
             }
         });
@@ -177,7 +201,7 @@ public class Meal implements Serializable{
         alle_zutaten_wurden_eingegeben.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("fetrigggg");
+                System.out.println("fertigggg");
                 loadMealScene();
             }
         });
@@ -188,6 +212,7 @@ public class Meal implements Serializable{
 
         Scene zutatenScene = new Scene(zutatenPane);
         Main.stage.setScene(zutatenScene);
+
     }
 
     /**
