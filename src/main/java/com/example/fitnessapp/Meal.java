@@ -25,7 +25,7 @@ public class Meal implements Serializable{
 
     private String tempName = null;
     private Naehrwerte naehrwerte = new Naehrwerte(0,0,0,0);
-    private final Path path = Paths.get("ZutatenFile.ser");
+    //private final Path path = Paths.get("ZutatenFile.ser");
     private VBox zutatenPane;
 
     private final VBox bereitsHinzugefuegteZutaten = new VBox();
@@ -191,7 +191,6 @@ public class Meal implements Serializable{
                     System.out.println(z);
                     Main.gespeicherteZutaten.add(z);
                     addZutate2Meal(z);
-                    saveZutaten();
                 }
                 //---------------------------------------------
             }
@@ -248,6 +247,7 @@ public class Meal implements Serializable{
     /**
      * Speichert die neuen Zutaten ab.
      */
+    /*
     private void saveZutaten (){
         try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
             whereToWrite.reset();
@@ -257,6 +257,8 @@ public class Meal implements Serializable{
             System.out.println("Can't serialize file: " + e.getMessage());
         }
     }
+
+     */
 
     private void addZutate2Meal(Zutat z) {
         zutaten.add(z);
