@@ -90,7 +90,6 @@ public class Meal implements Serializable{
         GridPane loadZutate = new GridPane();
 
 
-
         CheckBox checkbox = new CheckBox("neue Zutat erstellen");
 
         // gespeicherte zutat verwenden
@@ -102,7 +101,7 @@ public class Meal implements Serializable{
         NumericTextField mengeGespeicherteZutat = new NumericTextField();
 
         // no in eventhandler mochn
-        loadZutate.getChildren().addAll(comboBox, mengeGespeicherteZutat);
+        loadZutate.addRow(0, comboBox, mengeGespeicherteZutat);
 
 
 
@@ -112,7 +111,7 @@ public class Meal implements Serializable{
 
         Label mengeGegessen = new Label("Gegessene Menge (in g): ");
         NumericTextField textFieldGegessen = new NumericTextField();
-        //zutatenPane.getChildren().addAll(nameDerZutat, textFieldName, mengeGegessen, textFieldGegessen);
+
 
         zutatenPane.getChildren().add(0, checkbox);
         zutatenPane.getChildren().add(loadZutate);
@@ -120,26 +119,17 @@ public class Meal implements Serializable{
         zutatErstellen.addRow(1, mengeGegessen, textFieldGegessen);
 
 
-        Label naehrwerteaufXgramm = new Label("Menge der Nährwertangabe (in g): ");
         NumericTextField grammTextField = new NumericTextField();
-
-        Label proteine = new Label("Proteine: ");
         NumericTextField proteineTextField = new NumericTextField();
-
-        Label fette = new Label("Fette: ");
         NumericTextField fetteTextField = new NumericTextField();
-
-        Label kolenhydrate = new Label("Kolenhydrate: ");
         NumericTextField kolenhydrateTextField = new NumericTextField();
-
-        Label kcal = new Label("Kalorien: ");
         NumericTextField kcalTextField = new NumericTextField();
 
-        zutatErstellen.addRow(2, naehrwerteaufXgramm, grammTextField);
-        zutatErstellen.addRow(3, kcal, kcalTextField);
-        zutatErstellen.addRow(4, kolenhydrate, kolenhydrateTextField);
-        zutatErstellen.addRow(5, proteine, proteineTextField);
-        zutatErstellen.addRow(6, fette,fetteTextField);
+        zutatErstellen.addRow(2, new Label("Menge der Nährwertangabe (in g): "), grammTextField);
+        zutatErstellen.addRow(3, new Label("Kalorien: "), kcalTextField);
+        zutatErstellen.addRow(4, new Label("Kolenhydrate: "), kolenhydrateTextField);
+        zutatErstellen.addRow(5, new Label("Proteine: "), proteineTextField);
+        zutatErstellen.addRow(6, new Label("Fette: "),fetteTextField);
 
         checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -214,51 +204,6 @@ public class Meal implements Serializable{
 
     }
 
-    /**
-     *
-     * @param name Name der Zutat, welche man zum Gericht hinzufügen möchte und sie bereits benutzt hat.
-     * @return xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-     */
-    /*
-    private Zutat getZutatausSpeicher(String name){
-        System.out.println(name);
-        System.out.println("weiter mochn----------------------------------");
-
-
-        try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
-            Main.gespeicherteZutaten = (ArrayList<Zutat>) whereToReadFrom.readObject();
-            System.out.println("auslesen vom file");
-            //System.out.println(Main.gespeicherteZutaten);
-            for (int i = 0; i < Main.gespeicherteZutaten.size(); i++) {
-                if (Objects.equals(Main.gespeicherteZutaten.get(i).getName(), name)) {
-                    return Main.gespeicherteZutaten.get(i);
-                }
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("File: Meal --> Fehler bei addZutat");
-            //throw new RuntimeException();
-        }
-        return null;
-        // evt mit a combo box
-    }
-
-     */
-
-    /**
-     * Speichert die neuen Zutaten ab.
-     */
-    /*
-    private void saveZutaten (){
-        try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
-            whereToWrite.reset();
-            whereToWrite.writeObject(Main.gespeicherteZutaten);
-            System.out.println("Saved Zutaten");
-        } catch (IOException e) {
-            System.out.println("Can't serialize file: " + e.getMessage());
-        }
-    }
-
-     */
 
     private void addZutate2Meal(Zutat z) {
         zutaten.add(z);

@@ -59,6 +59,7 @@ public class Benutzer implements Serializable{
         login.setText("Login");
         login.setLayoutY(237);
         login.setLayoutX(159);
+
         login.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -101,7 +102,7 @@ public class Benutzer implements Serializable{
         login.setVisible(false);
         textregi.setVisible(false);
         Button buttonReg = new Button();
-        buttonReg.setText("Regristrieren");
+        buttonReg.setText("Registrieren");
         System.out.println();
         buttonReg.setLayoutX(pane.getWidth() / 2 - 149.0/ 2);
         buttonReg.setLayoutY(400);
@@ -154,8 +155,6 @@ public class Benutzer implements Serializable{
                 }
             }
         });
-
-
     }
 
     // registration speichern
@@ -189,35 +188,30 @@ public class Benutzer implements Serializable{
         }
         br.close();
         if (loggedIn){
-            tagebuchSpeichern();
+            // Erstellen des Paths zum .ser File
+            path = Paths.get(benutzername + passwort + ".ser");
+            // Erstellen eines .ser Files wo das Tagebuch gespeichert wird
+            try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
+                whereToWrite.writeObject(meinTagebuch);
+                System.out.println("Saved Tagebuch");
+            } catch (IOException e) {
+                System.out.println("Can't serialize " + path.getFileName() + ": " + e.getMessage());
+            }
             tagebuchStarten();
         }
     }
 
-    public void tagebuchSpeichern(){
-        // Erstellen des Paths zum .ser File
-        path = Paths.get(benutzername + passwort + ".ser");
-        // Erstellen eines .ser Files wo das Tagebuch gespeichert wird
-        try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
-            whereToWrite.writeObject(meinTagebuch);
-            System.out.println("Saved Tagebuch");
-        } catch (IOException e) {
-            System.out.println("Can't serialize " + path.getFileName() + ": " + e.getMessage());
-        }
-    }
 
     public void einloggen() throws IOException {
         pane.requestFocus();
         FileReader fr = new FileReader("Benutzer.txt");
         BufferedReader br = new BufferedReader(fr);
 
-
         benutzername = textfieldbenutzer.getText();
         passwort = passwortfieldbenutzer.getText();
         boolean loggedIn = false;
         String zeile = br.readLine();
         do {
-
             String[] benutzer = zeile.split(" ");
             if (Objects.equals(textfieldbenutzer.getText(), benutzer[0]) && Objects.equals(passwortfieldbenutzer.getText(), benutzer[1])) {
                 textfehler.setText("");
@@ -253,7 +247,6 @@ public class Benutzer implements Serializable{
             tagebuchStarten();
         }
     }
-
     private void tagebuchStarten() {
         if (meinTagebuch.getAnzahlTage() < 1){
             Tag t1 = new Tag(LocalDate.now());
