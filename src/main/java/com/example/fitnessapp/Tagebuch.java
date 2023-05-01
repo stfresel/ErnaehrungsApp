@@ -2,7 +2,6 @@ package com.example.fitnessapp;
 
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -25,15 +24,18 @@ public class Tagebuch implements Serializable {
     /**
      * Ladet die Start-Scene des Tagebuches.
      * Im Tagebuch gibt es zwei Tabs (Heute und Vergangenheit) wo man die jeweiligen Einträge sehen kann.
+     *
+     * @return
      */
-    public void loadTagebuchScene() {
+    public TabPane loadTagebuchScene() {
         TabPane tabPane = new TabPane();
         Tab heute = new Tab("Heute", loadHeute());
         Tab vergangeneTage = new Tab("Vergangenheit", loadVergangeneTage());
         heute.setClosable(false);
         vergangeneTage.setClosable(false);
         tabPane.getTabs().addAll(heute, vergangeneTage);
-        Main.stage.setScene(new Scene(tabPane, Main.pane.getPrefWidth(), Main.pane.getPrefHeight()));
+        //Main.stage.setScene(new Scene(tabPane, Main.pane.getPrefWidth(), Main.pane.getPrefHeight()));
+        return tabPane;
     }
 
     /**

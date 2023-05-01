@@ -34,7 +34,7 @@ public class Benutzer implements Serializable{
     //Atribute für Benutzer und Passwort
     private String benutzername;
     private String passwort;
-    private Tagebuch meinTagebuch;
+    private Home home;
     private Path path = null;
     //------------------------------
 
@@ -92,7 +92,7 @@ public class Benutzer implements Serializable{
     }
 
     public void neuesKonto() {
-        meinTagebuch = new Tagebuch();
+        home = new Home();
         //meinTagebuch.start();
         textfehler.setVisible(false);
         int counter = 400;
@@ -192,12 +192,12 @@ public class Benutzer implements Serializable{
             path = Paths.get(benutzername + passwort + ".ser");
             // Erstellen eines .ser Files wo das Tagebuch gespeichert wird
             try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
-                whereToWrite.writeObject(meinTagebuch);
+                whereToWrite.writeObject(home);
                 System.out.println("Saved Tagebuch");
             } catch (IOException e) {
                 System.out.println("Can't serialize " + path.getFileName() + ": " + e.getMessage());
             }
-            tagebuchStarten();
+            home.startHome();
         }
     }
 
@@ -239,23 +239,19 @@ public class Benutzer implements Serializable{
             // path wieder erstellen evt funktion?
             path = Paths.get(benutzername + passwort + ".ser");
             try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
-                meinTagebuch = (Tagebuch) whereToReadFrom.readObject();
+                home = (Home) whereToReadFrom.readObject();
                 System.out.println("auslesen vom file");
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Fehler beim Auslesen aus dem Tagebuch" + e.getMessage());
             }
-            tagebuchStarten();
+            //homeStarten();
+            home.startHome();
         }
     }
-    private void tagebuchStarten() {
-        if (meinTagebuch.getAnzahlTage() < 1){
-            Tag t1 = new Tag(LocalDate.now());
-            meinTagebuch.addTag(t1);
-        } else if (!Objects.equals(meinTagebuch.getLastDay(), LocalDate.now())){
-            Tag t1 = new Tag(LocalDate.now());
-            meinTagebuch.addTag(t1);
-        }
-        meinTagebuch.loadTagebuchScene();
+    private void homeStarten() {
+        home.startHome();
+
+
         EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
