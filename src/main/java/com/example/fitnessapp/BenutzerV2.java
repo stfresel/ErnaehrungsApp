@@ -22,6 +22,9 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Im Grunde is gleiche wia Benutzer 1, lei das i am Design manondobasteln konn, ohne wos hin zi mochen
+ */
 public class BenutzerV2 implements Serializable{
     public Pane pane = new Pane();
     private TextField txt = new TextField();
