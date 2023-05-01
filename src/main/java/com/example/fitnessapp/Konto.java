@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class Konto implements Serializable {
 
-    public Pane loadKontoScene() {
+    public Pane loadKonto() {
         Pane pane = new Pane();
         pane.getChildren().add(new Label("keine Kontoansicht vorhanden"));
         return pane;

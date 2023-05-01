@@ -270,5 +270,9 @@ public class Benutzer implements Serializable{
         };
         Main.stage.addEventFilter(KeyEvent.ANY, keyEventEventHandler);
     }
+    //------------------getter und setter--------------------------
 
+    public Home getHome() {
+        return home;
+    }
 }

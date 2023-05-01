@@ -1,11 +1,11 @@
 package com.example.fitnessapp;
 
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Home implements Serializable {
+
      private Konto konto;
      private Statistik statistik;
      private Tagebuch tagebuch;
@@ -38,13 +39,41 @@ public class Home implements Serializable {
                Tag t1 = new Tag(LocalDate.now());
                tagebuch.addTag(t1);
           }
+          //______________________________________
+          BorderPane borderPane = new BorderPane();
+          ToolBar toolBar = new ToolBar();
+          Button tagebuchButton = new Button("Tagebuch");
+          tagebuchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+               @Override
+               public void handle(MouseEvent mouseEvent) {
+                    borderPane.setCenter(tagebuch.loadTagebuch());
+               }
+          });
+          Button kontoButton = new Button("Konto");
+          kontoButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+               @Override
+               public void handle(MouseEvent mouseEvent) {
+                    borderPane.setCenter(konto.loadKonto());
+               }
+          });
 
-          TabPane tabPane = new TabPane();
-          Tab tagebuchTab = new Tab("Tagebuch", tagebuch.loadTagebuchScene());
-          Tab kontoTab = new Tab("Konto", konto.loadKontoScene());
-          Tab statTab = new Tab("Statistik", statistik.loadStatScene());
-          tabPane.getTabs().addAll(tagebuchTab, kontoTab, statTab);
-          Main.stage.setScene(new Scene(tabPane));
+          Button statButton = new Button("Statistik");
+          statButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+               @Override
+               public void handle(MouseEvent mouseEvent) {
+                    borderPane.setCenter(statistik.loadStat());
+               }
+          });
+          toolBar.getItems().addAll(tagebuchButton, kontoButton, statButton);
+          toolBar.setLayoutY(Main.stage.getHeight());
+          borderPane.setTop(toolBar);
+          borderPane.setCenter(tagebuch.loadTagebuch());
+          //TabPane tabPane = new TabPane();
+          //Tab tagebuchTab = new Tab("Tagebuch", tagebuch.loadTagebuchScene());
+          //Tab kontoTab = new Tab("Konto", konto.loadKontoScene());
+          //Tab statTab = new Tab("Statistik", statistik.loadStatScene());
+          //tabPane.getTabs().addAll(tagebuchTab, kontoTab, statTab);
+          Main.stage.setScene(new Scene(borderPane));
      }
 
 

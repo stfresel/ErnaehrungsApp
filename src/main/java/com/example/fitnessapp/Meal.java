@@ -67,7 +67,7 @@ public class Meal implements Serializable{
         mealFertig.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
+                Main.benutzer.getHome().startHome();
             }
         });
         // sie sollten immer die letzten elemente im gridPane sein

@@ -27,7 +27,7 @@ public class Tagebuch implements Serializable {
      *
      * @return
      */
-    public TabPane loadTagebuchScene() {
+    public TabPane loadTagebuch() {
         TabPane tabPane = new TabPane();
         Tab heute = new Tab("Heute", loadHeute());
         Tab vergangeneTage = new Tab("Vergangenheit", loadVergangeneTage());

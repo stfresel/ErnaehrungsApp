@@ -22,6 +22,7 @@ import java.util.Date;
 public class Main extends Application {
     static ArrayList<Zutat> gespeicherteZutaten = new ArrayList<>();
 
+    static Benutzer benutzer = new Benutzer();
     static Pane pane = new Pane();
     static Stage stage;
     @Override
@@ -33,7 +34,7 @@ public class Main extends Application {
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
-        Controller c = new Controller();
+        Controller c = new Controller(benutzer);
         c.start();
 
         gespeicherteZutaten.add(new Zutat("Zuckersirup", 100, 100, new Naehrwerte(100, 100, 100, 100)));

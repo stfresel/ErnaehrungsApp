@@ -3,10 +3,13 @@ package com.example.fitnessapp;
 
 
 public class Controller {
-    Benutzer b = new Benutzer();
+    Benutzer benutzer;
+    public Controller(Benutzer b) {
+        benutzer = b;
+    }
 
     public void start() {
-        b.initialize();
+        benutzer.initialize();
     }
 
 }
