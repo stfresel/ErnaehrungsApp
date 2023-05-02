@@ -16,7 +16,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class Benutzer implements Serializable{
@@ -42,8 +41,7 @@ public class Benutzer implements Serializable{
     public Benutzer() {
     }
     public void initialize(){
-        pane.setPrefHeight(Main.pane.getPrefHeight());
-        pane.setPrefWidth(Main.pane.getPrefWidth());
+        pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         Main.stage.setScene(new Scene(pane));
 
         //Textfeld
@@ -73,7 +71,7 @@ public class Benutzer implements Serializable{
         //Text log in
         textfehler.setLayoutX(159);
         textfehler.setLayoutY(225);
-        //Text regristieren
+        //Text registieren
         textregi.setLayoutY(210);
         textregi.setLayoutX(250);
         textregi.setText("Registrieren");
@@ -197,7 +195,8 @@ public class Benutzer implements Serializable{
             } catch (IOException e) {
                 System.out.println("Can't serialize " + path.getFileName() + ": " + e.getMessage());
             }
-            home.startHome();
+            Main.stage.setScene(new Scene(home.getKonto().loadKonto()));
+            //home.startHome();
         }
     }
 
@@ -275,4 +274,13 @@ public class Benutzer implements Serializable{
     public Home getHome() {
         return home;
     }
+
+    public String getBenutzername() {
+        return benutzername;
+    }
+
+    public String getPasswort() {
+        return passwort;
+    }
+
 }

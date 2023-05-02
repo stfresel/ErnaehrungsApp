@@ -54,9 +54,9 @@ public class Naehrwerte implements Serializable {
     public String toString() {
         return "Naehrwerte{" +
                 "kcal=" + kcal +
-                ", fett=" + fett +
                 ", kohlenhydrate=" + kohlenhydrate +
                 ", protein=" + protein +
+                ", fett=" + fett +
                 '}';
     }
 }

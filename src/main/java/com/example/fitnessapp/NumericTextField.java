@@ -11,11 +11,19 @@ public class NumericTextField extends TextField {
             public void changed(
                     ObservableValue<? extends String> observable,
                     String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    NumericTextField.super.setText(newValue.replaceAll("[^\\d]", ""));
+                if (!newValue.matches("(\\d+| \\.)")) {
+                    NumericTextField.super.setText(newValue.replaceAll("[^(\\d | \\.)]", ""));
                 }
             }
         });
+    }
+
+    public double getDouble(){
+        return Double.parseDouble(getText());
+    }
+
+    public int getInt(){
+        return Integer.parseInt(getText());
     }
 
 }

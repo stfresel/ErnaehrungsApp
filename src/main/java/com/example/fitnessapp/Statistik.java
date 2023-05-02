@@ -1,6 +1,5 @@
 package com.example.fitnessapp;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 

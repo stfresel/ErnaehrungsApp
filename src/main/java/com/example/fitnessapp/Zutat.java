@@ -5,36 +5,19 @@ import java.io.Serializable;
 
 public class Zutat implements Serializable {
     private String name;
-    private int mengeGegessen;
-    private int mengeDerNaehrwertangaben; // in gramm
+    private int menge;
+    private Naehrwerte naehrwerte;
 
-    private Naehrwerte naehrwerteProXGramm;
-    private Naehrwerte naehrwerteEffektivGegessen;
-
-    public Zutat(String name, int mengeGegessen, int mengeDerNaehrwertangaben, Naehrwerte naehrwerteProXGramm) {
+    public Zutat(String name, int menge, Naehrwerte naehrwerte) {
         this.name = name;
-        this.mengeGegessen = mengeGegessen;
-        this.mengeDerNaehrwertangaben = mengeDerNaehrwertangaben;
-        this.naehrwerteProXGramm = naehrwerteProXGramm;
-        berechenGegesseneNaehrwerte();
+        this.menge = menge;
+        this.naehrwerte = naehrwerte;
     }
 
     public Zutat(){
 
     }
 
-    //___________methoden_______________
-
-    /**
-     * Berechnet die effektive Menge der Nährwerte, welche der Benutzer zu sich nimmt.
-     */
-    public void berechenGegesseneNaehrwerte(){
-        int f = naehrwerteProXGramm.getFett() * (mengeGegessen/mengeDerNaehrwertangaben);
-        int kcal = naehrwerteProXGramm.getKcal() * (mengeGegessen/mengeDerNaehrwertangaben);
-        int p = naehrwerteProXGramm.getProtein() * (mengeGegessen/mengeDerNaehrwertangaben);
-        int k =  naehrwerteProXGramm.getKohlenhydrate() * (mengeGegessen/mengeDerNaehrwertangaben);
-        naehrwerteEffektivGegessen = new Naehrwerte(kcal, f, k, p);
-    }
 
 
     //______________getter und setter______________
@@ -44,30 +27,32 @@ public class Zutat implements Serializable {
         return name;
     }
 
-    public int getMengeGegessen() {
-        return mengeGegessen;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getMengeDerNaehrwertangaben() {
-        return mengeDerNaehrwertangaben;
+    public int getMenge() {
+        return menge;
     }
 
-    public Naehrwerte getNaehrwerteProXGramm() {
-        return naehrwerteProXGramm;
+    public void setMenge(int menge) {
+        this.menge = menge;
     }
 
-    public Naehrwerte getNaehrwerteEffektivGegessen() {
-        return naehrwerteEffektivGegessen;
+    public Naehrwerte getNaehrwerte() {
+        return naehrwerte;
+    }
+
+    public void setNaehrwerte(Naehrwerte naehrwerte) {
+        this.naehrwerte = naehrwerte;
     }
 
     @Override
     public String toString() {
         return "Zutat{" +
                 "name='" + name + '\'' +
-                ", mengeGegessen=" + mengeGegessen +
-                ", mengeDerNaehrwertangaben=" + mengeDerNaehrwertangaben +
-                ", naehrwerteProXGramm=" + naehrwerteProXGramm +
-                ", naehrwerteEffektivGegessen=" + naehrwerteEffektivGegessen +
+                ", menge=" + menge +
+                ", naehrwerte=" + naehrwerte +
                 '}';
     }
 }

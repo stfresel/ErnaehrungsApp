@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Koerperdaten implements Serializable {
     private double groesse; // in m
     private double gewicht; // in kg
-    private char geschlecht;
+    private String geschlecht;
     private int alter;
     private int taeglicheNaehrwerte;
 
@@ -23,10 +23,10 @@ public class Koerperdaten implements Serializable {
    public void tagesUmsatzBerechnen(){
        // Kalorien
        switch (geschlecht){
-           case 'w':
+           case "weiblich":
                tagesUmsatzKcal = 655 + (9.6 * gewicht) + (1.8 * groesse * 100) - (4.7 * alter);
                break;
-           case 'm':
+           case "männlich":
                tagesUmsatzKcal =  66.5 + (13.7 * gewicht) + (5.0 * groesse*100) - (6.8 * alter);
                break;
        }
@@ -42,7 +42,7 @@ public class Koerperdaten implements Serializable {
         return gewicht;
     }
 
-    public char getGeschlecht() {
+    public String getGeschlecht() {
         return geschlecht;
     }
 
@@ -67,7 +67,7 @@ public class Koerperdaten implements Serializable {
         this.gewicht = gewicht;
     }
 
-    public void setGeschlecht(char geschlecht) {
+    public void setGeschlecht(String geschlecht) {
         this.geschlecht = geschlecht;
     }
 

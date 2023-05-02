@@ -21,11 +21,11 @@ public class KoerperdatenTest {
         koerperdaten.setGroesse(1.7);
         koerperdaten.setGewicht(60);
         koerperdaten.setAlter(20);
-        koerperdaten.setGeschlecht('w');
+        koerperdaten.setGeschlecht("weiblich");
         koerperdaten.tagesUmsatzBerechnen();
         assertEquals(1443.0, koerperdaten.getTagesUmsatzKcal());
 
-        koerperdaten.setGeschlecht('m');
+        koerperdaten.setGeschlecht("männlich");
         koerperdaten.tagesUmsatzBerechnen();
         assertEquals(1602.5, koerperdaten.getTagesUmsatzKcal());
 

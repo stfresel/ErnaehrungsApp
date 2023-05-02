@@ -11,10 +11,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -24,7 +20,7 @@ public class Meal implements Serializable{
     private final ArrayList<Zutat> zutaten = new ArrayList<>();
 
     private String tempName = null;
-    private Naehrwerte naehrwerte = new Naehrwerte(0,0,0,0);
+    private Naehrwerte naehrwerteMeal = new Naehrwerte(0,0,0,0);
     //private final Path path = Paths.get("ZutatenFile.ser");
     private VBox zutatenPane;
 
@@ -35,8 +31,8 @@ public class Meal implements Serializable{
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        gridPane.setPrefWidth(Main.pane.getPrefWidth());
-        gridPane.setPrefHeight(Main.pane.getPrefHeight());
+        gridPane.setPrefSize(Main.stage.getWidth(), Main.stage.getHeight());
+
         Scene scene = new Scene(gridPane);
 
         // wenn bereits eine Zutat zum meal hinzugefügt wurde
@@ -45,10 +41,9 @@ public class Meal implements Serializable{
         }
         TextField nameTextField;
         // wenn man den namen des gerichtes eingegeben hat und man dann zutaten hinzufügt, damit namen neu geladen wird
+        nameTextField = new TextField();
         if (tempName != null) {
-            nameTextField = new TextField(tempName);
-        }else{
-            nameTextField = new TextField();
+            nameTextField.setText(tempName);
         }
         //gridPane.addRow(0, bereitsHinzugefuegteZutaten);
         gridPane.addRow(1, new Label("Name des Gerichtes: "), nameTextField);
@@ -67,6 +62,7 @@ public class Meal implements Serializable{
         mealFertig.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                name = nameTextField.getText();
                 Main.benutzer.getHome().startHome();
             }
         });
@@ -81,15 +77,9 @@ public class Meal implements Serializable{
      */
     public void loadZutatenScene(){
         zutatenPane = new VBox();
-
-        zutatenPane.setPrefWidth(Main.pane.getWidth());
-        zutatenPane.setPrefHeight(Main.pane.getHeight());
-
-        //GridPane zutatSuchen = new GridPane();
+        zutatenPane.setPrefSize(Main.stage.getWidth(), Main.stage.getHeight());
         GridPane zutatErstellen = new GridPane();
         GridPane loadZutate = new GridPane();
-
-
         CheckBox checkbox = new CheckBox("neue Zutat erstellen");
 
         // gespeicherte zutat verwenden
@@ -119,17 +109,15 @@ public class Meal implements Serializable{
         zutatErstellen.addRow(1, mengeGegessen, textFieldGegessen);
 
 
-        NumericTextField grammTextField = new NumericTextField();
         NumericTextField proteineTextField = new NumericTextField();
         NumericTextField fetteTextField = new NumericTextField();
         NumericTextField kolenhydrateTextField = new NumericTextField();
         NumericTextField kcalTextField = new NumericTextField();
 
-        zutatErstellen.addRow(2, new Label("Menge der Nährwertangabe (in g): "), grammTextField);
-        zutatErstellen.addRow(3, new Label("Kalorien: "), kcalTextField);
-        zutatErstellen.addRow(4, new Label("Kolenhydrate: "), kolenhydrateTextField);
-        zutatErstellen.addRow(5, new Label("Proteine: "), proteineTextField);
-        zutatErstellen.addRow(6, new Label("Fette: "),fetteTextField);
+        zutatErstellen.addRow(2, new Label("Kalorien: "), kcalTextField);
+        zutatErstellen.addRow(3, new Label("Kolenhydrate: "), kolenhydrateTextField);
+        zutatErstellen.addRow(4, new Label("Proteine: "), proteineTextField);
+        zutatErstellen.addRow(5, new Label("Fette: "),fetteTextField);
 
         checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -149,8 +137,7 @@ public class Meal implements Serializable{
         //zutatenPane.getChildren().add(zutatSuchen);
         // erstellen des Submit-Buttons
         Button fertigBtn = new Button("Zutat Hinzufügen");
-        fertigBtn.setPrefWidth(30*2);
-        fertigBtn.setPrefHeight(30);
+        fertigBtn.setPrefSize(60,30);
         fertigBtn.setLayoutY(zutatenPane.getHeight()-100);
 
         // inuputs noch in Var speichern!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -172,12 +159,10 @@ public class Meal implements Serializable{
                     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 } else {
                     // Zutat neu Hinzufügen
-                    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                     System.out.println("neue Zutat erstellt");
-                    Zutat z = new Zutat(textFieldName.getText(), Integer.parseInt(textFieldGegessen.getText()),
-                            Integer.parseInt(grammTextField.getText()),
-                            new Naehrwerte(Integer.parseInt(kcalTextField.getText()), Integer.parseInt(fetteTextField.getText()),
-                                    Integer.parseInt(kolenhydrateTextField.getText()), Integer.parseInt(proteineTextField.getText())));
+                    Zutat z = new Zutat(textFieldName.getText(), textFieldGegessen.getInt(),
+                            new Naehrwerte(kcalTextField.getInt(), fetteTextField.getInt(),
+                                    kolenhydrateTextField.getInt(), proteineTextField.getInt()));
                     System.out.println(z);
                     Main.gespeicherteZutaten.add(z);
                     addZutate2Meal(z);
@@ -198,20 +183,18 @@ public class Meal implements Serializable{
         zutatenPane.getChildren().add(zutatenPane.getChildren().size(),fertigBtn);
         zutatenPane.getChildren().add(zutatenPane.getChildren().size(),alle_zutaten_wurden_eingegeben);
 
-
         Scene zutatenScene = new Scene(zutatenPane);
         Main.stage.setScene(zutatenScene);
-
     }
 
 
     private void addZutate2Meal(Zutat z) {
         zutaten.add(z);
-        naehrwerte.setKcal(naehrwerte.getKcal() + z.getNaehrwerteEffektivGegessen().getKcal());
-        naehrwerte.setKohlenhydrate(naehrwerte.getKohlenhydrate() + z.getNaehrwerteEffektivGegessen().getKohlenhydrate());
-        naehrwerte.setFett(naehrwerte.getFett() + z.getNaehrwerteEffektivGegessen().getFett());
-        naehrwerte.setProtein(naehrwerte.getProtein() + z.getNaehrwerteEffektivGegessen().getProtein());
-        System.out.println("insgesamt NW" + naehrwerte);
+        naehrwerteMeal.setKcal(naehrwerteMeal.getKcal() + z.getNaehrwerte().getKcal());
+        naehrwerteMeal.setKohlenhydrate(naehrwerteMeal.getKohlenhydrate() + z.getNaehrwerte().getKohlenhydrate());
+        naehrwerteMeal.setFett(naehrwerteMeal.getFett() + z.getNaehrwerte().getFett());
+        naehrwerteMeal.setProtein(naehrwerteMeal.getProtein() + z.getNaehrwerte().getProtein());
+        System.out.println("insgesamt NW" + naehrwerteMeal);
         HBox hBox = new HBox();
         Button delZutatBtn = new Button("-");
         delZutatBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -223,7 +206,6 @@ public class Meal implements Serializable{
                 bereitsHinzugefuegteZutaten.getChildren().remove(hBox);
                 //hBox.getChildren().removeAll();     // achtung beim löschen--> evt alle zutaten in ein VBox tun
                 System.out.println("a-" + zutaten);
-                loadZutatenScene();
 
             }
         });
@@ -233,6 +215,10 @@ public class Meal implements Serializable{
     }
 
     public void delZutat(Zutat z) {
+        naehrwerteMeal.setKcal(naehrwerteMeal.getKcal()-z.getNaehrwerte().getKcal());
+        naehrwerteMeal.setKohlenhydrate(naehrwerteMeal.getKohlenhydrate()-z.getNaehrwerte().getKohlenhydrate());
+        naehrwerteMeal.setProtein(naehrwerteMeal.getProtein()-z.getNaehrwerte().getProtein());
+        naehrwerteMeal.setFett(naehrwerteMeal.getFett()-z.getNaehrwerte().getFett());
         zutaten.remove(z);
     }
 
@@ -244,15 +230,13 @@ public class Meal implements Serializable{
     }
 
     public String getMealString() {
-        String string = name + "\n\t" + zutaten;
-        return string;
+        return name + "\n\t" + zutaten;
     }
 
     @Override
     public String toString() {
         return name +
-                " zutaten=" + zutaten +
-                '}';
+                ": " + zutaten + "\n";
     }
 }
 

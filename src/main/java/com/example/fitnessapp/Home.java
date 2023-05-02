@@ -41,6 +41,7 @@ public class Home implements Serializable {
           }
           //______________________________________
           BorderPane borderPane = new BorderPane();
+          borderPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
           ToolBar toolBar = new ToolBar();
           Button tagebuchButton = new Button("Tagebuch");
           tagebuchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -75,7 +76,6 @@ public class Home implements Serializable {
           //tabPane.getTabs().addAll(tagebuchTab, kontoTab, statTab);
           Main.stage.setScene(new Scene(borderPane));
      }
-
 
 
 
