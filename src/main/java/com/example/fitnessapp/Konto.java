@@ -50,7 +50,6 @@ public class Konto implements Serializable {
             gewichtTextField.setText(String.valueOf(meineKoerperdaten.getGewicht()));
             alterTextField.setText(String.valueOf(meineKoerperdaten.getAlter()));
             geschlechtCombobox.setValue(meineKoerperdaten.getGeschlecht());
-            // --------------------------------------------------------combo box auf einstellung setzten
 
             //wenn man epas ändert
             speichernBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
