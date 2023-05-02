@@ -16,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Benutzer implements Serializable{
@@ -195,7 +197,14 @@ public class Benutzer implements Serializable{
             } catch (IOException e) {
                 System.out.println("Can't serialize " + path.getFileName() + ": " + e.getMessage());
             }
-            Main.stage.setScene(new Scene(home.getKonto().loadKonto()));
+            //--------------
+            home.getTagebuch().addTag(new Tag(LocalDate.of(2023,5,1)));
+            home.getTagebuch().addTag(new Tag(LocalDate.of(2023, 5, 2)));
+
+            //----------------
+
+
+            Main.stage.setScene(new Scene(home.getKonto().datenAnsicht()));
             //home.startHome();
         }
     }

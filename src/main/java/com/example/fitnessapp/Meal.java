@@ -77,7 +77,7 @@ public class Meal implements Serializable{
      */
     public void loadZutatenScene(){
         zutatenPane = new VBox();
-        zutatenPane.setPrefSize(Main.stage.getWidth(), Main.stage.getHeight());
+        zutatenPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         GridPane zutatErstellen = new GridPane();
         GridPane loadZutate = new GridPane();
         CheckBox checkbox = new CheckBox("neue Zutat erstellen");

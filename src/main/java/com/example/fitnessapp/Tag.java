@@ -91,4 +91,8 @@ public class Tag implements Serializable {
     public String getMealsString() {
         return meals.toString();
     }
+
+    public Naehrwerte getInsgesamteNaehrwerte() {
+        return insgesamteNaehrwerte;
+    }
 }

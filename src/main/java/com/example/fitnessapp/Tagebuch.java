@@ -46,9 +46,8 @@ public class Tagebuch implements Serializable {
         VBox vBox = new VBox();
         vBox.setSpacing(10);
         // vllt funktion die für alle identisch koniguriert?
-        //vBox.setPrefHeight(Main.pane.getPrefHeight());
-        //vBox.setPrefWidth(Main.pane.getPrefWidth());
         ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         scrollPane.setContent(vBox);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -83,7 +82,7 @@ public class Tagebuch implements Serializable {
         for (int i = tage.size()-2; i >= 0; i--) {      // weil tag.size -1 ist immer der heutige Tag
             showTag(i);
         }
-        tagebuchVbox.setPrefSize(Main.stage.getWidth(), Main.stage.getHeight());
+        tagebuchVbox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(tagebuchVbox);
 
@@ -120,5 +119,8 @@ public class Tagebuch implements Serializable {
         return tage.size();
     }
 
+    public Tag getTag(int index) {
+        return tage.get(index);
+    }
 
 }

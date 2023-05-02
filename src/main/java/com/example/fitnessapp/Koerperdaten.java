@@ -7,33 +7,38 @@ public class Koerperdaten implements Serializable {
     private double gewicht; // in kg
     private String geschlecht;
     private int alter;
-    private int taeglicheNaehrwerte;
-
-    private double tagesUmsatzKcal;
+    private Naehrwerte tagesUmsatz = new Naehrwerte(0,0,0,0);
     private double bmi;
 
     /**
      * Berechnet den BMI einer Person anhand der Groesse und des Gewichtes
      */
-   public void bmiBerechnen(){
-       bmi = gewicht/Math.sqrt(groesse);
-       System.out.println("BMI: " + bmi);
-   }
+
 
    public void tagesUmsatzBerechnen(){
        // Kalorien
        switch (geschlecht){
            case "weiblich":
-               tagesUmsatzKcal = 655 + (9.6 * gewicht) + (1.8 * groesse * 100) - (4.7 * alter);
+               tagesUmsatz.setKcal((int) (655 + (9.6 * gewicht) + (1.8 * groesse * 100) - (4.7 * alter)));
                break;
            case "männlich":
-               tagesUmsatzKcal =  66.5 + (13.7 * gewicht) + (5.0 * groesse*100) - (6.8 * alter);
+               tagesUmsatz.setKcal((int) (66.5 + (13.7 * gewicht) + (5.0 * groesse*100) - (6.8 * alter)));
                break;
        }
+       tagesUmsatz.setKohlenhydrate((int) (tagesUmsatz.getKcal() * 0.5 / 4.1));
+       tagesUmsatz.setProtein((int) (tagesUmsatz.getKcal()* 0.2 / 4.1));
+       tagesUmsatz.setFett((int) (tagesUmsatz.getKcal() * 0.3 / 9.3));
    }
 
 
     //________________getter und setter______________________//
+    public double getBMI(){
+        System.out.println("Gewicht: " + gewicht);
+        System.out.println("groesse: " + groesse);
+        bmi = gewicht/(groesse * groesse);
+        System.out.println("BMI: " + bmi);
+        return bmi;
+    }
     public double getGroesse() {
         return groesse;
     }
@@ -51,12 +56,9 @@ public class Koerperdaten implements Serializable {
     }
 
 
-    public double getBmi() {
-        return bmi;
-    }
 
-    public double getTagesUmsatzKcal() {
-        return tagesUmsatzKcal;
+    public Naehrwerte getTagesUmsatz() {
+        return tagesUmsatz;
     }
 
     public void setGroesse(double groesse) {
@@ -82,7 +84,7 @@ public class Koerperdaten implements Serializable {
                 ", gewicht=" + gewicht +
                 ", geschlecht=" + geschlecht +
                 ", alter=" + alter +
-                ", tagesUmsatzKcal=" + tagesUmsatzKcal +
+                ", tagesUmsatzKcal=" + tagesUmsatz +
                 ", bmi=" + bmi +
                 '}';
     }

@@ -6,6 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.io.Serializable;
@@ -13,12 +14,27 @@ import java.io.Serializable;
 public class Konto implements Serializable {
     private Koerperdaten meineKoerperdaten;
 
-    public GridPane loadKonto() {
-
+    public HBox loadKonto() {
+        HBox hBox = new HBox();
+        hBox.getChildren().addAll(datenAnsicht(), calcPart());
         //Pane pane = new Pane();
         //pane.getChildren().add(new Label("keine Kontoansicht vorhanden"));
         //return pane;
-        return datenAnsicht();
+        return hBox;
+    }
+    public GridPane calcPart() {
+        GridPane gridPane = new GridPane();
+        meineKoerperdaten.tagesUmsatzBerechnen();
+        gridPane.addRow(0, new Label("BMI: " + meineKoerperdaten.getBMI()));
+        gridPane.addRow(1,new Label("täglicher Bedarf"));
+        gridPane.addRow(2,new Label("Kalorien       : " + meineKoerperdaten.getTagesUmsatz().getKcal()));
+        gridPane.addRow(3,new Label("Kohlenhydrate  : " + meineKoerperdaten.getTagesUmsatz().getKohlenhydrate()));
+        gridPane.addRow(4,new Label("Proteine       : " + meineKoerperdaten.getTagesUmsatz().getProtein()));
+        gridPane.addRow(5,new Label("Fette          : " + meineKoerperdaten.getTagesUmsatz().getFett()));
+
+
+
+        return gridPane;
     }
 
     public GridPane datenAnsicht() {
@@ -65,7 +81,7 @@ public class Konto implements Serializable {
         }
 
         GridPane gridPane = new GridPane();
-        gridPane.setPrefSize(Main.stage.getWidth(), Main.stage.getHeight());
+        gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
         gridPane.addRow(0, new Label("Informationen zum Profil"));
         gridPane.addRow(1, new Label("Benutzername: " + Main.benutzer.getBenutzername()));
