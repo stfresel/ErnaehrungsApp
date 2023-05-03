@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import java.io.*;
 import java.util.ArrayList;
@@ -80,6 +81,7 @@ public class Meal implements Serializable{
         GridPane zutatErstellen = new GridPane();
         GridPane loadZutate = new GridPane();
         CheckBox checkbox = new CheckBox("neue Zutat erstellen");
+        checkbox.setSelected(true);
 
         // gespeicherte zutat verwenden -------------------------------
         String[] zutatenNames = new String[Main.gespeicherteZutaten.size()];
@@ -89,9 +91,9 @@ public class Meal implements Serializable{
         ComboBox<String> comboBox = new ComboBox<>(FXCollections.observableArrayList(zutatenNames));
         NumericTextField mengeGespeicherteZutat = new NumericTextField();
 
+
         // no in eventhandler mochn
         loadZutate.addRow(0, comboBox, mengeGespeicherteZutat);
-
 
 
         // zutat neu erstellen ----------------------------------------------------------------
@@ -101,9 +103,9 @@ public class Meal implements Serializable{
         Label mengeGegessen = new Label("Gegessene Menge (in g): ");
         NumericTextField textFieldGegessen = new NumericTextField();
 
-
         zutatenPane.getChildren().add(0, checkbox);
-        zutatenPane.getChildren().add(loadZutate);
+        zutatenPane.getChildren().add(zutatErstellen);
+
         zutatErstellen.addRow(0, nameDerZutat, textFieldName);
         zutatErstellen.addRow(1, mengeGegessen, textFieldGegessen);
 

@@ -220,15 +220,8 @@ public class Benutzer implements Serializable{
         if (loggedIn){
             // Erstellen des Paths zum .ser File
             datenSpeichern();
-            //--------------
-            home.getTagebuch().addTag(new Tag(LocalDate.of(2023,5,1)));
-            home.getTagebuch().addTag(new Tag(LocalDate.of(2023, 5, 2)));
-
-            //----------------
-
 
             Main.stage.setScene(new Scene(home.getKonto().datenAnsicht()));
-            //home.startHome();
         }
     }
 

@@ -43,8 +43,7 @@ public class Tag implements Serializable {
         System.out.println(date);
         TabPane tagTabPane = new TabPane();
         Scene tabScene = new Scene(tagTabPane);
-        tagTabPane.setPrefWidth(Main.pane.getPrefWidth());
-        tagTabPane.setPrefHeight(Main.pane.getPrefHeight());
+        tagTabPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
         VBox vbox = new VBox();
         vbox.setSpacing(10);
