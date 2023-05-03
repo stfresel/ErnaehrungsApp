@@ -18,7 +18,7 @@ public class Statistik implements Serializable {
         return pane;
     }
 
-        private LineChart diagrammNaehrwerte() {
+    private LineChart diagrammNaehrwerte() {
 
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();

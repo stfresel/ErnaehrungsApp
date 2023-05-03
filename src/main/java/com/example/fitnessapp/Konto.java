@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -19,9 +18,6 @@ public class Konto implements Serializable {
     public HBox loadKonto() {
         HBox hBox = new HBox();
         hBox.getChildren().addAll(datenAnsicht(), calcPart());
-        //Pane pane = new Pane();
-        //pane.getChildren().add(new Label("keine Kontoansicht vorhanden"));
-        //return pane;
         return hBox;
     }
     public GridPane calcPart() {
@@ -50,15 +46,14 @@ public class Konto implements Serializable {
         GridPane gridPane = new GridPane();
         gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         gridPane.addRow(9,new Label(),textfehler);
-        // wenns s erste mol aufgerufn werd
+        // Wenn es direkt nach dem Registrieren geöffnet wird
         if (meineKoerperdaten == null){
             meineKoerperdaten = new Koerperdaten();
 
             // nur speichern
-            speichernBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            speichernBtn.setOnMouseClicked(new EventHandler<>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    //System.out.println(groesseTextField.getText());
                     if (groesseTextField.getText() == null ||gewichtTextField.getText()==null||alterTextField.getText()==null||gewichtTextField.getText()==null|| geschlechtCombobox.getValue()==null){
                         textfehler.setLayoutX(50);
                         textfehler.setLayoutY(225);
@@ -84,8 +79,8 @@ public class Konto implements Serializable {
             alterTextField.setText(String.valueOf(meineKoerperdaten.getAlter()));
             geschlechtCombobox.setValue(meineKoerperdaten.getGeschlecht());
 
-            //wenn man epas ändert
-            speichernBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            //wenn man etwas verändert wird
+            speichernBtn.setOnMouseClicked(new EventHandler<>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     meineKoerperdaten.setGroesse(groesseTextField.getDouble());
@@ -97,8 +92,6 @@ public class Konto implements Serializable {
 
         }
 
-
-
         gridPane.addRow(0, new Label("Informationen zum Profil"));
         gridPane.addRow(1, new Label("Benutzername: " + Main.benutzer.getBenutzername()));
         gridPane.addRow(2, new Label("Passwort: " + Main.benutzer.getPasswort()));
@@ -108,10 +101,6 @@ public class Konto implements Serializable {
         gridPane.addRow(5, new Label("Gewicht (in kg): "), gewichtTextField);
         gridPane.addRow(6, new Label("Alter (in Jahren): "), alterTextField);
         gridPane.addRow(7, new Label("Geschlecht: "), geschlechtCombobox);
-
-
-
-
 
         gridPane.addRow(8, speichernBtn);
 

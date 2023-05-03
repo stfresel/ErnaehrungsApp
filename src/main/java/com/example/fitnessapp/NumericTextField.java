@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 
 public class NumericTextField extends TextField {
     public NumericTextField() {
-        this.textProperty().addListener(new ChangeListener<String>() {
+        this.textProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(
                     ObservableValue<? extends String> observable,

@@ -17,15 +17,15 @@ public class Tagebuch implements Serializable {
 
 
 
-    public void addTag(Tag t) {
-        tage.add(t);
+    public void addTag(Tag tag) {
+        tage.add(tag);
     }
 
     /**
      * Ladet die Start-Scene des Tagebuches.
      * Im Tagebuch gibt es zwei Tabs (Heute und Vergangenheit) wo man die jeweiligen Einträge sehen kann.
      *
-     * @return
+     * @return Es wird ein TabPane mit der Ansicht des Tagebuches zurückgegeben.
      */
     public TabPane loadTagebuch() {
         TabPane tabPane = new TabPane();
@@ -45,7 +45,7 @@ public class Tagebuch implements Serializable {
     private ScrollPane loadHeute() {
         VBox vBox = new VBox();
         vBox.setSpacing(10);
-        // vllt funktion die für alle identisch koniguriert?
+        // vllt funktion die für alle identisch konfiguriert?
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         scrollPane.setContent(vBox);

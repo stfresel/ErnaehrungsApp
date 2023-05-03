@@ -27,6 +27,7 @@ public class Meal implements Serializable{
 
     public void loadMealScene() {
         GridPane gridPane = new GridPane();
+
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setPrefSize(Main.stage.getWidth(), Main.stage.getHeight());
