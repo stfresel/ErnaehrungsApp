@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Tagebuch implements Serializable {
     private final ArrayList<Tag> tage = new ArrayList<>();
-    private VBox tagebuchVbox;
+    private transient VBox tagebuchVbox;
 
 
 

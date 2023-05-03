@@ -21,15 +21,15 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class Benutzer implements Serializable{
-    public Pane pane=new Pane();
-    private TextField txt = new TextField();
-    private PasswordField[] passwordField = new PasswordField[2];
-    private Text[] text = new Text[3];
-    private Text textfehler=new Text();
-    private Text textregi=new Text();
-    private TextField textfieldbenutzer=new TextField();
-    private PasswordField passwortfieldbenutzer=new PasswordField();
-    private Button login=new Button();
+    public transient Pane pane=new Pane();
+    private transient TextField txt = new TextField();
+    private transient PasswordField[] passwordField = new PasswordField[2];
+    private transient Text[] text = new Text[3];
+    private transient Text textfehler=new Text();
+    private transient Text textregi=new Text();
+    private transient TextField textfieldbenutzer=new TextField();
+    private transient PasswordField passwortfieldbenutzer=new PasswordField();
+    private transient Button login=new Button();
 
     //--------------------------------------------
     //Atribute für Benutzer und Passwort
@@ -190,14 +190,7 @@ public class Benutzer implements Serializable{
         br.close();
         if (loggedIn){
             // Erstellen des Paths zum .ser File
-            path = Paths.get(benutzername + passwort + ".ser");
-            // Erstellen eines .ser Files wo das Tagebuch gespeichert wird
-            try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
-                whereToWrite.writeObject(home);
-                System.out.println("Saved Tagebuch");
-            } catch (IOException e) {
-                System.out.println("Can't serialize " + path.getFileName() + ": " + e.getMessage());
-            }
+            datenSpeichern();
             //--------------
             home.getTagebuch().addTag(new Tag(LocalDate.of(2023,5,1)));
             home.getTagebuch().addTag(new Tag(LocalDate.of(2023, 5, 2)));
@@ -207,6 +200,16 @@ public class Benutzer implements Serializable{
 
             Main.stage.setScene(new Scene(home.getKonto().datenAnsicht()));
             //home.startHome();
+        }
+    }
+    public void datenSpeichern(){
+        path = Paths.get(benutzername + passwort + ".ser");
+        // Erstellen eines .ser Files wo das Tagebuch gespeichert wird
+        try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
+            whereToWrite.writeObject(home);
+            System.out.println("Saved Tagebuch");
+        } catch (IOException e) {
+            System.out.println("Can't serialize " + path.getFileName() + ": " + e.getMessage());
         }
     }
 

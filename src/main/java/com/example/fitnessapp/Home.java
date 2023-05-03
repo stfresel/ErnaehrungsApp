@@ -1,5 +1,6 @@
 package com.example.fitnessapp;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -8,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.WindowEvent;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -32,6 +34,16 @@ public class Home implements Serializable {
 
      //----------------funktions----------------------------------
      public void startHome(){
+          Main.benutzer.datenSpeichern();
+          Main.stage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+               @Override
+               public void handle(WindowEvent windowEvent) {
+                    System.out.println("closing");
+                    Platform.exit();
+                    Main.benutzer.datenSpeichern();
+               }
+          });
+
           if (tagebuch.getAnzahlTage() < 1){
                Tag t1 = new Tag(LocalDate.now());
                tagebuch.addTag(t1);

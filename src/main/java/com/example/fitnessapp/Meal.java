@@ -22,9 +22,9 @@ public class Meal implements Serializable{
     private String tempName = null;
     private Naehrwerte naehrwerteMeal = new Naehrwerte(0,0,0,0);
     //private final Path path = Paths.get("ZutatenFile.ser");
-    private VBox zutatenPane;
+    private transient VBox zutatenPane;
 
-    private final VBox bereitsHinzugefuegteZutaten = new VBox();
+    private final transient VBox bereitsHinzugefuegteZutaten = new VBox();
     //private HBox hBox;
 
     public void loadMealScene() {
