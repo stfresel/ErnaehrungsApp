@@ -14,14 +14,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class Benutzer implements Serializable{
     public transient Pane pane=new Pane();
     private transient TextField txt = new TextField();
     private transient PasswordField[] passwordField = new PasswordField[2];
-    private transient Text[] text = new Text[3];
     private transient Text textfehler=new Text();
     private transient Text textregi=new Text();
     private transient TextField textfieldbenutzer=new TextField();
@@ -116,6 +114,7 @@ public class Benutzer implements Serializable{
      * Die Methode ladet die Registrierungsszene. Sie wird immer von initialize() aufgerufen.
      */
     public void neuesKonto() {
+        Text[] text = new Text[3];
         home = new Home();
         //meinTagebuch.start();
         textfehler.setVisible(false);
@@ -189,8 +188,7 @@ public class Benutzer implements Serializable{
     private void speichern() throws IOException {
         boolean loggedIn = false;
         // Speichern im File, wo alle Benutzernamen und Passwörter stehen
-        FileWriter fr = null;
-        fr = new FileWriter("Benutzer.txt");
+        FileWriter fr = new FileWriter("Benutzer.txt");
 
         BufferedWriter br = new BufferedWriter(fr);
         textfehler.setFill(Color.RED);
