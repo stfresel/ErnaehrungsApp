@@ -23,13 +23,11 @@ public class Home implements Serializable {
           konto = new Konto();
           statistik = new Statistik();
      }
-     public Home(Home h) {
-          konto = h.konto;
-          statistik = h.statistik;
-          tagebuch = h.tagebuch;
-     }
 
-     //----------------funktions----------------------------------
+     /**
+      * Die Methode ladet die Toolbar des HomeScreens.
+      * Es wird festgelegt, dass beim schliessen des Fensters, die Daten automatisch gespeichert werden:
+      */
      public void startHome(){
           Main.benutzer.datenSpeichern();
           Main.stage.setOnCloseRequest(new EventHandler<WindowEvent>(){
@@ -41,14 +39,8 @@ public class Home implements Serializable {
                }
           });
 
-          if (tagebuch.getAnzahlTage() < 1){
-               Tag t1 = new Tag(LocalDate.now());
-               tagebuch.addTag(t1);
-          } else if (!Objects.equals(tagebuch.getLastDay(), LocalDate.now())){
-               Tag t1 = new Tag(LocalDate.now());
-               tagebuch.addTag(t1);
-          }
-          //______________________________________
+          addTage2Tagebuch();
+
           BorderPane borderPane = new BorderPane();
           borderPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
           ToolBar toolBar = new ToolBar();
@@ -78,12 +70,20 @@ public class Home implements Serializable {
           toolBar.setLayoutY(Main.stage.getHeight());
           borderPane.setTop(toolBar);
           borderPane.setCenter(tagebuch.loadTagebuch());
-          //TabPane tabPane = new TabPane();
-          //Tab tagebuchTab = new Tab("Tagebuch", tagebuch.loadTagebuchScene());
-          //Tab kontoTab = new Tab("Konto", konto.loadKontoScene());
-          //Tab statTab = new Tab("Statistik", statistik.loadStatScene());
-          //tabPane.getTabs().addAll(tagebuchTab, kontoTab, statTab);
           Main.stage.setScene(new Scene(borderPane));
+     }
+
+     /**
+      * Die Methode fügt den heutigen Tag mit Datum zum Tagebuch hinzu, wenn er noch nicht erstellt wurde.
+      */
+     private void addTage2Tagebuch(){
+          if (tagebuch.getAnzahlTage() < 1){
+               Tag t1 = new Tag(LocalDate.now());
+               tagebuch.addTag(t1);
+          } else if (!Objects.equals(tagebuch.getLastDay(), LocalDate.now())){
+               Tag t1 = new Tag(LocalDate.now());
+               tagebuch.addTag(t1);
+          }
      }
 
 
