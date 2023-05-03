@@ -59,6 +59,7 @@ public class Benutzer implements Serializable{
         login.setText("Login");
         login.setLayoutY(237);
         login.setLayoutX(159);
+        login.setStyle(".logreg");
 
         login.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
