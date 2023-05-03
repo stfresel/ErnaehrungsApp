@@ -82,7 +82,7 @@ public class Meal implements Serializable{
         GridPane loadZutate = new GridPane();
         CheckBox checkbox = new CheckBox("neue Zutat erstellen");
 
-        // gespeicherte zutat verwenden
+        // gespeicherte zutat verwenden -------------------------------
         String[] zutatenNames = new String[Main.gespeicherteZutaten.size()];
         for (int i = 0; i < Main.gespeicherteZutaten.size(); i++) {
             zutatenNames[i] = Main.gespeicherteZutaten.get(i).getName();
@@ -147,16 +147,27 @@ public class Meal implements Serializable{
                 // Zutat aus Speicher holen
                 if (!checkbox.isSelected()){
                     // Achtung die nutritions miasn no an die menge des gegessenen ungepasst werdn
+                    //for (int i = 0; i < Main.gespeicherteZutaten.size(); i++) {
+                    //    if (Objects.equals(Main.gespeicherteZutaten.get(i).getName(), nameDerZutat.getText())){
+                    //        // trefeerrrrrrr
+                    //        //Autofilll();
+                    //        System.out.println("Autofilllllll-----wichtig");
+                    //    }
+                    //}
                     for (int i = 0; i < Main.gespeicherteZutaten.size(); i++) {
-                        if (Objects.equals(Main.gespeicherteZutaten.get(i).getName(), nameDerZutat.getText())){
-                            // trefeerrrrrrr
-                            //Autofilll();
-                            System.out.println("Autofilllllll-----wichtig");
+                        if (Objects.equals(Main.gespeicherteZutaten.get(i).getName(), comboBox.getValue())){
+                            System.out.println("aus array holen");
+                            Zutat arrZutat = Main.gespeicherteZutaten.get(i);
+                            int menge = mengeGespeicherteZutat.getInt();
+                            Zutat z = new Zutat(comboBox.getValue(), menge, new Naehrwerte(arrZutat.getNaehrwerte().getKcal()/arrZutat.getMenge()*menge,
+                                    arrZutat.getNaehrwerte().getFett()/arrZutat.getMenge()*menge, arrZutat.getNaehrwerte().getKohlenhydrate()/arrZutat.getMenge()*menge,
+                                    arrZutat.getNaehrwerte().getProtein()/arrZutat.getMenge()*menge));
+
+                            addZutate2Meal(z);
                         }
                     }
 
-                    System.out.println("feritggg");
-                    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    System.out.println("fertiggg");
                 } else {
                     // Zutat neu Hinzufügen
                     System.out.println("neue Zutat erstellt");

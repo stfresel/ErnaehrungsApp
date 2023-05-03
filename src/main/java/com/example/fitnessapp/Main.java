@@ -30,7 +30,7 @@ public class Main extends Application {
         Controller c = new Controller(benutzer);
         c.start();
 
-        gespeicherteZutaten.add(new Zutat("Zuckersirup", 100, new Naehrwerte(100, 100, 100, 100)));
+        gespeicherteZutaten.add(new Zutat("Zuckersirup", 50, new Naehrwerte(100, 100, 100, 100)));
         gespeicherteZutaten.add(new Zutat("Honig", 100, new Naehrwerte(100, 100, 100, 100)));
         gespeicherteZutaten.add(new Zutat("Mehl", 100, new Naehrwerte(100, 100, 100, 100)));
 

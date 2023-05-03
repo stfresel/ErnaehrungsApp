@@ -4,8 +4,6 @@ import javafx.event.EventHandler;
 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -17,7 +15,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
-import java.util.Locale;
 import java.util.Objects;
 
 public class Benutzer implements Serializable{
@@ -259,28 +256,6 @@ public class Benutzer implements Serializable{
             //homeStarten();
             home.startHome();
         }
-    }
-    private void homeStarten() {
-        home.startHome();
-
-
-        EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.S && !(keyEvent.getTarget() instanceof TextInputControl)) {
-                    /*
-                    Scene temp = Main.stage.getScene();
-                    VBox vBox = temp.();
-                    Scene x = new Scene(new Pane());
-                    Main.stage.setScene(x);
-                    tagebuchSpeichern();
-
-                     */
-                    System.out.println(" nicht gespeichert");
-                }
-            }
-        };
-        Main.stage.addEventFilter(KeyEvent.ANY, keyEventEventHandler);
     }
     //------------------getter und setter--------------------------
 
