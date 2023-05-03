@@ -54,12 +54,14 @@ public class Benutzer implements Serializable{
 
         //Button
         login.setText("Login");
-        login.setLayoutY(237);
-        login.setLayoutX(159);
+        login.setPrefHeight(40);
+        login.setPrefWidth(200);
+        login.setLayoutX(Main.stage.getScene().getWidth() / 2 - login.getPrefWidth()/2);
+        login.setLayoutY(300);
         //login.getStyleClass().set(0, "logreg");
-        login.setStyle("-fx-background-color: #9E9E9E;\n" +
+        login.setStyle("-fx-background-color: #9E9E9E;" +
                 "-fx-text-fill: black;" +
-                "border-radius: 25px;");
+                "-fx-background-radius: 25px;");
 
         login.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
