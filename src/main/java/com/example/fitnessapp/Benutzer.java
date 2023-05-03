@@ -48,23 +48,37 @@ public class Benutzer implements Serializable{
         Main.stage.setScene(new Scene(pane));
 
         //Textfeld
+        textfieldbenutzer.setPrefHeight(40);
+        textfieldbenutzer.setPrefWidth(200);
         textfieldbenutzer.setLayoutY(109);
-        textfieldbenutzer.setLayoutX(159);
+        textfieldbenutzer.setLayoutX(Main.stage.getScene().getWidth() / 2 - textfieldbenutzer.getPrefWidth()/2);
         textfieldbenutzer.setPromptText("Benutzer");
+        textfieldbenutzer.setStyle("-fx-background-color: #9E9E9E;" +
+                "-fx-alignment: center;" +
+                "-fx-text-fill: black;" +
+                "-fx-background-radius: 25px;");
+
         //Passwortfeld
+        passwortfieldbenutzer.setPrefHeight(40);
+        passwortfieldbenutzer.setPrefWidth(200);
         passwortfieldbenutzer.setLayoutY(169);
-        passwortfieldbenutzer.setLayoutX(159);
+        passwortfieldbenutzer.setLayoutX(Main.stage.getScene().getWidth() / 2 - passwortfieldbenutzer.getPrefWidth()/2);
         passwortfieldbenutzer.setPromptText("Passwort");
+        passwortfieldbenutzer.setStyle("-fx-background-color: #9E9E9E;" +
+                "-fx-alignment: center;" +
+                "-fx-text-fill: black;" +
+                "-fx-background-radius: 25px;");
 
         //Button
         login.setText("Login");
         login.setPrefHeight(40);
         login.setPrefWidth(200);
         login.setLayoutX(Main.stage.getScene().getWidth() / 2 - login.getPrefWidth()/2);
-        login.setLayoutY(300);
+        login.setLayoutY(250);
         //login.getStyleClass().set(0, "logreg");
-        login.setStyle("-fx-background-color: #9E9E9E;" +
+        login.setStyle("-fx-background-color: #B6CC95;" +
                 "-fx-text-fill: black;" +
+                "-fx-alignment: center;" +
                 "-fx-background-radius: 25px;");
 
         login.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -81,8 +95,8 @@ public class Benutzer implements Serializable{
         textfehler.setLayoutX(159);
         textfehler.setLayoutY(225);
         //Text registieren
-        textregi.setLayoutY(210);
-        textregi.setLayoutX(250);
+        textregi.setLayoutY(315);
+        textregi.setLayoutX(Main.stage.getScene().getWidth() / 2 - textregi.getX() / 2);
         textregi.setText("Registrieren");
         textregi.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
