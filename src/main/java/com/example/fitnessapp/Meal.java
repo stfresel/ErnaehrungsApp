@@ -21,11 +21,9 @@ public class Meal implements Serializable{
 
     private String tempName = null;
     private Naehrwerte naehrwerteMeal = new Naehrwerte(0,0,0,0);
-    //private final Path path = Paths.get("ZutatenFile.ser");
     private transient VBox zutatenPane;
 
     private final transient VBox bereitsHinzugefuegteZutaten = new VBox();
-    //private HBox hBox;
 
     public void loadMealScene() {
         GridPane gridPane = new GridPane();
@@ -134,8 +132,6 @@ public class Meal implements Serializable{
             }
         });
 
-        //zutatenPane.getChildren().add(zutatSuchen);
-        // erstellen des Submit-Buttons
         Button fertigBtn = new Button("Zutat Hinzufügen");
         fertigBtn.setPrefSize(60,30);
         fertigBtn.setLayoutY(zutatenPane.getHeight()-100);

@@ -39,6 +39,10 @@ public class Benutzer implements Serializable{
 
     public Benutzer() {
     }
+
+    /**
+     * Die Methode laden die Anmeldungs-Scene, mit den ganzen Komponenten.
+     */
     public void initialize(){
         pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         Main.stage.setScene(new Scene(pane));
@@ -94,6 +98,9 @@ public class Benutzer implements Serializable{
         pane.getChildren().add(textregi);
     }
 
+    /**
+     * Die Methode ladet die Registrierungsszene. Sie wird immer von initialize() aufgerufen.
+     */
     public void neuesKonto() {
         home = new Home();
         //meinTagebuch.start();
@@ -160,11 +167,17 @@ public class Benutzer implements Serializable{
         });
     }
 
-    // registration speichern
+    /**
+     * Nach dem Registrieren wird der BEnutzer sowohl im Benutzer.txt File als auch in einem neuen Seialisierunsfile gespeichert.
+     * Name des Serialisierungsfile ist: Benutzername + Passwort + .ser
+     * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben des Benutzer.txt files gibt.
+     */
     private void speichern() throws IOException {
         boolean loggedIn = false;
         // Speichern im File, wo alle Benutzernamen und Passwörter stehen
-        FileWriter fr = new FileWriter("Benutzer.txt");
+        FileWriter fr = null;
+        fr = new FileWriter("Benutzer.txt");
+
         BufferedWriter br = new BufferedWriter(fr);
         textfehler.setFill(Color.RED);
         textfehler.setLayoutY(350);
@@ -204,18 +217,26 @@ public class Benutzer implements Serializable{
             //home.startHome();
         }
     }
+
+    /**
+     * Die Methode speichert die Daten (Home) im .ser File.
+     */
     public void datenSpeichern(){
         path = Paths.get(benutzername + passwort + ".ser");
         // Erstellen eines .ser Files wo das Tagebuch gespeichert wird
         try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
             whereToWrite.writeObject(home);
-            System.out.println("Saved Tagebuch");
+            System.out.println("Saved Home");
         } catch (IOException e) {
             System.out.println("Can't serialize " + path.getFileName() + ": " + e.getMessage());
         }
     }
 
 
+    /**
+     * Die Methode wird aufgerufen, wenn von initialize() aufgerufen, wenn man sich anmeldet.
+     * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben des Benutzer.txt files gibt.
+     */
     public void einloggen() throws IOException {
         pane.requestFocus();
         FileReader fr = new FileReader("Benutzer.txt");

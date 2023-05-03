@@ -1,10 +1,8 @@
 package com.example.fitnessapp;
 
-import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 import java.io.Serializable;
@@ -20,13 +18,12 @@ public class Statistik implements Serializable {
         return pane;
     }
 
-
-    private LineChart diagrammNaehrwerte() {
+        private LineChart diagrammNaehrwerte() {
 
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
 
-        LineChart diagramm = new LineChart<>(xAxis, yAxis);
+        LineChart<Number, Number> diagramm = new LineChart<>(xAxis, yAxis);
 
         // idee --> mann konn die anzahl der tage verändern mit an comboBox
 

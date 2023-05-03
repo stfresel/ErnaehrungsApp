@@ -18,10 +18,7 @@ public class Zutat implements Serializable {
 
     }
 
-
-
     //______________getter und setter______________
-
 
     public String getName() {
         return name;
