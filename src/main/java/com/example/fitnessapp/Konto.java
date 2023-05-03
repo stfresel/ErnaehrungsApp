@@ -8,6 +8,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.io.Serializable;
 
@@ -43,22 +45,37 @@ public class Konto implements Serializable {
         NumericTextField groesseTextField = new NumericTextField();
         NumericTextField gewichtTextField = new NumericTextField();
         ComboBox<String> geschlechtCombobox = new ComboBox<>();
+        Text textfehler=new Text();
         geschlechtCombobox.getItems().addAll("weiblich", "männlich");
-
+        GridPane gridPane = new GridPane();
+        gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
+        gridPane.addRow(9,new Label(),textfehler);
         // wenns s erste mol aufgerufn werd
         if (meineKoerperdaten == null){
             meineKoerperdaten = new Koerperdaten();
+
             // nur speichern
             speichernBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    meineKoerperdaten.setGroesse(groesseTextField.getDouble());
-                    meineKoerperdaten.setGewicht(gewichtTextField.getDouble());
-                    meineKoerperdaten.setAlter(alterTextField.getInt());
-                    System.out.println("Combobox Geschlecht id: " + geschlechtCombobox.getValue());
-                    meineKoerperdaten.setGeschlecht(geschlechtCombobox.getValue());
+                    //System.out.println(groesseTextField.getText());
+                    if (groesseTextField.getText() == null ||gewichtTextField.getText()==null||alterTextField.getText()==null||gewichtTextField.getText()==null|| geschlechtCombobox.getValue()==null){
+                        textfehler.setLayoutX(50);
+                        textfehler.setLayoutY(225);
+                        textfehler.setFill(Color.RED);
+                        textfehler.setText("Zu wenig Daten eingegeben");
+                        textfehler.setVisible(true);
 
-                    Main.benutzer.getHome().startHome();
+                    }else {
+                        meineKoerperdaten.setGroesse(groesseTextField.getDouble());
+                        meineKoerperdaten.setGewicht(gewichtTextField.getDouble());
+                        meineKoerperdaten.setAlter(alterTextField.getInt());
+                        System.out.println("Combobox Geschlecht id: " + geschlechtCombobox.getValue());
+                        meineKoerperdaten.setGeschlecht(geschlechtCombobox.getValue());
+                        Main.benutzer.getHome().startHome();
+                    }
+
+
                 }
             });
         } else {
@@ -80,8 +97,7 @@ public class Konto implements Serializable {
 
         }
 
-        GridPane gridPane = new GridPane();
-        gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
+
 
         gridPane.addRow(0, new Label("Informationen zum Profil"));
         gridPane.addRow(1, new Label("Benutzername: " + Main.benutzer.getBenutzername()));
@@ -92,6 +108,7 @@ public class Konto implements Serializable {
         gridPane.addRow(5, new Label("Gewicht (in kg): "), gewichtTextField);
         gridPane.addRow(6, new Label("Alter (in Jahren): "), alterTextField);
         gridPane.addRow(7, new Label("Geschlecht: "), geschlechtCombobox);
+
 
 
 
