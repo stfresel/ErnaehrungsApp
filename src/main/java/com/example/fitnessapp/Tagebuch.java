@@ -34,7 +34,6 @@ public class Tagebuch implements Serializable {
         heute.setClosable(false);
         vergangeneTage.setClosable(false);
         tabPane.getTabs().addAll(heute, vergangeneTage);
-        //Main.stage.setScene(new Scene(tabPane, Main.pane.getPrefWidth(), Main.pane.getPrefHeight()));
         return tabPane;
     }
 
@@ -45,7 +44,6 @@ public class Tagebuch implements Serializable {
     private ScrollPane loadHeute() {
         VBox vBox = new VBox();
         vBox.setSpacing(10);
-        // vllt funktion die für alle identisch konfiguriert?
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         scrollPane.setContent(vBox);
@@ -56,16 +54,13 @@ public class Tagebuch implements Serializable {
         vBox.getChildren().add(new Label(tage.get(tage.size()-1).getMealsString()));
 
         Button addMealBtn = new Button("neue Mahlzeit");
-        addMealBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        addMealBtn.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 System.out.println("add meal");
                 Meal meal = new Meal();
                 meal.loadMealScene();
                 tage.get(tage.size()-1).addMeal(meal);
-
-                //-------------------------------------------------------
-                // meal scene laden
             }
         });
         vBox.getChildren().add(addMealBtn);
@@ -79,17 +74,17 @@ public class Tagebuch implements Serializable {
     public ScrollPane loadVergangeneTage(){
         tagebuchVbox = new VBox();
         tagebuchVbox.setSpacing(10);
-        for (int i = tage.size()-2; i >= 0; i--) {      // weil tag.size -1 ist immer der heutige Tag
+        for (int i = tage.size()-2; i >= 0; i--) {      // tag.size -1 ist immer der heutige Tag
             showTag(i);
         }
         tagebuchVbox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(tagebuchVbox);
 
-        // Always show vertical scroll bar
+        // Vertikale ScrollBar wird immer angezeigt
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
-        // Horizontal scroll bar is only displayed when needed
+        // Horizontale ScrollBar wird nur angezeigt, wenn sie gebraucht wird
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         return scrollPane;
@@ -97,17 +92,17 @@ public class Tagebuch implements Serializable {
 
     /**
      * Die Funktion erstellt für einen Tag i einen EventHandler, welcher beim Klicken auf die detailansicht des jeweiligen Tages springt.
-     * @param i Der Parameter i steht für den Index. Die Funktion wird in einer Schleife aufgerufen.
+     * @param index Der Index entspricht der Stelle, in der ArrayList tage. Die Funktion wird in einer Schleife aufgerufen.
      */
-    private void showTag(int i) {
+    private void showTag(int index) {
         Group group = new Group();
-        group.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        group.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                tage.get(i).ladeDetailansichtTag();
+                tage.get(index).ladeDetailansichtTag();
             }
         });
-        group.getChildren().add(new Label(tage.get(i).getDate().toString()));
+        group.getChildren().add(new Label(tage.get(index).getDate().toString()));
         tagebuchVbox.getChildren().add(group);
     }
 
