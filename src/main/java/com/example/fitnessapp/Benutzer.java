@@ -14,14 +14,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Benutzer implements Serializable{
     public transient Pane pane=new Pane();
     private transient TextField txt = new TextField();
     private transient PasswordField[] passwordField = new PasswordField[2];
+    private transient Text[] text = new Text[3];
     private transient Text textfehler=new Text();
-    private transient Text textregi=new Text();
+    private transient Text textregilogi=new Text();
     private transient TextField textfieldbenutzer=new TextField();
     private transient PasswordField passwortfieldbenutzer=new PasswordField();
     private transient Button login=new Button();
@@ -37,42 +39,45 @@ public class Benutzer implements Serializable{
     /**
      * Die Methode laden die Anmeldungs-Scene, mit den ganzen Komponenten.
      */
+
     public void initialize(){
         pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         Main.stage.setScene(new Scene(pane));
+        //Hinzufügen
+        pane.getChildren().add(textfieldbenutzer);
+        pane.getChildren().add(passwortfieldbenutzer);
+        pane.getChildren().add(login);
+        pane.getChildren().add(textfehler);
+        pane.getChildren().add(textregilogi);
+        loginfun();
+    }
+    public void loginfun(){
+
+        textfehler.setVisible(false);
+        pane.requestFocus();
+        textfieldbenutzer.setVisible(true);
+        passwortfieldbenutzer.setVisible(true);
+        login.setVisible(true);
+        textregilogi.setVisible(true);
 
         //Textfeld
-        textfieldbenutzer.setPrefHeight(40);
-        textfieldbenutzer.setPrefWidth(200);
         textfieldbenutzer.setLayoutY(109);
-        textfieldbenutzer.setLayoutX(Main.stage.getScene().getWidth() / 2 - textfieldbenutzer.getPrefWidth()/2);
+        textfieldbenutzer.setLayoutX(159);
         textfieldbenutzer.setPromptText("Benutzer");
-        textfieldbenutzer.setStyle("-fx-background-color: #9E9E9E;" +
-                "-fx-alignment: center;" +
-                "-fx-text-fill: black;" +
-                "-fx-background-radius: 25px;");
-
         //Passwortfeld
-        passwortfieldbenutzer.setPrefHeight(40);
-        passwortfieldbenutzer.setPrefWidth(200);
         passwortfieldbenutzer.setLayoutY(169);
-        passwortfieldbenutzer.setLayoutX(Main.stage.getScene().getWidth() / 2 - passwortfieldbenutzer.getPrefWidth()/2);
+        passwortfieldbenutzer.setLayoutX(159);
         passwortfieldbenutzer.setPromptText("Passwort");
-        passwortfieldbenutzer.setStyle("-fx-background-color: #9E9E9E;" +
-                "-fx-alignment: center;" +
-                "-fx-text-fill: black;" +
-                "-fx-background-radius: 25px;");
 
         //Button
         login.setText("Login");
         login.setPrefHeight(40);
         login.setPrefWidth(200);
         login.setLayoutX(Main.stage.getScene().getWidth() / 2 - login.getPrefWidth()/2);
-        login.setLayoutY(250);
+        login.setLayoutY(300);
         //login.getStyleClass().set(0, "logreg");
-        login.setStyle("-fx-background-color: #B6CC95;" +
+        login.setStyle("-fx-background-color: #9E9E9E;" +
                 "-fx-text-fill: black;" +
-                "-fx-alignment: center;" +
                 "-fx-background-radius: 25px;");
 
         login.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -89,28 +94,22 @@ public class Benutzer implements Serializable{
         textfehler.setLayoutX(159);
         textfehler.setLayoutY(225);
         //Text registieren
-        textregi.setLayoutY(315);
-        textregi.setLayoutX(Main.stage.getScene().getWidth() / 2 - textregi.getX() / 2);
-        textregi.setText("Registrieren");
-        textregi.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        textregilogi.setLayoutY(210);
+        textregilogi.setLayoutX(250);
+        textregilogi.setText("Registrieren");
+        textregilogi.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 neuesKonto();
             }
         });
-        //Hinzufügen
-        pane.getChildren().add(textfieldbenutzer);
-        pane.getChildren().add(passwortfieldbenutzer);
-        pane.getChildren().add(login);
-        pane.getChildren().add(textfehler);
-        pane.getChildren().add(textregi);
+
     }
 
     /**
      * Die Methode ladet die Registrierungsszene. Sie wird immer von initialize() aufgerufen.
      */
     public void neuesKonto() {
-        Text[] text = new Text[3];
         home = new Home();
         //meinTagebuch.start();
         textfehler.setVisible(false);
@@ -119,7 +118,11 @@ public class Benutzer implements Serializable{
         textfieldbenutzer.setVisible(false);
         passwortfieldbenutzer.setVisible(false);
         login.setVisible(false);
-        textregi.setVisible(false);
+        textregilogi.setVisible(false);
+        textregilogi.setText("Login");
+        textregilogi.setLayoutX(295);
+        textregilogi.setLayoutY(375);
+        textregilogi.setVisible(true);
         Button buttonReg = new Button();
         buttonReg.setText("Registrieren");
         System.out.println();
@@ -174,6 +177,20 @@ public class Benutzer implements Serializable{
                 }
             }
         });
+        textregilogi.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                textfehler.setVisible(false);
+                passwordField[0].setVisible(false);
+                passwordField[1].setVisible(false);
+                txt.setVisible(false);
+                buttonReg.setVisible(false);
+                for (int i = 0; i < 3; i++) {
+                    text[i].setVisible(false);
+                }
+                loginfun();
+            }
+        });
     }
 
     /**
@@ -184,13 +201,14 @@ public class Benutzer implements Serializable{
     private void speichern() throws IOException {
         boolean loggedIn = false;
         // Speichern im File, wo alle Benutzernamen und Passwörter stehen
-        FileWriter fr = new FileWriter("Benutzer.txt");
+        FileWriter fr = null;
+        fr = new FileWriter("Benutzer.txt");
 
         BufferedWriter br = new BufferedWriter(fr);
         textfehler.setFill(Color.RED);
         textfehler.setLayoutY(350);
         textfehler.setLayoutX(pane.getWidth() / 2 - 149.0/ 2);
-        if (passwordField[0].getText().equals(passwordField[1].getText()) && txt.getText().length() != 0) {
+        if (passwordField[0].getText().equals(passwordField[1].getText()) && txt.getText().length() != 0 && passwordField[0].getText().length()!=0 &&passwordField[1].getText().length()!=0) {
             loggedIn = true;
             System.out.println("Passwort richtig");
             System.out.println(txt.getText());
@@ -204,9 +222,11 @@ public class Benutzer implements Serializable{
 
         } else {
             textfehler.setVisible(true);
-            if (txt.getText().length() == 0 && !Objects.equals(passwordField[0].getText(), passwordField[1].getText())) {
+            if (txt.getText().length() == 0 && !Objects.equals(passwordField[0].getText(), passwordField[1].getText()) && (passwordField[0].getText().length()==0 || passwordField[1].getText().length()==0)) {
                 textfehler.setText("Kein Benutzername und Passwort falsch");
-            } else {
+            } else if (Objects.equals(passwordField[0].getText(), passwordField[1].getText()) && txt.getText().length()==0){
+                textfehler.setText("Kein Benutzername");
+            }else {
                 textfehler.setText("Passwörter stimmen nicht überein");
             }
         }
@@ -214,8 +234,15 @@ public class Benutzer implements Serializable{
         if (loggedIn){
             // Erstellen des Paths zum .ser File
             datenSpeichern();
+            //--------------
+            home.getTagebuch().addTag(new Tag(LocalDate.of(2023,5,1)));
+            home.getTagebuch().addTag(new Tag(LocalDate.of(2023, 5, 2)));
+
+            //----------------
+
 
             Main.stage.setScene(new Scene(home.getKonto().datenAnsicht()));
+            //home.startHome();
         }
     }
 
@@ -242,31 +269,38 @@ public class Benutzer implements Serializable{
         pane.requestFocus();
         FileReader fr = new FileReader("Benutzer.txt");
         BufferedReader br = new BufferedReader(fr);
-
+        textfehler.setVisible(false);
         benutzername = textfieldbenutzer.getText();
         passwort = passwortfieldbenutzer.getText();
         boolean loggedIn = false;
         String zeile = br.readLine();
         do {
-            String[] benutzer = zeile.split(" ");
-            if (Objects.equals(textfieldbenutzer.getText(), benutzer[0]) && Objects.equals(passwortfieldbenutzer.getText(), benutzer[1])) {
-                textfehler.setText("");
-                System.out.println("Passwort und Benutzer stimmern überein");
-
-                benutzername = textfieldbenutzer.getText();
-                passwort = passwortfieldbenutzer.getText();
-                loggedIn = true;
-
-            } else {
-                pane.requestFocus();
-
-                textfieldbenutzer.setText("");
-                passwortfieldbenutzer.setText("");
+            if(zeile==null){
+                textfehler.setVisible(true);
                 textfehler.setFill(Color.RED);
-                textfehler.setText("Passwort oder Benutzername falsch!");
+                textfehler.setText("Kein Benutzer regristriert");
+            }else{
+                String[] benutzer = zeile.split(" ");
+                if (Objects.equals(textfieldbenutzer.getText(), benutzer[0]) && Objects.equals(passwortfieldbenutzer.getText(), benutzer[1])) {
+                    textfehler.setText("");
+                    System.out.println("Passwort und Benutzer stimmern überein");
 
+                    benutzername = textfieldbenutzer.getText();
+                    passwort = passwortfieldbenutzer.getText();
+                    loggedIn = true;
+
+                } else {
+                    pane.requestFocus();
+
+                    textfieldbenutzer.setText("");
+                    passwortfieldbenutzer.setText("");
+                    textfehler.setFill(Color.RED);
+                    textfehler.setText("Passwort oder Benutzername falsch!");
+
+                }
+                zeile = br.readLine();
             }
-            zeile = br.readLine();
+
 
         } while (zeile != null);
         br.close();
