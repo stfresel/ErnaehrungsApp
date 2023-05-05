@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Konto implements Serializable {
     private Koerperdaten meineKoerperdaten;
@@ -54,7 +55,7 @@ public class Konto implements Serializable {
             speichernBtn.setOnMouseClicked(new EventHandler<>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    if (groesseTextField.getText() == null ||gewichtTextField.getText()==null||alterTextField.getText()==null||gewichtTextField.getText()==null|| geschlechtCombobox.getValue()==null){
+                    if ( Objects.equals(groesseTextField.getText(), "") ||Objects.equals(gewichtTextField.getText(), "") || Objects.equals(groesseTextField.getText(), "") ||alterTextField.getText() == null||gewichtTextField.getText()==null||alterTextField.getText()==null||gewichtTextField.getText()==null|| geschlechtCombobox.getValue()==null){
                         textfehler.setLayoutX(50);
                         textfehler.setLayoutY(225);
                         textfehler.setFill(Color.RED);

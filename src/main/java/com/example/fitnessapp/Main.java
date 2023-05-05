@@ -25,6 +25,7 @@ public class Main extends Application {
         Scene scene = new Scene(pane);
         String css = Objects.requireNonNull(this.getClass().getResource("styles.css")).toExternalForm();
         scene.getStylesheets().add(css);
+        System.out.println(scene.getStylesheets());
         stage.setScene(scene);
         stage.show();
         Controller c = new Controller(benutzer);
