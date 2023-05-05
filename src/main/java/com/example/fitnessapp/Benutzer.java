@@ -62,12 +62,16 @@ public class Benutzer implements Serializable{
         textregilogi.setVisible(true);
 
         //Textfeld
+        login.setPrefHeight(40);
+        login.setPrefWidth(200);
         textfieldbenutzer.setLayoutY(109);
         textfieldbenutzer.setLayoutX(159);
         textfieldbenutzer.setPromptText("Benutzer");
         textfieldbenutzer.setId("textfield-login");
 
         //Passwortfeld
+        login.setPrefHeight(40);
+        login.setPrefWidth(200);
         passwortfieldbenutzer.setLayoutY(169);
         passwortfieldbenutzer.setLayoutX(159);
         passwortfieldbenutzer.setPromptText("Passwort");

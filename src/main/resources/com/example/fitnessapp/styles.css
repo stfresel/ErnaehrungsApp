@@ -3,22 +3,21 @@
 #button-login {
     -fx-background-color: #B6CC95;
     -fx-text-fill: #000000;
-    -fx-font-size: 9pt;
+    -fx-font-size: 11pt;
     -fx-background-radius: 25px;
     -fx-border-width: 0px;
 }
 
 /* Login Button Class hover-effect */
 #button-login:hover {
-    -fx-border-width: 5px;
-    -fx-border-color: black;
+    -fx-background-color: #cee5ac;
 }
 
 #textfield-login {
     -fx-background-color: #9E9E9E;
     -fx-text-fill: black;
     -fx-border: none;
-    -fx-font-size: 9pt;
+    -fx-font-size: 11pt;
     -fx-background-radius: 25px;
     -fx-alignment: center;
 }
