@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import java.io.*;
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class Meal implements Serializable{
 
         Scene scene = new Scene(gridPane);
 
-        // wenn bereits eine Zutat zum meal hinzugefügt wurde
+        // wenn bereits Zutaten hinzugefügt wurden
         if (zutaten.size() > 0){
             gridPane.getChildren().add(bereitsHinzugefuegteZutaten);
         }
@@ -45,13 +44,12 @@ public class Meal implements Serializable{
         if (tempName != null) {
             nameTextField.setText(tempName);
         }
-        //gridPane.addRow(0, bereitsHinzugefuegteZutaten);
+
         gridPane.addRow(1, new Label("Name des Gerichtes: "), nameTextField);
         Button addZutatBtn = new Button("Zutat hinzufügen");
-        addZutatBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        addZutatBtn.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                // zutaten fenster laden
                 tempName = nameTextField.getText();
                 System.out.println("neue Zutat");
                 loadZutatenScene();
@@ -59,7 +57,7 @@ public class Meal implements Serializable{
         });
 
         Button mealFertig = new Button("fertig");
-        mealFertig.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        mealFertig.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 name = nameTextField.getText();
@@ -243,27 +241,14 @@ public class Meal implements Serializable{
         return name + "\n\t" + zutaten;
     }
 
+    public ArrayList<Zutat> getZutaten() {
+        ArrayList<Zutat> z = zutaten;
+        return z;
+    }
+
     @Override
     public String toString() {
         return name +
                 ": " + zutaten + "\n";
     }
 }
-
-
-/*
-BufferedReader reader;      //------------
-        try {
-            reader = new BufferedReader(new FileReader(zutatenFile));
-
-            String buf = reader.readLine();
-            while (buf != null){
-                //-------------------------------------------------------------------------
-                System.out.println(buf);
-
-                buf = reader.readLine();
-            }
-        } catch (FileNotFoundException e){
-            System.out.println("Zutatenfile konnte nicht gefunden werden");
-        }
- */

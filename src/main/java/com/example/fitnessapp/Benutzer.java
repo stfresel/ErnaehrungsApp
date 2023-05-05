@@ -35,11 +35,7 @@ public class Benutzer implements Serializable{
     private Home home;
     private Path path = null;
     //------------------------------
-
-
-    public Benutzer() {
-    }
-
+    
     /**
      * Die Methode laden die Anmeldungs-Scene, mit den ganzen Komponenten.
      */

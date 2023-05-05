@@ -9,12 +9,9 @@ import java.io.Serializable;
 
 public class Statistik implements Serializable {
 
-
-
     public Pane loadStat() {
         Pane pane = new Pane();
         pane.getChildren().add(diagrammNaehrwerte());
-        //pane.getChildren().add(new Label("keine Statistik vorhanden"));
         return pane;
     }
 
@@ -35,13 +32,11 @@ public class Statistik implements Serializable {
 
         Tagebuch tagebuch = Main.benutzer.getHome().getTagebuch();
 
-
         XYChart.Series<Number, Number> seriesKcal = new XYChart.Series<Number, Number>();
         seriesKcal.setName("Kalorien");
         for (int i = 0; i < tagebuch.getAnzahlTage(); i++) {
             seriesKcal.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getKcal()));
         }
-
 
         XYChart.Series<Number, Number> seriesKohlenhydrate = new XYChart.Series<Number, Number>();
         seriesKcal.setName("Kohlenhydrate");
@@ -49,13 +44,11 @@ public class Statistik implements Serializable {
             seriesKohlenhydrate.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getKohlenhydrate()));
         }
 
-
         XYChart.Series<Number, Number> seriesProteine = new XYChart.Series<Number, Number>();
         seriesKcal.setName("Proteine");
         for (int i = 0; i < tagebuch.getAnzahlTage(); i++) {
             seriesProteine.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getProtein()));
         }
-
 
         XYChart.Series<Number, Number> seriesFette = new XYChart.Series<Number, Number>();
         seriesKcal.setName("Fette");
