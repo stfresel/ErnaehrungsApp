@@ -241,6 +241,11 @@ public class Meal implements Serializable{
         return name + "\n\t" + zutaten;
     }
 
+    public ArrayList<Zutat> getZutaten() {
+        ArrayList<Zutat> z = zutaten;
+        return z;
+    }
+
     @Override
     public String toString() {
         return name +

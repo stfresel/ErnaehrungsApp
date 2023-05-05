@@ -1,11 +1,10 @@
 package com.example.fitnessapp;
 
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.io.Serializable;
@@ -24,6 +23,15 @@ public class Tag implements Serializable {
 
     public void addMeal(Meal meal){
         meals.add(meal);
+
+        // Nährwerte zum Tag hinzufügen
+        for (int i = 0; i < meal.getZutaten().size(); i++) {
+            Naehrwerte temp = meal.getZutaten().get(i).getNaehrwerte();
+            insgesamteNaehrwerte.setKcal(insgesamteNaehrwerte.getKcal() + temp.getKcal());
+            insgesamteNaehrwerte.setKohlenhydrate(insgesamteNaehrwerte.getKohlenhydrate() + temp.getKohlenhydrate());
+            insgesamteNaehrwerte.setProtein(insgesamteNaehrwerte.getProtein() + temp.getProtein());
+            insgesamteNaehrwerte.setFett(insgesamteNaehrwerte.getFett() + temp.getFett());
+        }
     }
 
     public void removeMeal(String mealName){
@@ -41,33 +49,34 @@ public class Tag implements Serializable {
      */
     public void ladeDetailansichtTag() {
         System.out.println(date);
-        TabPane tagTabPane = new TabPane();
-        Scene tabScene = new Scene(tagTabPane);
-        tagTabPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
-
-        VBox vbox = new VBox();
-        vbox.setSpacing(10);
-
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(vbox);
+
+        VBox vBox = new VBox();
+        vBox.setSpacing(10);
+
+        Scene tabScene = new Scene(scrollPane);
+        vBox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
+
+        scrollPane.setContent(vBox);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        vbox.getChildren().add(new Label("Mahlzeiten vom " + date));
+        vBox.getChildren().add(new Label("Mahlzeiten vom " + date));
 
         Group group = new Group();
         for (Meal meal : meals) {
             group.getChildren().addAll(new Label(meal.getName()));
         }
-        vbox.getChildren().add(group);
+        Button zurueckBtn = new Button("zurück");
+        zurueckBtn.setOnMouseClicked(new EventHandler<>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Main.benutzer.getHome().startHome();
+            }
+        });
 
-        Tab gerichte = new Tab("Gerichte", scrollPane);
-        Tab naehrwerte = new Tab("Nährwerte");
-        // <<<<<<<<<<<<<<<<<<<<<<< no es Tab Naehrwerte Mochn
+        vBox.getChildren().add(group);
+        vBox.getChildren().add(zurueckBtn);
 
-        gerichte.setClosable(false);
-        naehrwerte.setClosable(false);
-
-        tagTabPane.getTabs().addAll(gerichte, naehrwerte);
         Main.stage.setScene(tabScene);
     }
 
