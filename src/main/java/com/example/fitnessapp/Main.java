@@ -32,6 +32,16 @@ public class Main extends Application {
         c.start();
     }
 
+    public static void switchScene(Scene s){
+        try {
+            String cssStyleFile = Objects.requireNonNull( Main.class.getResource("styles.css").toExternalForm() );
+            s.getStylesheets().add(cssStyleFile);
+            Main.stage.setScene(s);
+        } catch(Exception e) {
+            System.out.println("Exception @ switchScene()");
+        }
+    }
+
     public static void main(String[] args) {
         launch();
     }
