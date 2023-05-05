@@ -32,7 +32,6 @@ public class Konto implements Serializable {
         gridPane.addRow(5,new Label("Fette          : " + meineKoerperdaten.getTagesUmsatz().getFett()));
 
 
-
         return gridPane;
     }
 
@@ -42,7 +41,7 @@ public class Konto implements Serializable {
         NumericTextField groesseTextField = new NumericTextField();
         NumericTextField gewichtTextField = new NumericTextField();
         ComboBox<String> geschlechtCombobox = new ComboBox<>();
-        Text textfehler=new Text();
+        Text textfehler = new Text();
         geschlechtCombobox.getItems().addAll("weiblich", "männlich");
         GridPane gridPane = new GridPane();
         gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());

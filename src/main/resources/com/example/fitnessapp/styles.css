@@ -15,7 +15,7 @@
     -fx-border-color: black;
 }
 
-.textfield-login {
+#textfield-login {
     -fx-background-color: #9E9E9E;
     -fx-text-fill: black;
     -fx-border: none;

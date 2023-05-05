@@ -42,7 +42,8 @@ public class Benutzer implements Serializable{
 
     public void initialize(){
         pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
-        Main.stage.setScene(new Scene(pane));
+        //Main.stage.setScene(new Scene(pane));
+        Main.switchScene(new Scene(pane));
         //Hinzufügen
         pane.getChildren().add(textfieldbenutzer);
         pane.getChildren().add(passwortfieldbenutzer);
@@ -68,6 +69,7 @@ public class Benutzer implements Serializable{
         passwortfieldbenutzer.setLayoutY(169);
         passwortfieldbenutzer.setLayoutX(159);
         passwortfieldbenutzer.setPromptText("Passwort");
+        passwortfieldbenutzer.setId("textfield-login");
 
         //Button
         login.setText("Login");
@@ -241,7 +243,8 @@ public class Benutzer implements Serializable{
             //----------------
 
 
-            Main.stage.setScene(new Scene(home.getKonto().datenAnsicht()));
+            //Main.stage.setScene(new Scene(home.getKonto().datenAnsicht()));
+            Main.switchScene(new Scene(home.getKonto().datenAnsicht()));
             //home.startHome();
         }
     }

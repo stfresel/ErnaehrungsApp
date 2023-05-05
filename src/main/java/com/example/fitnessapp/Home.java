@@ -70,7 +70,8 @@ public class Home implements Serializable {
           toolBar.setLayoutY(Main.stage.getHeight());
           borderPane.setTop(toolBar);
           borderPane.setCenter(tagebuch.loadTagebuch());
-          Main.stage.setScene(new Scene(borderPane));
+          //Main.stage.setScene(new Scene(borderPane));
+          Main.switchScene(new Scene(borderPane));
      }
 
      /**

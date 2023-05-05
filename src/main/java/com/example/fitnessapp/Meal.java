@@ -30,7 +30,7 @@ public class Meal implements Serializable{
 
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        gridPane.setPrefSize(Main.stage.getWidth(), Main.stage.getHeight());
+        gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
         Scene scene = new Scene(gridPane);
 
@@ -67,7 +67,8 @@ public class Meal implements Serializable{
         // sie sollten immer die letzten elemente im gridPane sein
         gridPane.addRow(1, addZutatBtn);
         gridPane.addRow(2, mealFertig);
-        Main.stage.setScene(scene);
+        Main.switchScene(scene);
+        //Main.stage.setScene(scene);
     }
 
     /**
@@ -192,7 +193,8 @@ public class Meal implements Serializable{
         zutatenPane.getChildren().add(zutatenPane.getChildren().size(),alle_zutaten_wurden_eingegeben);
 
         Scene zutatenScene = new Scene(zutatenPane);
-        Main.stage.setScene(zutatenScene);
+        //Main.stage.setScene(zutatenScene);
+        Main.switchScene(zutatenScene);
     }
 
 

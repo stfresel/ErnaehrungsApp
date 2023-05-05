@@ -54,7 +54,7 @@ public class Tag implements Serializable {
         VBox vBox = new VBox();
         vBox.setSpacing(10);
 
-        Scene tabScene = new Scene(scrollPane);
+        Scene scene = new Scene(scrollPane);
         vBox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
         scrollPane.setContent(vBox);
@@ -77,7 +77,8 @@ public class Tag implements Serializable {
         vBox.getChildren().add(group);
         vBox.getChildren().add(zurueckBtn);
 
-        Main.stage.setScene(tabScene);
+        //Main.stage.setScene(tabScene);
+        Main.switchScene(scene);
     }
 
 
