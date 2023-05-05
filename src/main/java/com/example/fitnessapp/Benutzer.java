@@ -65,6 +65,8 @@ public class Benutzer implements Serializable{
         textfieldbenutzer.setLayoutY(109);
         textfieldbenutzer.setLayoutX(159);
         textfieldbenutzer.setPromptText("Benutzer");
+        textfieldbenutzer.setId("textfield-login");
+
         //Passwortfeld
         passwortfieldbenutzer.setLayoutY(169);
         passwortfieldbenutzer.setLayoutX(159);
@@ -78,9 +80,8 @@ public class Benutzer implements Serializable{
         login.setLayoutX(Main.stage.getScene().getWidth() / 2 - login.getPrefWidth()/2);
         login.setLayoutY(300);
         //login.getStyleClass().set(0, "logreg");
-        login.setStyle("-fx-background-color: #9E9E9E;" +
-                "-fx-text-fill: black;" +
-                "-fx-background-radius: 25px;");
+        login.setId("button-login");
+
 
         login.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override

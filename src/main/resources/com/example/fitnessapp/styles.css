@@ -1,16 +1,15 @@
 
 /* Login Button Class */
-.button-login {
+#button-login {
     -fx-background-color: #B6CC95;
     -fx-text-fill: #000000;
     -fx-font-size: 9pt;
-    -fx-font-weight: bold;
     -fx-background-radius: 25px;
     -fx-border-width: 0px;
 }
 
 /* Login Button Class hover-effect */
-.button-login:hover {
+#button-login:hover {
     -fx-border-width: 5px;
     -fx-border-color: black;
 }
@@ -20,7 +19,6 @@
     -fx-text-fill: black;
     -fx-border: none;
     -fx-font-size: 9pt;
-    -fx-font-weight: bold;
     -fx-background-radius: 25px;
     -fx-alignment: center;
 }
