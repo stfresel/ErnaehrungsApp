@@ -32,8 +32,8 @@ public class Koerperdaten implements Serializable {
     //________________getter und setter______________________//
     public double getBMI(){
         System.out.println("Gewicht: " + gewicht);
-        System.out.println("groesse: " + groesse);
-        bmi = gewicht/(groesse * groesse);
+        System.out.println("Groesse: " + groesse);
+        bmi = gewicht / (groesse * groesse);
         System.out.println("BMI: " + bmi);
         return bmi;
     }
@@ -53,6 +53,12 @@ public class Koerperdaten implements Serializable {
         return alter;
     }
 
+    public void setKoerperdaten(double groesse, double gewicht, int alter, String geschlecht){
+       this.groesse = groesse;
+       this.gewicht = gewicht;
+       this.alter = alter;
+       this.geschlecht = geschlecht;
+    }
 
 
     public Naehrwerte getTagesUmsatz() {

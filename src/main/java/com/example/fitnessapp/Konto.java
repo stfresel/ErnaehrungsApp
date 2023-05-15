@@ -18,9 +18,11 @@ public class Konto implements Serializable {
 
     public HBox loadKonto() {
         HBox hBox = new HBox();
-        hBox.getChildren().addAll(datenAnsicht(), calcPart());
+        hBox.getChildren().add(0,datenAnsicht());
+        hBox.getChildren().add(1, calcPart());
         return hBox;
     }
+
     public GridPane calcPart() {
         GridPane gridPane = new GridPane();
         meineKoerperdaten.tagesUmsatzBerechnen();
@@ -30,7 +32,6 @@ public class Konto implements Serializable {
         gridPane.addRow(3,new Label("Kohlenhydrate  : " + meineKoerperdaten.getTagesUmsatz().getKohlenhydrate()));
         gridPane.addRow(4,new Label("Proteine       : " + meineKoerperdaten.getTagesUmsatz().getProtein()));
         gridPane.addRow(5,new Label("Fette          : " + meineKoerperdaten.getTagesUmsatz().getFett()));
-
 
         return gridPane;
     }
@@ -58,18 +59,15 @@ public class Konto implements Serializable {
                         textfehler.setLayoutX(50);
                         textfehler.setLayoutY(225);
                         textfehler.setFill(Color.RED);
-                        textfehler.setText("Zu wenig Daten eingegeben");
+                        textfehler.setText("Bitte gib deine vollständigen Daten an");
                         textfehler.setVisible(true);
 
                     }else {
-                        meineKoerperdaten.setGroesse(groesseTextField.getDouble());
-                        meineKoerperdaten.setGewicht(gewichtTextField.getDouble());
-                        meineKoerperdaten.setAlter(alterTextField.getInt());
                         System.out.println("Combobox Geschlecht id: " + geschlechtCombobox.getValue());
-                        meineKoerperdaten.setGeschlecht(geschlechtCombobox.getValue());
+                        meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getInt(), geschlechtCombobox.getValue());
                         Main.benutzer.getHome().startHome();
-                    }
 
+                    }
 
                 }
             });
@@ -80,18 +78,17 @@ public class Konto implements Serializable {
             geschlechtCombobox.setValue(meineKoerperdaten.getGeschlecht());
 
             //wenn man etwas verändert wird
+
             speichernBtn.setOnMouseClicked(new EventHandler<>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    meineKoerperdaten.setGroesse(groesseTextField.getDouble());
-                    meineKoerperdaten.setGewicht(gewichtTextField.getDouble());
-                    meineKoerperdaten.setAlter(alterTextField.getInt());
-                    meineKoerperdaten.setGeschlecht(geschlechtCombobox.getValue());
+                    meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getInt(), geschlechtCombobox.getValue());
+                    // neu rendern
+                    //-------------------------
                 }
             });
-
         }
-
+        
         gridPane.addRow(0, new Label("Informationen zum Profil"));
         gridPane.addRow(1, new Label("Benutzername: " + Main.benutzer.getBenutzername()));
         gridPane.addRow(2, new Label("Passwort: " + Main.benutzer.getPasswort()));
@@ -104,8 +101,7 @@ public class Konto implements Serializable {
 
         gridPane.addRow(8, speichernBtn);
 
-        return  gridPane;
+        return gridPane;
     }
-
 
 }

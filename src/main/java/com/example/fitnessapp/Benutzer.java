@@ -100,7 +100,7 @@ public class Benutzer implements Serializable{
         textregilogi.setLayoutY(210);
         textregilogi.setLayoutX(250);
         textregilogi.setText("Registrieren");
-        textregilogi.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        textregilogi.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 neuesKonto();
@@ -170,7 +170,7 @@ public class Benutzer implements Serializable{
             text[2].setText("Wiederholen des Passwortes");
             pane.getChildren().add(text[i]);
         }
-        buttonReg.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        buttonReg.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
@@ -180,7 +180,7 @@ public class Benutzer implements Serializable{
                 }
             }
         });
-        textregilogi.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        textregilogi.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 textfehler.setVisible(false);
@@ -199,7 +199,7 @@ public class Benutzer implements Serializable{
     /**
      * Nach dem Registrieren wird der BEnutzer sowohl im Benutzer.txt File als auch in einem neuen Seialisierunsfile gespeichert.
      * Name des Serialisierungsfile ist: Benutzername + Passwort + .ser
-     * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben des Benutzer.txt files gibt.
+     * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben vom Benutzer.txt File gibt.
      */
     private void speichern() throws IOException {
         boolean loggedIn = false;
@@ -267,7 +267,7 @@ public class Benutzer implements Serializable{
 
     /**
      * Die Methode wird aufgerufen, wenn von initialize() aufgerufen, wenn man sich anmeldet.
-     * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben des Benutzer.txt files gibt.
+     * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben vom Benutzer.txt File gibt.
      */
     public void einloggen() throws IOException {
         pane.requestFocus();
