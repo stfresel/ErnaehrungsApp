@@ -9,6 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.*;
@@ -30,7 +32,10 @@ public class Benutzer implements Serializable{
     private transient PasswordField passwortfieldbenutzer=new PasswordField();
     private transient Button login=new Button();
     InputStream stream;
+    InputStream iconstream;
     private transient Image background;
+    private transient Image icon;
+    private transient Rectangle backgroundrec = new Rectangle();
 
 
     //--------------------------------------------
@@ -40,7 +45,7 @@ public class Benutzer implements Serializable{
     private Home home;
     private Path path = null;
     //------------------------------
-    
+
     /**
      * Die Methode laden die Anmeldungs-Scene, mit den ganzen Komponenten.
      */
@@ -51,11 +56,12 @@ public class Benutzer implements Serializable{
 
         //background
         try {
-            stream = new FileInputStream("src/main/resources/com/example/fitnessapp/Login.png");
+            stream = new FileInputStream("src/main/resources/com/example/fitnessapp/login.png");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         background = new Image(stream);
+
 
         //Creating the image view
         ImageView imageView = new ImageView();
@@ -67,15 +73,33 @@ public class Benutzer implements Serializable{
         imageView.setFitWidth(pane.getWidth());
         imageView.setPreserveRatio(true);
 
+        //icon
+        try {
+            iconstream = new FileInputStream("src/main/resources/com/example/fitnessapp/logo.png");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        icon = new Image(iconstream);
+
+        ImageView iconView = new ImageView();
+        //Setting image to the image view
+        iconView.setImage(icon);
+        //Setting the image view parameters
+        iconView.setX(pane.getWidth()/2);
+        iconView.setY(pane.getHeight()/10);
+        iconView.setFitHeight(80);
+        iconView.setPreserveRatio(true);
+
         Main.switchScene(new Scene(pane));
         //Hinzufügen
         pane.getChildren().add(imageView);
+        pane.getChildren().add(backgroundrec);
+        pane.getChildren().add(iconView);
         pane.getChildren().add(textfieldbenutzer);
         pane.getChildren().add(passwortfieldbenutzer);
         pane.getChildren().add(login);
         pane.getChildren().add(textfehler);
         pane.getChildren().add(textregilogi);
-
 
         loginfun();
     }
@@ -89,17 +113,17 @@ public class Benutzer implements Serializable{
         textregilogi.setVisible(true);
 
         //Textfeld
-        login.setPrefHeight(40);
-        login.setPrefWidth(200);
-        textfieldbenutzer.setLayoutY(109);
+        textfieldbenutzer.setPrefHeight(40);
+        textfieldbenutzer.setPrefWidth(200);
+        textfieldbenutzer.setLayoutY(179);
         textfieldbenutzer.setLayoutX(159);
         textfieldbenutzer.setPromptText("Benutzer");
         textfieldbenutzer.setId("textfield-login");
 
         //Passwortfeld
-        login.setPrefHeight(40);
-        login.setPrefWidth(200);
-        passwortfieldbenutzer.setLayoutY(169);
+        passwortfieldbenutzer.setPrefHeight(40);
+        passwortfieldbenutzer.setPrefWidth(200);
+        passwortfieldbenutzer.setLayoutY(239);
         passwortfieldbenutzer.setLayoutX(159);
         passwortfieldbenutzer.setPromptText("Passwort");
         passwortfieldbenutzer.setId("textfield-login");
@@ -113,7 +137,17 @@ public class Benutzer implements Serializable{
         //login.getStyleClass().set(0, "logreg");
         login.setId("button-login");
 
+        //Rechteck Hintergrund
+        backgroundrec.setFill(Paint.valueOf("#B6CC95"));
+        backgroundrec.setWidth(pane.getWidth()/1.8);
+        backgroundrec.setHeight(pane.getHeight()/1.4);
+        backgroundrec.setX(pane.getWidth()/2 - backgroundrec.getWidth()/2);
+        backgroundrec.setY(pane.getHeight()/2 - backgroundrec.getHeight()/2);
+        backgroundrec.setOpacity(0.8);
 
+
+
+//--------------------------------------------------------------------------------------------------------\\
         login.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -127,11 +161,13 @@ public class Benutzer implements Serializable{
         //Text log in
         textfehler.setLayoutX(159);
         textfehler.setLayoutY(225);
+
         //Text registieren
         textregilogi.setLayoutY((pane.getHeight()/2) + pane.getHeight()/4);
         textregilogi.setLayoutX(pane.getWidth()/2 - 30);
         textregilogi.setText("Registrieren");
-        textregilogi.setOnMouseClicked(new EventHandler<>() {
+
+        textregilogi.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 neuesKonto();
@@ -157,16 +193,24 @@ public class Benutzer implements Serializable{
         textregilogi.setLayoutX(295);
         textregilogi.setLayoutY(375);
         textregilogi.setVisible(true);
+
+        //registrierungsbutton
         Button buttonReg = new Button();
         buttonReg.setText("Registrieren");
         System.out.println();
         buttonReg.setLayoutX(pane.getWidth() / 2 - 149.0/ 2);
         buttonReg.setLayoutY(400);
+        buttonReg.setId("button-login");
+
         pane.getChildren().add(buttonReg);
 
         txt = new TextField();
         txt.setMinHeight(25);
         txt.setMinWidth(149);
+        login.setPrefHeight(40);
+        login.setPrefWidth(200);
+        txt.setId("textfield-login");
+
         double x = pane.getWidth() / 2 - txt.getMinWidth() / 2;
         txt.setLayoutX(x);
         double y = pane.getHeight() - counter;
@@ -178,6 +222,9 @@ public class Benutzer implements Serializable{
             y = pane.getHeight() - counter;
             passwordField[i] = new PasswordField();
             passwordField[i].setLayoutX(x);
+            passwordField[i].setId("textfield-login");
+            passwordField[i].setPrefHeight(40);
+            passwordField[i].setPrefWidth(200);
             passwordField[i].setLayoutY(y);
             counter -= 100;
             passwordField[i].setPromptText("Neues Passwort");
@@ -201,7 +248,7 @@ public class Benutzer implements Serializable{
             text[2].setText("Wiederholen des Passwortes");
             pane.getChildren().add(text[i]);
         }
-        buttonReg.setOnMouseClicked(new EventHandler<>() {
+        buttonReg.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
@@ -211,7 +258,7 @@ public class Benutzer implements Serializable{
                 }
             }
         });
-        textregilogi.setOnMouseClicked(new EventHandler<>() {
+        textregilogi.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 textfehler.setVisible(false);
@@ -230,7 +277,7 @@ public class Benutzer implements Serializable{
     /**
      * Nach dem Registrieren wird der BEnutzer sowohl im Benutzer.txt File als auch in einem neuen Seialisierunsfile gespeichert.
      * Name des Serialisierungsfile ist: Benutzername + Passwort + .ser
-     * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben vom Benutzer.txt File gibt.
+     * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben des Benutzer.txt files gibt.
      */
     private void speichern() throws IOException {
         boolean loggedIn = false;
@@ -298,7 +345,7 @@ public class Benutzer implements Serializable{
 
     /**
      * Die Methode wird aufgerufen, wenn von initialize() aufgerufen, wenn man sich anmeldet.
-     * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben vom Benutzer.txt File gibt.
+     * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben des Benutzer.txt files gibt.
      */
     public void einloggen() throws IOException {
         pane.requestFocus();

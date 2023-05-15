@@ -31,7 +31,6 @@ public class Main extends Application {
         Controller c = new Controller(benutzer);
         c.start();
     }
-
     public static void switchScene(Scene s){
         try {
             String cssStyleFile = Objects.requireNonNull( Main.class.getResource("styles.css").toExternalForm() );
@@ -41,6 +40,7 @@ public class Main extends Application {
             System.out.println("Exception @ switchScene()");
         }
     }
+
 
     public static void main(String[] args) {
         launch();
