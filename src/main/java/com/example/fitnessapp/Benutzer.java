@@ -4,6 +4,8 @@ import javafx.event.EventHandler;
 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -27,6 +29,9 @@ public class Benutzer implements Serializable{
     private transient TextField textfieldbenutzer=new TextField();
     private transient PasswordField passwortfieldbenutzer=new PasswordField();
     private transient Button login=new Button();
+    InputStream stream;
+    private transient Image background;
+
 
     //--------------------------------------------
     //Atribute für Benutzer und Passwort
@@ -40,16 +45,38 @@ public class Benutzer implements Serializable{
      * Die Methode laden die Anmeldungs-Scene, mit den ganzen Komponenten.
      */
 
-    public void initialize(){
+    public void initialize() {
         pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         //Main.stage.setScene(new Scene(pane));
+
+        //background
+        try {
+            stream = new FileInputStream("src/main/resources/com/example/fitnessapp/Login.png");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        background = new Image(stream);
+
+        //Creating the image view
+        ImageView imageView = new ImageView();
+        //Setting image to the image view
+        imageView.setImage(background);
+        //Setting the image view parameters
+        imageView.setX(0);
+        imageView.setY(0);
+        imageView.setFitWidth(pane.getWidth());
+        imageView.setPreserveRatio(true);
+
         Main.switchScene(new Scene(pane));
         //Hinzufügen
+        pane.getChildren().add(imageView);
         pane.getChildren().add(textfieldbenutzer);
         pane.getChildren().add(passwortfieldbenutzer);
         pane.getChildren().add(login);
         pane.getChildren().add(textfehler);
         pane.getChildren().add(textregilogi);
+
+
         loginfun();
     }
     public void loginfun(){
@@ -62,12 +89,16 @@ public class Benutzer implements Serializable{
         textregilogi.setVisible(true);
 
         //Textfeld
+        login.setPrefHeight(40);
+        login.setPrefWidth(200);
         textfieldbenutzer.setLayoutY(109);
         textfieldbenutzer.setLayoutX(159);
         textfieldbenutzer.setPromptText("Benutzer");
         textfieldbenutzer.setId("textfield-login");
 
         //Passwortfeld
+        login.setPrefHeight(40);
+        login.setPrefWidth(200);
         passwortfieldbenutzer.setLayoutY(169);
         passwortfieldbenutzer.setLayoutX(159);
         passwortfieldbenutzer.setPromptText("Passwort");
@@ -97,8 +128,8 @@ public class Benutzer implements Serializable{
         textfehler.setLayoutX(159);
         textfehler.setLayoutY(225);
         //Text registieren
-        textregilogi.setLayoutY(210);
-        textregilogi.setLayoutX(250);
+        textregilogi.setLayoutY((pane.getHeight()/2) + pane.getHeight()/4);
+        textregilogi.setLayoutX(pane.getWidth()/2 - 30);
         textregilogi.setText("Registrieren");
         textregilogi.setOnMouseClicked(new EventHandler<>() {
             @Override
