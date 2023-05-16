@@ -15,6 +15,8 @@ public class Tagebuch implements Serializable {
     private final ArrayList<Tag> tage = new ArrayList<>();
     private transient VBox tagebuchVbox;
 
+    private transient TabPane tabPane;
+
 
 
     public void addTag(Tag tag) {
@@ -28,7 +30,7 @@ public class Tagebuch implements Serializable {
      * @return Es wird ein TabPane mit der Ansicht des Tagebuches zurückgegeben.
      */
     public TabPane loadTagebuch() {
-        TabPane tabPane = new TabPane();
+        tabPane = new TabPane();
         Tab heute = new Tab("Heute", loadHeute());
         Tab vergangeneTage = new Tab("Vergangenheit", loadVergangeneTage());
         heute.setClosable(false);
@@ -99,7 +101,12 @@ public class Tagebuch implements Serializable {
         group.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                tage.get(index).ladeDetailansichtTag();
+                Tab tab = new Tab(tage.get(index).getDate().toString(), tage.get(index).ladeDetailansichtTag());
+                tabPane.getTabs().add(tab);
+                //tage.get(index).ladeDetailansichtTag();
+                SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+                selectionModel.select(tab); //select by object
+
             }
         });
         group.getChildren().add(new Label(tage.get(index).getDate().toString()));

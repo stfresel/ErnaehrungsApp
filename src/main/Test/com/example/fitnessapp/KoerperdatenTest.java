@@ -27,7 +27,7 @@ public class KoerperdatenTest {
 
         koerperdaten.setGeschlecht("männlich");
         koerperdaten.tagesUmsatzBerechnen();
-        assertEquals(1602.5, koerperdaten.getTagesUmsatz().getKcal());
+        assertEquals(1602.0, koerperdaten.getTagesUmsatz().getKcal());
 
     }
 

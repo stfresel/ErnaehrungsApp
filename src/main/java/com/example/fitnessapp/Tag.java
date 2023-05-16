@@ -47,7 +47,7 @@ public class Tag implements Serializable {
      * Ladet sie detailansicht eines Tages.
      * Dort gibt es zwei Tabs: Gerichte und Nährwerte.
      */
-    public void ladeDetailansichtTag() {
+    public ScrollPane ladeDetailansichtTag() {
         System.out.println(date);
         ScrollPane scrollPane = new ScrollPane();
 
@@ -78,7 +78,8 @@ public class Tag implements Serializable {
         vBox.getChildren().add(zurueckBtn);
 
         //Main.stage.setScene(tabScene);
-        Main.switchScene(scene);
+        //Main.switchScene(scene);
+        return scrollPane;
     }
 
 
