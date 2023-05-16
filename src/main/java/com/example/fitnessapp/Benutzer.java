@@ -24,6 +24,7 @@ import java.util.Objects;
 public class Benutzer implements Serializable{
     public transient Pane pane=new Pane();
     private transient TextField textfieldRBenutzername = new TextField();
+    private transient Button buttonReg = new Button();
     private transient PasswordField[] passwordField = new PasswordField[2];
     private transient Text[] text = new Text[3];
     private transient Text textfehler = new Text();
@@ -34,7 +35,9 @@ public class Benutzer implements Serializable{
     InputStream stream;
     InputStream iconstream;
     private transient Image background;
+    private ImageView imageView;
     private transient Image icon;
+    private ImageView iconView;
     private transient Rectangle backgroundrec = new Rectangle();
 
 
@@ -61,16 +64,13 @@ public class Benutzer implements Serializable{
         }
         background = new Image(stream);
         
-        ImageView imageView = new ImageView();
+        imageView = new ImageView();
         imageView.setImage(background);
         imageView.setX(0);
         imageView.setY(0);
         
         //Maximieren der Groesse des Hintergrunds 
-        if(Main.stage.getWidth() >= Main.stage.getHeight()){
-            imageView.setFitWidth(Main.stage.getWidth());
-        }else
-            imageView.setFitHeight(Main.stage.getHeight());
+        adjustBackgroundSize();
         imageView.setPreserveRatio(true);
 
         //Laden des Icons
@@ -81,13 +81,12 @@ public class Benutzer implements Serializable{
         }
         icon = new Image(iconstream);
 
-        ImageView iconView = new ImageView();
+        iconView = new ImageView();
         //Setting image to the image view
         iconView.setImage(icon);
         //Setting the image view parameters
         Main.switchScene(new Scene(pane));
-        System.out.println(iconView.getImage().getWidth());
-        iconView.setX(Main.stage.getWidth()/2 - Main.stage.getHeight()/12);
+        iconView.setX(Main.stage.getWidth()/2 - Main.stage.getWidth()/12);
         iconView.setY(Main.stage.getHeight()/6.2);
         iconView.setFitHeight(Main.stage.getHeight()/6);
         iconView.setPreserveRatio(true);
@@ -169,11 +168,22 @@ public class Benutzer implements Serializable{
         txt.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                updateUI();
                 neuesKonto();
             }
         });
 
+        Main.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            updateUI();
+        });
+
+        Main.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            updateUI();
+        });
+
+        updateUI();
     }
+
 
     /**
      * Die Methode ladet die Registrierungsszene. Sie wird immer von initialize() aufgerufen.
@@ -194,7 +204,7 @@ public class Benutzer implements Serializable{
         txt.setVisible(true);
 
         //registrierungsbutton
-        Button buttonReg = new Button();
+        buttonReg = new Button();
         buttonReg.setText("Registrieren");
         System.out.println();
         buttonReg.setLayoutX(pane.getWidth() / 2 - 149.0/ 2);
@@ -240,7 +250,11 @@ public class Benutzer implements Serializable{
 
             pane.getChildren().add(passwordField[i]);
 
+            //setzen der positionen der UI-Bausteine
+            updateUI();
+
         }
+
         counter = 400;
 
         for (int i = 0; i < 3; i++) {
@@ -280,6 +294,7 @@ public class Benutzer implements Serializable{
                 for (int i = 0; i < 3; i++) {
                     text[i].setVisible(false);
                 }
+                updateUI();
                 loginfun();
             }
         });
@@ -337,6 +352,76 @@ public class Benutzer implements Serializable{
             Main.switchScene(new Scene(home.getKonto().datenAnsicht()));
             //home.startHome();
         }
+    }
+
+    /**
+     * Methode zum Anpassen der Positionen der einzelnen UI-Bauteile
+     * @author  René Weissteiner
+     * @date    16.05.2023
+     */
+    public void updateUI(){
+        double midx = Main.stage.getWidth();
+        double midy = Main.stage.getHeight();
+        System.out.println(midx);
+        System.out.println(midy);
+
+        //Loginfenster
+        textfieldLBenutzer.setLayoutX(midx/2 - textfieldLBenutzer.getWidth()/2);
+        textfieldLBenutzer.setLayoutY(midy/2 - 50);
+
+        textfieldLPasswort.setLayoutX(midx/2 - textfieldLPasswort.getWidth()/2);
+        textfieldLPasswort.setLayoutY(midy/2 + 10);
+
+        buttonLLogin.setLayoutX(midx/2 - buttonLLogin.getWidth()/2);
+        buttonLLogin.setLayoutY(midy/2 + 75);
+
+        //Registrierungsfenster
+        textfieldRBenutzername.setLayoutX(midx/2 - textfieldRBenutzername.getWidth()/2);
+        textfieldRBenutzername.setLayoutY(midy/2 - 60);
+
+        /*
+        passwordField[0].setLayoutX(midx/2 - passwordField[0].getWidth()/2);
+        passwordField[0].setLayoutY(midy/2 - 50);
+
+        passwordField[1].setLayoutX(midx/2 - passwordField[1].getWidth()/2);
+        passwordField[1].setLayoutY(midy/2);
+*/
+        buttonReg.setLayoutX(midx/2 - buttonReg.getWidth()/2);
+        buttonReg.setLayoutY(midy/2 + 80);
+
+
+        //beide Anzeigen
+        backgroundrec.setX(midx/2 - backgroundrec.getWidth()/2);
+        backgroundrec.setY(midy/2 - backgroundrec.getHeight()/2);
+
+        iconView.setX(Main.stage.getWidth()/2 - 40);
+        iconView.setY(backgroundrec.getY() + 10);
+
+        // Unterscheidung zwischen Loginfenster und Registrierungsfenster beim Login/Registrierungs Text (clickable)
+       if(buttonLLogin.isVisible()){
+            txt.setLayoutX(midx/2 - 30);
+            txt.setLayoutY(midy/2 + 140);
+        }else{
+            txt.setLayoutX(midx/2 - 25);
+            txt.setLayoutY(midy/2 + 140);
+        }
+
+        adjustBackgroundSize();
+    }
+
+    /**
+     *
+     * Methode zum Anpassen der Groesse des Hintergrund an die Fenstergroesse
+     * @author  René Weissteiner
+     * @date    16.05.2023
+     */
+    public void adjustBackgroundSize(){ // warum wird es nicht nach dem groessten angepasst?
+        if(Main.stage.getWidth() > Main.stage.getHeight()){
+            imageView.setFitWidth(Main.stage.getWidth());
+        }else{
+            imageView.setFitHeight(Main.stage.getHeight());
+        }
+        System.out.println(Main.stage.getWidth() > Main.stage.getHeight());
     }
 
     /**
