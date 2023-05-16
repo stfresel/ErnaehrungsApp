@@ -415,7 +415,7 @@ public class Benutzer implements Serializable{
      * @author  René Weissteiner
      * @date    16.05.2023
      */
-    public void adjustBackgroundSize(){
+    public void adjustBackgroundSize(){ // warum wird es nicht nach dem groessten angepasst?
         if(Main.stage.getWidth() > Main.stage.getHeight()){
             imageView.setFitWidth(Main.stage.getWidth());
         }else{
