@@ -92,7 +92,7 @@ public class Konto implements Serializable {
                             gewichtTextField.getText().length() < 1){
                         setFehlermeldung(textfehler);
                     }
-                    meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getInt(), geschlechtCombobox.getValue());
+                    meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
                     calcPart(gridPaneCalcPart);
                 }
             });
@@ -129,14 +129,14 @@ public class Konto implements Serializable {
         return gridPane;
     }
 
-    private void setFehlermeldung(Text textfehler){
+    private void setFehlermeldung(Text text){
         /*
            textfehler.setLayoutX(50);
            textfehler.setLayoutY(225);
           */
-        textfehler.setFill(Color.RED);
-        textfehler.setText("Bitte gib deine vollständigen Daten an");
-        textfehler.setVisible(true);
+        text.setFill(Color.RED);
+        text.setText("Bitte gib deine vollständigen Daten an");
+        text.setVisible(true);
     }
 
 }
