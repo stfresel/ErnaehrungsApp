@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Konto implements Serializable {
@@ -98,17 +99,30 @@ public class Konto implements Serializable {
 
 
         }
+        ArrayList<Label> labellist = new ArrayList<>();
+        labellist.add(new Label("Informationen zum Profil"));
+        labellist.add(new Label("Benutzername: " + Main.benutzer.getBenutzername()));
+        labellist.add(new Label("Passwort: " + Main.benutzer.getPasswort()));
+        labellist.add(new Label("Körperdaten"));
+        labellist.add(new Label("Größe (in m): "));
+        labellist.add(new Label("Größe (in m): "));
+        labellist.add(new Label("Gewicht (in kg): "));
+        labellist.add(new Label("Alter (in Jahren): "));
+        labellist.add(new Label("Geschlecht: "));
 
-        gridPane.addRow(0, new Label("Informationen zum Profil"));
-        gridPane.addRow(1, new Label("Benutzername: " + Main.benutzer.getBenutzername()));
-        gridPane.addRow(2, new Label("Passwort: " + Main.benutzer.getPasswort()));
+        labellist.get(1).setId("textfield-login");
 
-        gridPane.addRow(3, new Label("Körperdaten"));
-        gridPane.addRow(4, new Label("Größe (in m): "), groesseTextField);
-        gridPane.addRow(5, new Label("Gewicht (in kg): "), gewichtTextField);
-        gridPane.addRow(6, new Label("Alter (in Jahren): "), alterTextField);
-        gridPane.addRow(7, new Label("Geschlecht: "), geschlechtCombobox);
+        gridPane.addRow(0, labellist.get(0));
+        gridPane.addRow(1, labellist.get(1));
+        gridPane.addRow(2, labellist.get(2));
+
+        gridPane.addRow(3, labellist.get(3));
+        gridPane.addRow(4, labellist.get(4));
+        gridPane.addRow(5, labellist.get(5));
+        gridPane.addRow(6, labellist.get(6), alterTextField);
+        gridPane.addRow(7, labellist.get(7), geschlechtCombobox);
         gridPane.addRow(8,new Label(),textfehler);
+
 
         gridPane.addRow(9, speichernBtn);
 
