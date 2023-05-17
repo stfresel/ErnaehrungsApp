@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class Tagebuch implements Serializable {
@@ -101,11 +102,21 @@ public class Tagebuch implements Serializable {
         group.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                boolean containsTab = false;
                 Tab tab = new Tab(tage.get(index).getDate().toString(), tage.get(index).ladeDetailansichtTag());
-                tabPane.getTabs().add(tab);
-                //tage.get(index).ladeDetailansichtTag();
                 SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
-                selectionModel.select(tab); //select by object
+                for (int i = 0; i < tabPane.getTabs().size(); i++) {
+                    if (Objects.equals(tabPane.getTabs().get(i).getText(), tage.get(index).getDate().toString())){
+                        selectionModel.select(i);
+                        containsTab = true;
+                        break;
+                    }
+                }
+
+                if (!containsTab){
+                    tabPane.getTabs().add(tab);
+                    selectionModel.select(tab);
+                }
 
             }
         });
