@@ -156,12 +156,11 @@ public class Meal implements Serializable{
                         if (Objects.equals(Main.gespeicherteZutaten.get(i).getName(), comboBox.getValue())){
                             System.out.println("aus array holen");
                             Zutat arrZutat = Main.gespeicherteZutaten.get(i);
-                            int menge = mengeGespeicherteZutat.getInt();
-                            Zutat z = new Zutat(comboBox.getValue(), menge, new Naehrwerte(arrZutat.getNaehrwerte().getKcal()/arrZutat.getMenge()*menge,
-                                    arrZutat.getNaehrwerte().getFett()/arrZutat.getMenge()*menge, arrZutat.getNaehrwerte().getKohlenhydrate()/arrZutat.getMenge()*menge,
-                                    arrZutat.getNaehrwerte().getProtein()/arrZutat.getMenge()*menge));
+                            int menge = mengeGespeicherteZutat.getInt();    // Menge der Zutat die gerade gegessen wird
+                            Zutat z = calcNaehrwerteZutat(arrZutat, menge);
 
                             addZutate2Meal(z);
+                            break;
                         }
                     }
 
@@ -195,6 +194,18 @@ public class Meal implements Serializable{
         Scene zutatenScene = new Scene(zutatenPane);
         //Main.stage.setScene(zutatenScene);
         Main.switchScene(zutatenScene);
+    }
+
+    private Zutat calcNaehrwerteZutat(Zutat alteZutat, int neueMenge){
+        double help = (double) neueMenge/ alteZutat.getMenge();
+        int kcalNeu = (int) (alteZutat.getNaehrwerte().getKcal() * help);
+        int carbsNeu = (int) (alteZutat.getNaehrwerte().getKohlenhydrate() * help);
+        int proteinNeu = (int) (alteZutat.getNaehrwerte().getProtein() * help);
+        int fettNeu = (int) (alteZutat.getNaehrwerte().getFett() * help);
+
+        Naehrwerte neueNaehrwerte = new Naehrwerte(kcalNeu,fettNeu, carbsNeu, proteinNeu);
+
+        return new Zutat(alteZutat.getName(), neueMenge, neueNaehrwerte);
     }
 
 

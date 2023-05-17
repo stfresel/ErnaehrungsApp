@@ -19,7 +19,6 @@ public class Tagebuch implements Serializable {
     private transient TabPane tabPane;
 
 
-
     public void addTag(Tag tag) {
         tage.add(tag);
     }
