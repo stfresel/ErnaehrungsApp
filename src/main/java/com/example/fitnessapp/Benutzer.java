@@ -1,7 +1,5 @@
 package com.example.fitnessapp;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 
 import javafx.scene.Scene;
@@ -14,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.stage.WindowEvent;
 
 import java.io.*;
 import java.nio.file.Files;

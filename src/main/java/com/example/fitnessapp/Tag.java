@@ -50,11 +50,9 @@ public class Tag implements Serializable {
     public ScrollPane ladeDetailansichtTag() {
         System.out.println(date);
         ScrollPane scrollPane = new ScrollPane();
-
         VBox vBox = new VBox();
-        vBox.setSpacing(10);
 
-        Scene scene = new Scene(scrollPane);
+        //Scene scene = new Scene(scrollPane);
         vBox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
         scrollPane.setContent(vBox);
@@ -62,20 +60,10 @@ public class Tag implements Serializable {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         vBox.getChildren().add(new Label("Mahlzeiten vom " + date));
 
-        Group group = new Group();
-        for (Meal meal : meals) {
-            group.getChildren().addAll(new Label(meal.getName()));
-        }
-        Button zurueckBtn = new Button("zurück");
-        zurueckBtn.setOnMouseClicked(new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                Main.benutzer.getHome().startHome();
-            }
-        });
 
-        vBox.getChildren().add(group);
-        vBox.getChildren().add(zurueckBtn);
+        for (Meal meal : meals) {
+            vBox.getChildren().addAll(new Label(meal.getName()));
+        }
 
         //Main.stage.setScene(tabScene);
         //Main.switchScene(scene);
