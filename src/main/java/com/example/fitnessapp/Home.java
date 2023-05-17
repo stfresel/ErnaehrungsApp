@@ -81,6 +81,7 @@ public class Home implements Serializable {
           if (tagebuch.getAnzahlTage() < 1){
                Tag t1 = new Tag(LocalDate.now());
                //tagebuch.addTag(t1);        wieder einfügen
+
                //-----------
                tagebuch.addTag(new Tag(LocalDate.of(2023,5,3)));
                tagebuch.addTag(new Tag(LocalDate.of(2023,5,4)));

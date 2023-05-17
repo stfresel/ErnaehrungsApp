@@ -52,7 +52,6 @@ public class Tag implements Serializable {
         ScrollPane scrollPane = new ScrollPane();
         VBox vBox = new VBox();
 
-        //Scene scene = new Scene(scrollPane);
         vBox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
         scrollPane.setContent(vBox);
@@ -60,13 +59,10 @@ public class Tag implements Serializable {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         vBox.getChildren().add(new Label("Mahlzeiten vom " + date));
 
-
         for (Meal meal : meals) {
             vBox.getChildren().addAll(new Label(meal.getName()));
         }
 
-        //Main.stage.setScene(tabScene);
-        //Main.switchScene(scene);
         return scrollPane;
     }
 

@@ -400,7 +400,7 @@ public class Benutzer implements Serializable{
      * Die Methode speichert die Daten (Home) im .ser File.
      */
     public void datenSpeichern(){
-        path = Paths.get(benutzername + passwort + ".ser");
+        path = Paths.get(benutzername + "_" + passwort + ".ser");
         // Erstellen eines .ser Files wo das Tagebuch gespeichert wird
         try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
             whereToWrite.writeObject(home);
@@ -454,7 +454,7 @@ public class Benutzer implements Serializable{
 
         if (loggedIn){
             // path wieder erstellen evt funktion?
-            path = Paths.get(benutzername + passwort + ".ser");
+            path = Paths.get(benutzername + "_" + passwort + ".ser");
             try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
                 home = (Home) whereToReadFrom.readObject();
                 System.out.println("auslesen vom file");
