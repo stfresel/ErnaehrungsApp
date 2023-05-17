@@ -166,9 +166,7 @@ public class Benutzer implements Serializable{
                 }
             }
         });
-        //Text log in
-        textfehler.setLayoutX(159);
-        textfehler.setLayoutY(225);
+
 
         //Text registieren (clickable text im Login Fenster)
         txt.setLayoutY((pane.getHeight()/2) + pane.getHeight()/4);
@@ -301,8 +299,6 @@ public class Benutzer implements Serializable{
 
         BufferedWriter br = new BufferedWriter(fr);
         textfehler.setFill(Color.RED);
-        textfehler.setLayoutY(350);
-        textfehler.setLayoutX(pane.getWidth() / 2 - 149.0/ 2);
         if (passwordField[0].getText().equals(passwordField[1].getText()) && textfieldRBenutzername.getText().length() != 0 && passwordField[0].getText().length()!=0 &&passwordField[1].getText().length()!=0) {
             loggedIn = true;
             System.out.println("Passwort richtig");
@@ -314,6 +310,7 @@ public class Benutzer implements Serializable{
             br.write(" ");
             br.write(passwort);
             br.newLine();
+            updateUI();
 
         } else {
             textfehler.setVisible(true);
@@ -376,6 +373,8 @@ public class Benutzer implements Serializable{
 
 
 
+
+
         buttonReg.setLayoutX(midx/2 - buttonReg.getWidth()/2);
         buttonReg.setLayoutY(midy/2 + 80);
 
@@ -391,10 +390,16 @@ public class Benutzer implements Serializable{
        if(buttonLLogin.isVisible()){
             txt.setLayoutX(midx/2 - 30);
             txt.setLayoutY(midy/2 + 140);
-        }else{
+            textfehler.setLayoutY(pane.getHeight()/2 - 55);
+            textfehler.setLayoutX(pane.getWidth() / 2 - 149.0/ 2);
+
+       }else{
             txt.setLayoutX(midx/2 - 25);
             txt.setLayoutY(midy/2 + 140);
-        }
+            textfehler.setLayoutY(pane.getHeight()/2 - 70);
+            textfehler.setLayoutX(pane.getWidth() / 2 - 60);
+
+       }
 
         adjustBackgroundSize();
     }
