@@ -1,5 +1,7 @@
 package com.example.fitnessapp;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 
 import javafx.scene.Scene;
@@ -12,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.WindowEvent;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -176,11 +179,12 @@ public class Benutzer implements Serializable{
             }
         });
 
-        Main.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+        // achtung!!!!!!!!!!!!! scene net stage!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        Main.stage.getScene().widthProperty().addListener((obs, oldVal, newVal) -> {
             updateUI();
         });
 
-        Main.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+        Main.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
             updateUI();
         });
 
@@ -374,16 +378,25 @@ public class Benutzer implements Serializable{
 
     /**
      *
-     * Methode zum Anpassen der Groesse des Hintergrund an die Fenstergroesse
+     * Methode zum Anpassen der Groesse des Hintergrundes an die Fenstergroesse
      * @author  René Weissteiner
      * @date    16.05.2023
      */
     public void adjustBackgroundSize(){
         // Binden Sie die Breite und Höhe der ImageView an die Breite und Höhe der Pane
-        imageView.fitWidthProperty().bind(Main.stage.getScene().getWindow().widthProperty());
+        /*
+        if (imageView.getFitHeight() > imageView.getFitWidth()){
+            imageView.fitHeightProperty().bind(Main.stage.getScene().getWindow().heightProperty());
+        }else {
+            imageView.fitWidthProperty().bind(Main.stage.getScene().getWindow().widthProperty());
+        }
+
+         */
         imageView.fitHeightProperty().bind(Main.stage.getScene().getWindow().heightProperty());
+
         // Setzen Sie den PreserveRatio-Parameter auf true, um das Seitenverhältnis des Bildes zu erhalten
-        imageView.setPreserveRatio(false);
+        imageView.setPreserveRatio(true);
+        
     }
 
     /**
