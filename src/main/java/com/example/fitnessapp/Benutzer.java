@@ -25,20 +25,17 @@ public class Benutzer implements Serializable{
     public transient Pane pane=new Pane();
     private transient TextField textfieldRBenutzername = new TextField();
     private transient Button buttonReg = new Button();
-    private transient PasswordField[] passwordField = new PasswordField[2];
-    private transient Text[] text = new Text[3];
-    private transient Text textfehler = new Text();
-    private transient Text txt = new Text();
-    private transient TextField textfieldLBenutzer = new TextField();
-    private transient PasswordField textfieldLPasswort = new PasswordField();
-    private transient Button buttonLLogin =new Button();
-    InputStream stream;
-    InputStream iconstream;
-    private transient Image background;
+    private final transient PasswordField[] passwordField = new PasswordField[2];
+    private final transient Text textfehler = new Text();
+    private final transient Text txt = new Text();
+    private final transient TextField textfieldLBenutzer = new TextField();
+    private final transient PasswordField textfieldLPasswort = new PasswordField();
+    private final transient Button buttonLLogin =new Button();
     private ImageView imageView;
-    private transient Image icon;
     private ImageView iconView;
-    private transient Rectangle backgroundrec = new Rectangle();
+    private final transient Rectangle backgroundrec = new Rectangle();
+    private final double sizeOfObjectsX = 200;
+    private final double sizeOfObjectsY = 40;
 
 
     //--------------------------------------------
@@ -57,13 +54,13 @@ public class Benutzer implements Serializable{
         pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         
         //laden Hintergrund
+        InputStream stream;
         try {
             stream = new FileInputStream("src/main/resources/com/example/fitnessapp/login.png");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        background = new Image(stream);
-        
+        Image background = new Image(stream);
         imageView = new ImageView();
         imageView.setImage(background);
         imageView.setX(0);
@@ -74,21 +71,19 @@ public class Benutzer implements Serializable{
         imageView.setPreserveRatio(true);
 
         //Laden des Icons
+        InputStream iconstream;
         try {
             iconstream = new FileInputStream("src/main/resources/com/example/fitnessapp/logo.png");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        icon = new Image(iconstream);
-
+        Image icon = new Image(iconstream);
         iconView = new ImageView();
-        //Setting image to the image view
         iconView.setImage(icon);
-        //Setting the image view parameters
         Main.switchScene(new Scene(pane));
         iconView.setX(Main.stage.getWidth()/2 - Main.stage.getWidth()/12);
         iconView.setY(Main.stage.getHeight()/6.2);
-        iconView.setFitHeight(Main.stage.getHeight()/6);
+        iconView.setFitHeight(88);
         iconView.setPreserveRatio(true);
 
         //Hinzufügen
@@ -113,21 +108,21 @@ public class Benutzer implements Serializable{
         txt.setVisible(true);
 
         //Textfeld
-        textfieldLBenutzer.setPrefHeight(40);       // Size Textfeld Benutzername Loginfenster
-        textfieldLBenutzer.setPrefWidth(200);
+        textfieldLBenutzer.setPrefHeight(sizeOfObjectsY);       // Size Textfeld Benutzername Loginfenster
+        textfieldLBenutzer.setPrefWidth(sizeOfObjectsX);
         textfieldLBenutzer.setPromptText("Benutzer");
         textfieldLBenutzer.setId("textfield-login");
 
         //Passwortfeld
-        textfieldLPasswort.setPrefHeight(40);       // Size Textfeld Passwort Loginfenster
-        textfieldLPasswort.setPrefWidth(200);
+        textfieldLPasswort.setPrefHeight(sizeOfObjectsY);       // Size Textfeld Passwort Loginfenster
+        textfieldLPasswort.setPrefWidth(sizeOfObjectsX);
         textfieldLPasswort.setPromptText("Passwort");
         textfieldLPasswort.setId("textfield-login");
 
         //Button
         buttonLLogin.setText("Login");
-        buttonLLogin.setPrefHeight(40);     // Size Button "Login" Loginfenster
-        buttonLLogin.setPrefWidth(200);
+        buttonLLogin.setPrefHeight(sizeOfObjectsY);     // Size Button "Login" Loginfenster
+        buttonLLogin.setPrefWidth(sizeOfObjectsX);
         //login.getStyleClass().set(0, "logreg");
         buttonLLogin.setId("button-login");
 
@@ -142,8 +137,8 @@ public class Benutzer implements Serializable{
 
             passwordField[i] = new PasswordField();
             passwordField[i].setId("textfield-login");
-            passwordField[i].setPrefHeight(40);         // Size 2 Passwortfelder Registrierungsfenster
-            passwordField[i].setPrefWidth(200);
+            passwordField[i].setPrefHeight(sizeOfObjectsY);         // Size 2 Passwortfelder Registrierungsfenster
+            passwordField[i].setPrefWidth(sizeOfObjectsX);
             if(i==0){
                 passwordField[i].setPromptText("Passwort");
             }else{
@@ -166,9 +161,7 @@ public class Benutzer implements Serializable{
                 }
             }
         });
-        //Text log in
-        textfehler.setLayoutX(159);
-        textfehler.setLayoutY(225);
+
 
         //Text registieren (clickable text im Login Fenster)
         txt.setLayoutY((pane.getHeight()/2) + pane.getHeight()/4);
@@ -217,8 +210,8 @@ public class Benutzer implements Serializable{
         buttonReg = new Button();
         buttonReg.setText("Registrieren");
         System.out.println();
-        buttonReg.setPrefHeight(40);        // Size Button "registrieren" Registrierungsfenster
-        buttonReg.setPrefWidth(200);
+        buttonReg.setPrefHeight(sizeOfObjectsY);        // Size Button "registrieren" Registrierungsfenster
+        buttonReg.setPrefWidth(sizeOfObjectsX);
         buttonReg.setId("button-login");
 
 
@@ -229,8 +222,8 @@ public class Benutzer implements Serializable{
         textfieldRBenutzername = new TextField();
         textfieldRBenutzername.setMinHeight(25);
         textfieldRBenutzername.setMinWidth(149);
-        textfieldRBenutzername.setPrefHeight(40);       // Size Textfeld Benutzername Registrierungsfenster
-        textfieldRBenutzername.setPrefWidth(200);
+        textfieldRBenutzername.setPrefHeight(sizeOfObjectsY);       // Size Textfeld Benutzername Registrierungsfenster
+        textfieldRBenutzername.setPrefWidth(sizeOfObjectsX);
         textfieldRBenutzername.setId("textfield-login");
         double x = pane.getWidth() / 2 - textfieldRBenutzername.getMinWidth() / 2;
         double y = pane.getHeight() - counter;
@@ -238,28 +231,7 @@ public class Benutzer implements Serializable{
 
         updateUI();
 
-        //Textfeld für das Passwort
-        counter -= 100;
         pane.getChildren().add(textfieldRBenutzername);
-
-
-        counter = 400;
-
-        for (int i = 0; i < 3; i++) {
-            y = pane.getHeight() - counter;
-            text[i] = new Text();
-            text[i].setLayoutX(x);
-            text[i].setLayoutY(y - 1);
-            counter -= 100;
-        }
-
-
-        for (int i = 0; i < 3; i++) {
-            //text[0].setText("Benutzer");
-            //text[1].setText("Neues Passwort");
-            //text[2].setText("Wiederholen des Passwortes");
-            pane.getChildren().add(text[i]);
-        }
 
         buttonReg.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -279,9 +251,6 @@ public class Benutzer implements Serializable{
                 passwordField[1].setVisible(false);
                 textfieldRBenutzername.setVisible(false);
                 buttonReg.setVisible(false);
-                for (int i = 0; i < 3; i++) {
-                    text[i].setVisible(false);
-                }
                 updateUI();
                 loginfun();
             }
@@ -301,8 +270,6 @@ public class Benutzer implements Serializable{
 
         BufferedWriter br = new BufferedWriter(fr);
         textfehler.setFill(Color.RED);
-        textfehler.setLayoutY(350);
-        textfehler.setLayoutX(pane.getWidth() / 2 - 149.0/ 2);
         if (passwordField[0].getText().equals(passwordField[1].getText()) && textfieldRBenutzername.getText().length() != 0 && passwordField[0].getText().length()!=0 &&passwordField[1].getText().length()!=0) {
             loggedIn = true;
             System.out.println("Passwort richtig");
@@ -325,6 +292,7 @@ public class Benutzer implements Serializable{
                 textfehler.setText("Passwörter stimmen nicht überein");
             }
         }
+        updateUI();
         br.close();
         if (loggedIn){
             // Erstellen des Paths zum .ser File
@@ -348,53 +316,58 @@ public class Benutzer implements Serializable{
      * @date    16.05.2023
      */
     public void updateUI(){
-        double midx = Main.stage.getWidth();
-        double midy = Main.stage.getHeight();
+        double midx = Main.stage.getScene().getWidth();
+        double midy = Main.stage.getScene().getHeight();
         System.out.println(midx);
         System.out.println(midy);
 
         //Loginfenster
-        textfieldLBenutzer.setLayoutX(midx/2 - textfieldLBenutzer.getWidth()/2);
+        textfieldLBenutzer.setLayoutX(midx/2 - sizeOfObjectsX/2);
         textfieldLBenutzer.setLayoutY(midy/2 - 50);
 
-        textfieldLPasswort.setLayoutX(midx/2 - textfieldLPasswort.getWidth()/2);
+        textfieldLPasswort.setLayoutX(midx/2 - sizeOfObjectsX/2);
         textfieldLPasswort.setLayoutY(midy/2 + 10);
 
-        buttonLLogin.setLayoutX(midx/2 - buttonLLogin.getWidth()/2);
+        buttonLLogin.setLayoutX(midx/2 - sizeOfObjectsX/2);
         buttonLLogin.setLayoutY(midy/2 + 75);
 
         //Registrierungsfenster
-        textfieldRBenutzername.setLayoutX(midx/2 - textfieldRBenutzername.getWidth()/2);
+        textfieldRBenutzername.setLayoutX(midx/2 - sizeOfObjectsX/2);
         textfieldRBenutzername.setLayoutY(midy/2 - 70);
 
-
-        passwordField[0].setLayoutX(midx/2 - passwordField[0].getWidth()/2);
+        passwordField[0].setLayoutX(midx/2 - sizeOfObjectsX/2);
         passwordField[0].setLayoutY(midy/2 - 20);
 
-        passwordField[1].setLayoutX(midx/2 - passwordField[1].getWidth()/2);
+        passwordField[1].setLayoutX(midx/2 - sizeOfObjectsX/2);
         passwordField[1].setLayoutY(midy/2 + 30);
 
-
-
-        buttonReg.setLayoutX(midx/2 - buttonReg.getWidth()/2);
+        System.out.println(buttonReg.getWidth());
+        buttonReg.setLayoutX(midx/2 - sizeOfObjectsX/2);
         buttonReg.setLayoutY(midy/2 + 80);
-
 
         //beide Anzeigen
         backgroundrec.setX(midx/2 - backgroundrec.getWidth()/2);
         backgroundrec.setY(midy/2 - backgroundrec.getHeight()/2);
 
-        iconView.setX(Main.stage.getWidth()/2 - 40);
+        iconView.setX(Main.stage.getWidth()/2 - sizeOfObjectsY);
         iconView.setY(backgroundrec.getY() + 10);
 
-        // Unterscheidung zwischen Loginfenster und Registrierungsfenster beim Login/Registrierungs Text (clickable)
+        // Unterscheidung zwischen Loginfenster und Registrierungsfenster beim Login/Registrierungs Text (clickable) und Fehlertext
        if(buttonLLogin.isVisible()){
             txt.setLayoutX(midx/2 - 30);
             txt.setLayoutY(midy/2 + 140);
-        }else{
+            textfehler.setLayoutY(pane.getHeight()/2 - 55);
+            textfehler.setLayoutX(pane.getWidth() / 2 - 149.0/ 2);
+       }else{
             txt.setLayoutX(midx/2 - 25);
             txt.setLayoutY(midy/2 + 140);
-        }
+           textfehler.setLayoutY(pane.getHeight() / 2 - 70);
+            if(Objects.equals(textfehler.getText(), "Kein Benutzername")) {
+                textfehler.setLayoutX(pane.getWidth() / 2 - 60);
+            }else{
+                textfehler.setLayoutX(pane.getWidth() / 2 - 120);
+            }
+       }
 
         adjustBackgroundSize();
     }
@@ -405,23 +378,12 @@ public class Benutzer implements Serializable{
      * @author  René Weissteiner
      * @date    16.05.2023
      */
-    public void adjustBackgroundSize(){ // warum wird es nicht nach dem groessten angepasst?
+    public void adjustBackgroundSize(){
         // Binden Sie die Breite und Höhe der ImageView an die Breite und Höhe der Pane
         imageView.fitWidthProperty().bind(Main.stage.getScene().getWindow().widthProperty());
         imageView.fitHeightProperty().bind(Main.stage.getScene().getWindow().heightProperty());
         // Setzen Sie den PreserveRatio-Parameter auf true, um das Seitenverhältnis des Bildes zu erhalten
         imageView.setPreserveRatio(false);
-        /*
-        if(Main.stage.getWidth() > Main.stage.getHeight()){
-            System.out.println("breite");
-            imageView.setFitWidth(Main.stage.getWidth());
-        }else{
-            System.out.println("höhe");
-            imageView.setFitHeight(Main.stage.getHeight());
-        }
-        System.out.println(Main.stage.getWidth() > Main.stage.getHeight());
-
-         */
     }
 
     /**
@@ -466,7 +428,6 @@ public class Benutzer implements Serializable{
                     benutzername = textfieldLBenutzer.getText();
                     passwort = textfieldLPasswort.getText();
                     loggedIn = true;
-
                 } else {
                     pane.requestFocus();
 
@@ -474,11 +435,9 @@ public class Benutzer implements Serializable{
                     textfieldLPasswort.setText("");
                     textfehler.setFill(Color.RED);
                     textfehler.setText("Passwort oder Benutzername falsch!");
-
                 }
                 zeile = br.readLine();
             }
-
 
         } while (zeile != null);
         br.close();
