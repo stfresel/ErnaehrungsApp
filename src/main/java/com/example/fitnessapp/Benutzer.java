@@ -115,16 +115,12 @@ public class Benutzer implements Serializable{
         //Textfeld
         textfieldLBenutzer.setPrefHeight(40);       // Size Textfeld Benutzername Loginfenster
         textfieldLBenutzer.setPrefWidth(200);
-        textfieldLBenutzer.setLayoutY(179);
-        textfieldLBenutzer.setLayoutX(159);
         textfieldLBenutzer.setPromptText("Benutzer");
         textfieldLBenutzer.setId("textfield-login");
 
         //Passwortfeld
         textfieldLPasswort.setPrefHeight(40);       // Size Textfeld Passwort Loginfenster
         textfieldLPasswort.setPrefWidth(200);
-        textfieldLPasswort.setLayoutY(239);
-        textfieldLPasswort.setLayoutX(159);
         textfieldLPasswort.setPromptText("Passwort");
         textfieldLPasswort.setId("textfield-login");
 
@@ -132,19 +128,33 @@ public class Benutzer implements Serializable{
         buttonLLogin.setText("Login");
         buttonLLogin.setPrefHeight(40);     // Size Button "Login" Loginfenster
         buttonLLogin.setPrefWidth(200);
-        buttonLLogin.setLayoutX(Main.stage.getScene().getWidth() / 2 - buttonLLogin.getPrefWidth()/2);
-        buttonLLogin.setLayoutY(300);
         //login.getStyleClass().set(0, "logreg");
         buttonLLogin.setId("button-login");
 
         //Rechteck Hintergrund
         backgroundrec.setFill(Paint.valueOf("#B6CC95"));
-        backgroundrec.setWidth(pane.getWidth()/1.8);        // Size Hintergrund Rechteck
-        backgroundrec.setHeight(pane.getHeight()/1.4);
-        backgroundrec.setX(pane.getWidth()/2 - backgroundrec.getWidth()/2);
-        backgroundrec.setY(pane.getHeight()/2 - backgroundrec.getHeight()/2);
+        backgroundrec.setWidth(300);        // Size Hintergrund Rechteck
+        backgroundrec.setHeight(400);
         backgroundrec.setOpacity(0.8);
 
+
+        for (int i = 0; i < 2; i++) {
+
+            passwordField[i] = new PasswordField();
+            passwordField[i].setId("textfield-login");
+            passwordField[i].setPrefHeight(40);         // Size 2 Passwortfelder Registrierungsfenster
+            passwordField[i].setPrefWidth(200);
+            if(i==0){
+                passwordField[i].setPromptText("Passwort");
+            }else{
+                passwordField[i].setPromptText("Passwort wiederholen");
+            }
+
+            pane.getChildren().add(passwordField[i]);
+            passwordField[i].setVisible(false);
+
+            //setzen der positionen der UI-Bausteine
+        }
 //--------------------------------------------------------------------------------------------------------\\
         buttonLLogin.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -199,16 +209,14 @@ public class Benutzer implements Serializable{
         buttonLLogin.setVisible(false);
         txt.setVisible(false);
         txt.setText("Login");
-        txt.setLayoutX(295);
-        txt.setLayoutY(375);
         txt.setVisible(true);
+        passwordField[0].setVisible(true);
+        passwordField[1].setVisible(true);
 
         //registrierungsbutton
         buttonReg = new Button();
         buttonReg.setText("Registrieren");
         System.out.println();
-        buttonReg.setLayoutX(pane.getWidth() / 2 - 149.0/ 2);
-        buttonReg.setLayoutY(400);
         buttonReg.setPrefHeight(40);        // Size Button "registrieren" Registrierungsfenster
         buttonReg.setPrefWidth(200);
         buttonReg.setId("button-login");
@@ -226,34 +234,14 @@ public class Benutzer implements Serializable{
         textfieldRBenutzername.setId("textfield-login");
         double x = pane.getWidth() / 2 - textfieldRBenutzername.getMinWidth() / 2;
         double y = pane.getHeight() - counter;
-        textfieldRBenutzername.setLayoutX(x);
-        textfieldRBenutzername.setLayoutY(y);
         textfieldRBenutzername.setPromptText("Benutzername");
+
+        updateUI();
 
         //Textfeld für das Passwort
         counter -= 100;
         pane.getChildren().add(textfieldRBenutzername);
-        for (int i = 0; i < 2; i++) {
-            y = pane.getHeight() - counter;
-            passwordField[i] = new PasswordField();
-            passwordField[i].setLayoutX(x);
-            passwordField[i].setId("textfield-login");
-            passwordField[i].setPrefHeight(40);         // Size 2 Passwortfelder Registrierungsfenster
-            passwordField[i].setPrefWidth(200);
-            passwordField[i].setLayoutY(y);
-            counter -= 100;
-            if(i==0){
-                passwordField[i].setPromptText("Passwort");
-            }else{
-                passwordField[i].setPromptText("Passwort wiederholen");
-            }
 
-            pane.getChildren().add(passwordField[i]);
-
-            //setzen der positionen der UI-Bausteine
-            updateUI();
-
-        }
 
         counter = 400;
 
@@ -377,15 +365,17 @@ public class Benutzer implements Serializable{
 
         //Registrierungsfenster
         textfieldRBenutzername.setLayoutX(midx/2 - textfieldRBenutzername.getWidth()/2);
-        textfieldRBenutzername.setLayoutY(midy/2 - 60);
+        textfieldRBenutzername.setLayoutY(midy/2 - 70);
 
-        /*
+
         passwordField[0].setLayoutX(midx/2 - passwordField[0].getWidth()/2);
-        passwordField[0].setLayoutY(midy/2 - 50);
+        passwordField[0].setLayoutY(midy/2 - 20);
 
         passwordField[1].setLayoutX(midx/2 - passwordField[1].getWidth()/2);
-        passwordField[1].setLayoutY(midy/2);
-*/
+        passwordField[1].setLayoutY(midy/2 + 30);
+
+
+
         buttonReg.setLayoutX(midx/2 - buttonReg.getWidth()/2);
         buttonReg.setLayoutY(midy/2 + 80);
 
@@ -471,7 +461,7 @@ public class Benutzer implements Serializable{
                 String[] benutzer = zeile.split(" ");
                 if (Objects.equals(textfieldLBenutzer.getText(), benutzer[0]) && Objects.equals(textfieldLPasswort.getText(), benutzer[1])) {
                     textfehler.setText("");
-                    System.out.println("Passwort und Benutzer stimmern überein");
+                    System.out.println("Passwort und Benutzer stimmen überein");
 
                     benutzername = textfieldLBenutzer.getText();
                     passwort = textfieldLPasswort.getText();
