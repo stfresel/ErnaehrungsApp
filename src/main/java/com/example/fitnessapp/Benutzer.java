@@ -25,19 +25,15 @@ public class Benutzer implements Serializable{
     public transient Pane pane=new Pane();
     private transient TextField textfieldRBenutzername = new TextField();
     private transient Button buttonReg = new Button();
-    private transient PasswordField[] passwordField = new PasswordField[2];
-    private transient Text textfehler = new Text();
-    private transient Text txt = new Text();
-    private transient TextField textfieldLBenutzer = new TextField();
-    private transient PasswordField textfieldLPasswort = new PasswordField();
-    private transient Button buttonLLogin =new Button();
-    InputStream stream;
-    InputStream iconstream;
-    private transient Image background;
+    private final transient PasswordField[] passwordField = new PasswordField[2];
+    private final transient Text textfehler = new Text();
+    private final transient Text txt = new Text();
+    private final transient TextField textfieldLBenutzer = new TextField();
+    private final transient PasswordField textfieldLPasswort = new PasswordField();
+    private final transient Button buttonLLogin =new Button();
     private ImageView imageView;
-    private transient Image icon;
     private ImageView iconView;
-    private transient Rectangle backgroundrec = new Rectangle();
+    private final transient Rectangle backgroundrec = new Rectangle();
 
 
     //--------------------------------------------
@@ -56,13 +52,13 @@ public class Benutzer implements Serializable{
         pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         
         //laden Hintergrund
+        InputStream stream;
         try {
             stream = new FileInputStream("src/main/resources/com/example/fitnessapp/login.png");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        background = new Image(stream);
-        
+        Image background = new Image(stream);
         imageView = new ImageView();
         imageView.setImage(background);
         imageView.setX(0);
@@ -73,21 +69,19 @@ public class Benutzer implements Serializable{
         imageView.setPreserveRatio(true);
 
         //Laden des Icons
+        InputStream iconstream;
         try {
             iconstream = new FileInputStream("src/main/resources/com/example/fitnessapp/logo.png");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        icon = new Image(iconstream);
-
+        Image icon = new Image(iconstream);
         iconView = new ImageView();
-        //Setting image to the image view
         iconView.setImage(icon);
-        //Setting the image view parameters
         Main.switchScene(new Scene(pane));
         iconView.setX(Main.stage.getWidth()/2 - Main.stage.getWidth()/12);
         iconView.setY(Main.stage.getHeight()/6.2);
-        iconView.setFitHeight(Main.stage.getHeight()/6);
+        iconView.setFitHeight(88);
         iconView.setPreserveRatio(true);
 
         //Hinzufügen
@@ -381,23 +375,12 @@ public class Benutzer implements Serializable{
      * @author  René Weissteiner
      * @date    16.05.2023
      */
-    public void adjustBackgroundSize(){ // warum wird es nicht nach dem groessten angepasst?
+    public void adjustBackgroundSize(){
         // Binden Sie die Breite und Höhe der ImageView an die Breite und Höhe der Pane
         imageView.fitWidthProperty().bind(Main.stage.getScene().getWindow().widthProperty());
         imageView.fitHeightProperty().bind(Main.stage.getScene().getWindow().heightProperty());
         // Setzen Sie den PreserveRatio-Parameter auf true, um das Seitenverhältnis des Bildes zu erhalten
         imageView.setPreserveRatio(false);
-        /*
-        if(Main.stage.getWidth() > Main.stage.getHeight()){
-            System.out.println("breite");
-            imageView.setFitWidth(Main.stage.getWidth());
-        }else{
-            System.out.println("höhe");
-            imageView.setFitHeight(Main.stage.getHeight());
-        }
-        System.out.println(Main.stage.getWidth() > Main.stage.getHeight());
-
-         */
     }
 
     /**
