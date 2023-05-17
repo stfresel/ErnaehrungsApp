@@ -92,7 +92,7 @@ public class Konto implements Serializable {
                             gewichtTextField.getText().length() < 1){
                         setFehlermeldung(textfehler);
                     }
-                    meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
+                    meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getInt(), geschlechtCombobox.getValue());
                     calcPart(gridPaneCalcPart);
                 }
             });
@@ -112,15 +112,15 @@ public class Konto implements Serializable {
 
         labellist.get(1).setId("textfield-login");
 
-        gridPane.addRow(0, labellist.get(0));
-        gridPane.addRow(1, labellist.get(1));
-        gridPane.addRow(2, labellist.get(2));
+        gridPane.addRow(0, new Label("Informationen zum Profil"));
+        gridPane.addRow(1, new Label("Benutzername: " + Main.benutzer.getBenutzername()));
+        gridPane.addRow(2, new Label("Passwort: " + Main.benutzer.getPasswort()));
 
-        gridPane.addRow(3, labellist.get(3));
-        gridPane.addRow(4, labellist.get(4));
-        gridPane.addRow(5, labellist.get(5));
-        gridPane.addRow(6, labellist.get(6), alterTextField);
-        gridPane.addRow(7, labellist.get(7), geschlechtCombobox);
+        gridPane.addRow(3, new Label("Körperdaten"));
+        gridPane.addRow(4, new Label("Größe (in m): "), groesseTextField);
+        gridPane.addRow(5, new Label("Gewicht (in kg): "), gewichtTextField);
+        gridPane.addRow(6, new Label("Alter (in Jahren): "), alterTextField);
+        gridPane.addRow(7, new Label("Geschlecht: "), geschlechtCombobox);
         gridPane.addRow(8,new Label(),textfehler);
 
 
@@ -129,14 +129,14 @@ public class Konto implements Serializable {
         return gridPane;
     }
 
-    private void setFehlermeldung(Text text){
+    private void setFehlermeldung(Text textfehler){
         /*
            textfehler.setLayoutX(50);
            textfehler.setLayoutY(225);
           */
-        text.setFill(Color.RED);
-        text.setText("Bitte gib deine vollständigen Daten an");
-        text.setVisible(true);
+        textfehler.setFill(Color.RED);
+        textfehler.setText("Bitte gib deine vollständigen Daten an");
+        textfehler.setVisible(true);
     }
 
 }
