@@ -440,7 +440,7 @@ public class Benutzer implements Serializable{
                     loggedIn = true;
                 } else {
                     pane.requestFocus();
-
+                    textfehler.setVisible(true);
                     textfieldLBenutzer.setText("");
                     textfieldLPasswort.setText("");
                     textfehler.setFill(Color.RED);
