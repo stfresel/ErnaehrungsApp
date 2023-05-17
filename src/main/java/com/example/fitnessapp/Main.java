@@ -19,6 +19,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage1) {
         stage = stage1;
+        stage.setMinWidth(500);
+        stage.setMinHeight(500);
         Pane pane = new Pane();
         pane.setPrefSize(500, 500);
         stage.setTitle("FitnessApp");
@@ -31,6 +33,7 @@ public class Main extends Application {
         Controller c = new Controller(benutzer);
         c.start();
     }
+
     public static void switchScene(Scene s){
         try {
             String cssStyleFile = Objects.requireNonNull( Main.class.getResource("styles.css").toExternalForm() );
@@ -40,7 +43,6 @@ public class Main extends Application {
             System.out.println("Exception @ switchScene()");
         }
     }
-
 
     public static void main(String[] args) {
         launch();

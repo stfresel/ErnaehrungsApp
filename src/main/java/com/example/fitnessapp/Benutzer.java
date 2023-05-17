@@ -416,12 +416,22 @@ public class Benutzer implements Serializable{
      * @date    16.05.2023
      */
     public void adjustBackgroundSize(){ // warum wird es nicht nach dem groessten angepasst?
+        // Binden Sie die Breite und Höhe der ImageView an die Breite und Höhe der Pane
+        imageView.fitWidthProperty().bind(Main.stage.getScene().getWindow().widthProperty());
+        imageView.fitHeightProperty().bind(Main.stage.getScene().getWindow().heightProperty());
+        // Setzen Sie den PreserveRatio-Parameter auf true, um das Seitenverhältnis des Bildes zu erhalten
+        imageView.setPreserveRatio(false);
+        /*
         if(Main.stage.getWidth() > Main.stage.getHeight()){
+            System.out.println("breite");
             imageView.setFitWidth(Main.stage.getWidth());
         }else{
+            System.out.println("höhe");
             imageView.setFitHeight(Main.stage.getHeight());
         }
         System.out.println(Main.stage.getWidth() > Main.stage.getHeight());
+
+         */
     }
 
     /**
