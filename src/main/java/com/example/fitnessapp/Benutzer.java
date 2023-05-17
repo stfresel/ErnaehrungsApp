@@ -97,6 +97,7 @@ public class Benutzer implements Serializable{
 
         loginfun();
     }
+
     public void loginfun(){
 
         textfehler.setVisible(false);

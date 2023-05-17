@@ -15,7 +15,6 @@ public class Zutat implements Serializable {
     }
 
     public Zutat(){
-
     }
 
     //______________getter und setter______________

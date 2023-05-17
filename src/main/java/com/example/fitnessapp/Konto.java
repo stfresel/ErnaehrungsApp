@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -20,6 +21,7 @@ public class Konto implements Serializable {
 
     public HBox loadKonto() {
         HBox hBox = new HBox();
+        hBox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         gridPaneCalcPart = new GridPane();
         calcPart(gridPaneCalcPart);
         hBox.getChildren().add(0,datenAnsicht());
@@ -50,7 +52,7 @@ public class Konto implements Serializable {
         Text textfehler = new Text();
         geschlechtCombobox.getItems().addAll("weiblich", "männlich");
         gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
-        gridPane.addRow(9,new Label(),textfehler);
+
         // Wenn es direkt nach dem Registrieren geöffnet wird
         if (meineKoerperdaten == null){
             speichernBtn.setVisible(true);
@@ -60,12 +62,11 @@ public class Konto implements Serializable {
             speichernBtn.setOnMouseClicked(new EventHandler<>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    if ( Objects.equals(groesseTextField.getText(), "") ||Objects.equals(gewichtTextField.getText(), "") || Objects.equals(groesseTextField.getText(), "") ||alterTextField.getText() == null||gewichtTextField.getText()==null||alterTextField.getText()==null||gewichtTextField.getText()==null|| geschlechtCombobox.getValue()==null){
-                        textfehler.setLayoutX(50);
-                        textfehler.setLayoutY(225);
-                        textfehler.setFill(Color.RED);
-                        textfehler.setText("Bitte gib deine vollständigen Daten an");
-                        textfehler.setVisible(true);
+                    System.out.println(gewichtTextField.getText().length());
+                    if (geschlechtCombobox.getSelectionModel().getSelectedItem()==null ||
+                            alterTextField.getText().length() < 1 || groesseTextField.getText().length() < 1 ||
+                            gewichtTextField.getText().length() < 1){
+                        setFehlermeldung(textfehler);
 
                     }else {
                         System.out.println("Combobox Geschlecht id: " + geschlechtCombobox.getValue());
@@ -77,32 +78,21 @@ public class Konto implements Serializable {
                 }
             });
         } else {
-            //speichernBtn.setVisible(false);
-
             groesseTextField.setText(String.valueOf(meineKoerperdaten.getGroesse()));
             gewichtTextField.setText(String.valueOf(meineKoerperdaten.getGewicht()));
             alterTextField.setText(String.valueOf(meineKoerperdaten.getAlter()));
             geschlechtCombobox.setValue(meineKoerperdaten.getGeschlecht());
-
-            //Timeline t = new Timeline(new KeyFrame(Duration.millis(200)));
-            //groesseTextField.setText(String.valueOf(meineKoerperdaten.getGroesse()));
-            //gewichtTextField.setText(String.valueOf(meineKoerperdaten.getGewicht()));
-            //alterTextField.setText(String.valueOf(meineKoerperdaten.getAlter()));
-            //geschlechtCombobox.setValue(meineKoerperdaten.getGeschlecht());
-
-            //wenn man etwas verändert wird
-
-
+            //wenn man etwas verändert will
             speichernBtn.setOnMouseClicked(new EventHandler<>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
+                    if (geschlechtCombobox.getSelectionModel().getSelectedItem()==null ||
+                            alterTextField.getText().length() < 1 || groesseTextField.getText().length() < 1 ||
+                            gewichtTextField.getText().length() < 1){
+                        setFehlermeldung(textfehler);
+                    }
                     meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getInt(), geschlechtCombobox.getValue());
-                    // neu rendern
-                    //-------------------------
-                    System.out.println("miau");
-
                     calcPart(gridPaneCalcPart);
-
                 }
             });
 
@@ -118,10 +108,21 @@ public class Konto implements Serializable {
         gridPane.addRow(5, new Label("Gewicht (in kg): "), gewichtTextField);
         gridPane.addRow(6, new Label("Alter (in Jahren): "), alterTextField);
         gridPane.addRow(7, new Label("Geschlecht: "), geschlechtCombobox);
+        gridPane.addRow(8,new Label(),textfehler);
 
-        gridPane.addRow(8, speichernBtn);
+        gridPane.addRow(9, speichernBtn);
 
         return gridPane;
+    }
+
+    private void setFehlermeldung(Text textfehler){
+        /*
+           textfehler.setLayoutX(50);
+           textfehler.setLayoutY(225);
+          */
+        textfehler.setFill(Color.RED);
+        textfehler.setText("Bitte gib deine vollständigen Daten an");
+        textfehler.setVisible(true);
     }
 
 }
