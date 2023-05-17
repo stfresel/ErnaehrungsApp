@@ -69,7 +69,7 @@ public class Konto implements Serializable {
 
                     }else {
                         System.out.println("Combobox Geschlecht id: " + geschlechtCombobox.getValue());
-                        meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getInt(), geschlechtCombobox.getValue());
+                        meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
                         Main.benutzer.getHome().startHome();
 
                     }

@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -30,9 +30,9 @@ public class Benutzer implements Serializable{
     private final transient Text txt = new Text();
     private final transient TextField textfieldLBenutzer = new TextField();
     private final transient PasswordField textfieldLPasswort = new PasswordField();
-    private final transient Button buttonLLogin =new Button();
-    private ImageView imageView;
-    private ImageView iconView;
+    private final transient Button buttonLLogin = new Button();
+    private transient ImageView imageView;
+    private transient ImageView iconView;
     private final transient Rectangle backgroundrec = new Rectangle();
     private final double sizeOfObjectsX = 200;
     private final double sizeOfObjectsY = 40;
@@ -43,7 +43,6 @@ public class Benutzer implements Serializable{
     private String benutzername;
     private String passwort;
     private Home home;
-    private Path path = null;
     //------------------------------
 
     /**
@@ -52,7 +51,7 @@ public class Benutzer implements Serializable{
 
     public void initialize() {
         pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
-        
+
         //laden Hintergrund
         InputStream stream;
         try {
@@ -389,7 +388,9 @@ public class Benutzer implements Serializable{
         }
 
          */
+
         imageView.fitHeightProperty().bind(Main.stage.getScene().getWindow().heightProperty());
+
 
         // Setzen Sie den PreserveRatio-Parameter auf true, um das Seitenverhältnis des Bildes zu erhalten
         imageView.setPreserveRatio(true);
@@ -400,7 +401,7 @@ public class Benutzer implements Serializable{
      * Die Methode speichert die Daten (Home) im .ser File.
      */
     public void datenSpeichern(){
-        path = Paths.get(benutzername + "_" + passwort + ".ser");
+        Path path = Paths.get(benutzername + "_" + passwort + ".ser");
         // Erstellen eines .ser Files wo das Tagebuch gespeichert wird
         try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
             whereToWrite.writeObject(home);
@@ -454,7 +455,7 @@ public class Benutzer implements Serializable{
 
         if (loggedIn){
             // path wieder erstellen evt funktion?
-            path = Paths.get(benutzername + "_" + passwort + ".ser");
+            Path path = Paths.get(benutzername + "_" + passwort + ".ser");
             try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
                 home = (Home) whereToReadFrom.readObject();
                 System.out.println("auslesen vom file");

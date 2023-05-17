@@ -6,7 +6,7 @@ public class Koerperdaten implements Serializable {
     private double groesse; // in m
     private double gewicht; // in kg
     private String geschlecht;
-    private int alter;
+    private double alter;
     private Naehrwerte tagesUmsatz = new Naehrwerte(0,0,0,0);
     private double bmi;
 
@@ -49,11 +49,11 @@ public class Koerperdaten implements Serializable {
         return geschlecht;
     }
 
-    public int getAlter() {
+    public double getAlter() {
         return alter;
     }
 
-    public void setKoerperdaten(double groesse, double gewicht, int alter, String geschlecht){
+    public void setKoerperdaten(double groesse, double gewicht, double alter, String geschlecht){
        this.groesse = groesse;
        this.gewicht = gewicht;
        this.alter = alter;
@@ -77,7 +77,7 @@ public class Koerperdaten implements Serializable {
         this.geschlecht = geschlecht;
     }
 
-    public void setAlter(int alter) {
+    public void setAlter(double alter) {
         this.alter = alter;
     }
 
