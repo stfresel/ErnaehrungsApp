@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -30,9 +30,9 @@ public class Benutzer implements Serializable{
     private final transient Text txt = new Text();
     private final transient TextField textfieldLBenutzer = new TextField();
     private final transient PasswordField textfieldLPasswort = new PasswordField();
-    private final transient Button buttonLLogin = new Button();
-    private transient ImageView imageView;
-    private transient ImageView iconView;
+    private final transient Button buttonLLogin =new Button();
+    private ImageView imageView;
+    private ImageView iconView;
     private final transient Rectangle backgroundrec = new Rectangle();
     private final double sizeOfObjectsX = 200;
     private final double sizeOfObjectsY = 40;
@@ -43,6 +43,7 @@ public class Benutzer implements Serializable{
     private String benutzername;
     private String passwort;
     private Home home;
+    private Path path = null;
     //------------------------------
 
     /**
@@ -51,7 +52,7 @@ public class Benutzer implements Serializable{
 
     public void initialize() {
         pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
-
+        
         //laden Hintergrund
         InputStream stream;
         try {
@@ -97,7 +98,6 @@ public class Benutzer implements Serializable{
 
         loginfun();
     }
-
     public void loginfun(){
 
         textfehler.setVisible(false);
@@ -355,19 +355,21 @@ public class Benutzer implements Serializable{
 
         // Unterscheidung zwischen Loginfenster und Registrierungsfenster beim Login/Registrierungs Text (clickable) und Fehlertext
        if(buttonLLogin.isVisible()){
-            txt.setLayoutX(midx/2 - 30);
+            txt.setLayoutX(midx/2 - 32);
             txt.setLayoutY(midy/2 + 140);
             textfehler.setLayoutY(pane.getHeight()/2 - 55);
             textfehler.setLayoutX(pane.getWidth() / 2 - 149.0/ 2);
-       }else{
-            txt.setLayoutX(midx/2 - 25);
-            txt.setLayoutY(midy/2 + 140);
-           textfehler.setLayoutY(pane.getHeight() / 2 - 70);
-            if(Objects.equals(textfehler.getText(), "Kein Benutzername")) {
-                textfehler.setLayoutX(pane.getWidth() / 2 - 60);
-            }else{
-                textfehler.setLayoutX(pane.getWidth() / 2 - 120);
-            }
+       }else {
+           txt.setLayoutX(midx / 2 - 18);
+           txt.setLayoutY(midy / 2 + 140);
+           textfehler.setLayoutY(pane.getHeight() / 2 - 80);
+           if (Objects.equals(textfehler.getText(), "Kein Benutzername")) {
+               textfehler.setLayoutX(pane.getWidth() / 2 - 60);
+           } else if (Objects.equals(textfehler.getText(), "Passwörter stimmen nicht überein")) {
+               textfehler.setLayoutX(pane.getWidth() / 2 - 100);
+           } else {
+               textfehler.setLayoutX(pane.getWidth() / 2 - 120);
+           }
        }
 
         adjustBackgroundSize();
@@ -389,9 +391,7 @@ public class Benutzer implements Serializable{
         }
 
          */
-
         imageView.fitHeightProperty().bind(Main.stage.getScene().getWindow().heightProperty());
-
 
         // Setzen Sie den PreserveRatio-Parameter auf true, um das Seitenverhältnis des Bildes zu erhalten
         imageView.setPreserveRatio(true);
@@ -402,7 +402,7 @@ public class Benutzer implements Serializable{
      * Die Methode speichert die Daten (Home) im .ser File.
      */
     public void datenSpeichern(){
-        Path path = Paths.get(benutzername + "_" + passwort + ".ser");
+        path = Paths.get(benutzername + "_" + passwort + ".ser");
         // Erstellen eines .ser Files wo das Tagebuch gespeichert wird
         try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
             whereToWrite.writeObject(home);
@@ -442,7 +442,7 @@ public class Benutzer implements Serializable{
                     loggedIn = true;
                 } else {
                     pane.requestFocus();
-                    textfehler.setVisible(true);
+
                     textfieldLBenutzer.setText("");
                     textfieldLPasswort.setText("");
                     textfehler.setFill(Color.RED);
@@ -456,7 +456,7 @@ public class Benutzer implements Serializable{
 
         if (loggedIn){
             // path wieder erstellen evt funktion?
-            Path path = Paths.get(benutzername + "_" + passwort + ".ser");
+            path = Paths.get(benutzername + "_" + passwort + ".ser");
             try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
                 home = (Home) whereToReadFrom.readObject();
                 System.out.println("auslesen vom file");
