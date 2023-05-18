@@ -300,7 +300,7 @@ public class Benutzer implements Serializable{
 
 
             //Main.stage.setScene(new Scene(home.getKonto().datenAnsicht()));
-            Main.switchScene(new Scene(home.getKonto().datenAnsicht()));
+            Main.switchScene(new Scene(home.getKonto().datenAnsicht(true)));
             //home.startHome();
         }
     }

@@ -30,7 +30,10 @@
     -fx-border: none;
     -fx-font-size: 11pt;
     -fx-background-radius: 1px;
+}
 
+#textfield-konto:focused{
+    -fx-border-color: #8ba662;
 }
 
 #label-konto {

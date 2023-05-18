@@ -8,8 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -36,6 +35,7 @@ public class Konto implements Serializable {
         calcPart(gridPaneCalcPart);
         hBox.getChildren().add(0,datenAnsicht());
         hBox.getChildren().add(1, gridPaneCalcPart);
+
         return hBox;
     }
 
@@ -52,7 +52,7 @@ public class Konto implements Serializable {
         gridPane.addRow(5,new Label("Fette          : " + meineKoerperdaten.getTagesUmsatz().getFett()));
     }
 
-    public GridPane datenAnsicht() {
+    public GridPane datenAnsicht(boolean... ifbackground) {
         GridPane gridPane = new GridPane();
         Button speichernBtn = new Button("speichern");
         NumericTextField alterTextField = new NumericTextField();
@@ -62,6 +62,20 @@ public class Konto implements Serializable {
         Text textfehler = new Text();
         geschlechtCombobox.getItems().addAll("weiblich", "männlich");
         gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
+
+        if (ifbackground.length > 0) {
+            InputStream stream;
+        try {
+            stream = new FileInputStream("src/main/resources/com/example/fitnessapp/background3.png");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        Image background = new Image(stream);
+
+        gridPane.setBackground(new Background(new BackgroundImage(background, null, null, null, new BackgroundSize(100, 100, true, true, false, true))));
+    }
+
+        //gridPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#B6CC95"), null, null)));
 
         // Wenn es direkt nach dem Registrieren geöffnet wird
         if (meineKoerperdaten == null){
