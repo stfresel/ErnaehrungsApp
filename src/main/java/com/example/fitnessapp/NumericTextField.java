@@ -23,9 +23,11 @@ public class NumericTextField extends TextField {
     public double getDouble(){
         return Double.parseDouble(getText());
     }
-
+/*
     public int getInt(){
         return Integer.parseInt(getText());
     }
+
+ */
 
 }

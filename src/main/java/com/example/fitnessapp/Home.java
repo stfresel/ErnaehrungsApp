@@ -10,6 +10,7 @@ import javafx.stage.WindowEvent;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Home implements Serializable {
@@ -17,6 +18,9 @@ public class Home implements Serializable {
      private Konto konto;
      private Statistik statistik;
      private Tagebuch tagebuch;
+// wichtig, da ansonst die Zuatenen nicht serialisiert werden
+     private ArrayList<Zutat> gespeicherteZutaten = new ArrayList<>();
+
 
      public Home(){
           tagebuch = new Tagebuch();
@@ -29,6 +33,9 @@ public class Home implements Serializable {
       * Es wird festgelegt, dass beim schliessen des Fensters, die Daten automatisch gespeichert werden:
       */
      public void startHome(){
+
+          Main.gespeicherteZutaten = gespeicherteZutaten;
+
           Main.benutzer.datenSpeichern();
           Main.stage.setOnCloseRequest(new EventHandler<WindowEvent>(){
                @Override

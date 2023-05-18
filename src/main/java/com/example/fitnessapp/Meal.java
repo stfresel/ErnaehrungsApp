@@ -10,6 +10,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -24,6 +27,7 @@ public class Meal implements Serializable{
     private transient VBox zutatenPane;
 
     private final transient VBox bereitsHinzugefuegteZutaten = new VBox();
+    private transient Text fehlermeldung = new Text();
 
     public void loadMealScene() {
         GridPane gridPane = new GridPane();
@@ -82,6 +86,11 @@ public class Meal implements Serializable{
         CheckBox checkbox = new CheckBox("neue Zutat erstellen");
         checkbox.setSelected(true);
 
+        // Fehlermeldung setzten
+        fehlermeldung.setText("Bitte gib die fehlenden Werte ein");
+        fehlermeldung.setVisible(false);
+        fehlermeldung.setFill(Color.RED);
+
         // gespeicherte zutat verwenden -------------------------------
         String[] zutatenNames = new String[Main.gespeicherteZutaten.size()];
         for (int i = 0; i < Main.gespeicherteZutaten.size(); i++) {
@@ -93,6 +102,7 @@ public class Meal implements Serializable{
 
         // no in eventhandler mochn
         loadZutate.addRow(0, comboBox, mengeGespeicherteZutat);
+        loadZutate.addRow(1, fehlermeldung);
 
 
         // zutat neu erstellen ----------------------------------------------------------------
@@ -109,15 +119,18 @@ public class Meal implements Serializable{
         zutatErstellen.addRow(1, mengeGegessen, textFieldGegessen);
 
 
+
         NumericTextField proteineTextField = new NumericTextField();
         NumericTextField fetteTextField = new NumericTextField();
         NumericTextField kolenhydrateTextField = new NumericTextField();
         NumericTextField kcalTextField = new NumericTextField();
+        //fehlermeldung.setVisible(false);
 
         zutatErstellen.addRow(2, new Label("Kalorien: "), kcalTextField);
         zutatErstellen.addRow(3, new Label("Kolenhydrate: "), kolenhydrateTextField);
         zutatErstellen.addRow(4, new Label("Proteine: "), proteineTextField);
         zutatErstellen.addRow(5, new Label("Fette: "),fetteTextField);
+        zutatErstellen.addRow(6, fehlermeldung);
 
         checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -144,36 +157,48 @@ public class Meal implements Serializable{
             public void handle(MouseEvent mouseEvent) {
                 // Zutat aus Speicher holen
                 if (!checkbox.isSelected()){
-                    // Achtung die nutritions miasn no an die menge des gegessenen ungepasst werdn
-                    //for (int i = 0; i < Main.gespeicherteZutaten.size(); i++) {
-                    //    if (Objects.equals(Main.gespeicherteZutaten.get(i).getName(), nameDerZutat.getText())){
-                    //        // trefeerrrrrrr
-                    //        //Autofilll();
-                    //        System.out.println("Autofilllllll-----wichtig");
-                    //    }
-                    //}
-                    for (int i = 0; i < Main.gespeicherteZutaten.size(); i++) {
-                        if (Objects.equals(Main.gespeicherteZutaten.get(i).getName(), comboBox.getValue())){
-                            System.out.println("aus array holen");
-                            Zutat arrZutat = Main.gespeicherteZutaten.get(i);
-                            int menge = mengeGespeicherteZutat.getInt();    // Menge der Zutat die gerade gegessen wird
-                            Zutat z = calcNaehrwerteZutat(arrZutat, menge);
+                    if (comboBox.getValue().isEmpty()){
+                        fehlermeldung.setVisible(true);
+                    }else{
+                        for (int i = 0; i < Main.gespeicherteZutaten.size(); i++) {
+                            if (Objects.equals(Main.gespeicherteZutaten.get(i).getName(), comboBox.getValue())){
+                                if (mengeGespeicherteZutat.getText().isEmpty()){
+                                    fehlermeldung.setVisible(true);
+                                }else {
+                                    fehlermeldung.setVisible(false);
+                                    System.out.println("aus array holen");
+                                    Zutat arrZutat = Main.gespeicherteZutaten.get(i);
+                                    int menge = (int) mengeGespeicherteZutat.getDouble();    // Menge der Zutat die gerade gegessen wird
+                                    Zutat z = calcNaehrwerteZutat(arrZutat, menge);
 
-                            addZutate2Meal(z);
-                            break;
+                                    addZutate2Meal(z);
+                                    break;
+                                }
+
+                            }
                         }
                     }
+
 
                     System.out.println("fertiggg");
                 } else {
                     // Zutat neu Hinzufügen
                     System.out.println("neue Zutat erstellt");
-                    Zutat z = new Zutat(textFieldName.getText(), textFieldGegessen.getInt(),
-                            new Naehrwerte(kcalTextField.getInt(), fetteTextField.getInt(),
-                                    kolenhydrateTextField.getInt(), proteineTextField.getInt()));
-                    System.out.println(z);
-                    Main.gespeicherteZutaten.add(z);
-                    addZutate2Meal(z);
+                    if (textFieldName.getText().isEmpty() || textFieldGegessen.getText().isEmpty() ||
+                            kcalTextField.getText().isEmpty() || fetteTextField.getText().isEmpty() ||
+                            kolenhydrateTextField.getText().isEmpty() || proteineTextField.getText().isEmpty()){
+                        // Falls nicht alle Werte eigegeben wurden
+                        fehlermeldung.setVisible(true);
+                    }else {
+                        fehlermeldung.setVisible(false);
+                        Zutat z = new Zutat(textFieldName.getText(), (int) textFieldGegessen.getDouble(),
+                                new Naehrwerte(((int) kcalTextField.getDouble()), (int) fetteTextField.getDouble(),
+                                        (int) kolenhydrateTextField.getDouble(), (int) proteineTextField.getDouble()));
+                        System.out.println(z);
+                        Main.gespeicherteZutaten.add(z);
+                        addZutate2Meal(z);
+                    }
+
                 }
                 //---------------------------------------------
             }
@@ -195,6 +220,7 @@ public class Meal implements Serializable{
         //Main.stage.setScene(zutatenScene);
         Main.switchScene(zutatenScene);
     }
+
 
     private Zutat calcNaehrwerteZutat(Zutat alteZutat, int neueMenge){
         double help = (double) neueMenge/ alteZutat.getMenge();
