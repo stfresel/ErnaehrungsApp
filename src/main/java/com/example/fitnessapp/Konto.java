@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Konto implements Serializable {
@@ -91,13 +92,25 @@ public class Konto implements Serializable {
                             gewichtTextField.getText().length() < 1){
                         setFehlermeldung(textfehler);
                     }
-                    meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
+                    meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getInt(), geschlechtCombobox.getValue());
                     calcPart(gridPaneCalcPart);
                 }
             });
 
 
         }
+        ArrayList<Label> labellist = new ArrayList<>();
+        labellist.add(new Label("Informationen zum Profil"));
+        labellist.add(new Label("Benutzername: " + Main.benutzer.getBenutzername()));
+        labellist.add(new Label("Passwort: " + Main.benutzer.getPasswort()));
+        labellist.add(new Label("Körperdaten"));
+        labellist.add(new Label("Größe (in m): "));
+        labellist.add(new Label("Größe (in m): "));
+        labellist.add(new Label("Gewicht (in kg): "));
+        labellist.add(new Label("Alter (in Jahren): "));
+        labellist.add(new Label("Geschlecht: "));
+
+        labellist.get(1).setId("textfield-login");
 
         gridPane.addRow(0, new Label("Informationen zum Profil"));
         gridPane.addRow(1, new Label("Benutzername: " + Main.benutzer.getBenutzername()));
@@ -110,19 +123,20 @@ public class Konto implements Serializable {
         gridPane.addRow(7, new Label("Geschlecht: "), geschlechtCombobox);
         gridPane.addRow(8,new Label(),textfehler);
 
+
         gridPane.addRow(9, speichernBtn);
 
         return gridPane;
     }
 
-    private void setFehlermeldung(Text text){
+    private void setFehlermeldung(Text textfehler){
         /*
            textfehler.setLayoutX(50);
            textfehler.setLayoutY(225);
           */
-        text.setFill(Color.RED);
-        text.setText("Bitte gib deine vollständigen Daten an");
-        text.setVisible(true);
+        textfehler.setFill(Color.RED);
+        textfehler.setText("Bitte gib deine vollständigen Daten an");
+        textfehler.setVisible(true);
     }
 
 }
