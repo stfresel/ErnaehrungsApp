@@ -5,12 +5,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -19,6 +26,8 @@ public class Konto implements Serializable {
     private Koerperdaten meineKoerperdaten;
 
     private transient GridPane gridPaneCalcPart;
+
+    private transient Rectangle backrec = new Rectangle();
 
     public HBox loadKonto() {
         HBox hBox = new HBox();
@@ -99,32 +108,50 @@ public class Konto implements Serializable {
 
 
         }
+
+        //Erstellen Liste von Labels
         ArrayList<Label> labellist = new ArrayList<>();
-        labellist.add(new Label("Informationen zum Profil"));
-        labellist.add(new Label("Benutzername: " + Main.benutzer.getBenutzername()));
-        labellist.add(new Label("Passwort: " + Main.benutzer.getPasswort()));
-        labellist.add(new Label("Körperdaten"));
+        labellist.add(new Label("Informationen zum Profil:"));
+        labellist.add(new Label("Benutzername: "));
+        labellist.add(new Label("Passwort: "));
+        labellist.add(new Label("Körperdaten eingeben:"));
         labellist.add(new Label("Größe (in m): "));
 
         labellist.add(new Label("Gewicht (in kg): "));
         labellist.add(new Label("Alter (in Jahren): "));
         labellist.add(new Label("Geschlecht: "));
 
-        labellist.get(1).setId("textfield-login");
+        labellist.add(new Label(Main.benutzer.getBenutzername()));
+        labellist.add(new Label(Main.benutzer.getPasswort()));
 
+        //Setzen Style Labels
+        for (int i = 0; i < labellist.size(); i++) {
+            if(i == 0 || i == 3){
+                labellist.get(i).setId("strong");
+            }else
+                labellist.get(i).setId("label-konto");
+        }
+
+        //Setzen Style Textfelder
+        groesseTextField.setId("textfield-konto");
+        gewichtTextField.setId("textfield-konto");
+        alterTextField.setId("textfield-konto");
+        geschlechtCombobox.setId("textfield-konto");
+        speichernBtn.setId("textfield-konto");
+        gridPane.setVgap(3);
+
+        //Konfigurieren Gridpane
         gridPane.addRow(0, labellist.get(0));
-        gridPane.addRow(1, labellist.get(1));
-        gridPane.addRow(2, labellist.get(2));
+        gridPane.addRow(1, labellist.get(1), labellist.get(8));
+        gridPane.addRow(2, labellist.get(2), labellist.get(9));
+        gridPane.addRow(3, new Label());
 
-        gridPane.addRow(3, labellist.get(3));
-        gridPane.addRow(4, labellist.get(4), groesseTextField);
-        gridPane.addRow(5, labellist.get(5), gewichtTextField);
-        gridPane.addRow(6, labellist.get(6), alterTextField);
-        gridPane.addRow(7, labellist.get(7), geschlechtCombobox);
-        gridPane.addRow(8,new Label(),textfehler);
-
-
-        gridPane.addRow(9, speichernBtn);
+        gridPane.addRow(4, labellist.get(3));
+        gridPane.addRow(5, labellist.get(4), groesseTextField);
+        gridPane.addRow(6, labellist.get(5), gewichtTextField);
+        gridPane.addRow(7, labellist.get(6), alterTextField);
+        gridPane.addRow(8, labellist.get(7), geschlechtCombobox);
+        gridPane.addRow(9, textfehler,speichernBtn);
 
         return gridPane;
     }
@@ -138,5 +165,4 @@ public class Konto implements Serializable {
         textfehler.setText("Bitte gib deine vollständigen Daten an");
         textfehler.setVisible(true);
     }
-
 }

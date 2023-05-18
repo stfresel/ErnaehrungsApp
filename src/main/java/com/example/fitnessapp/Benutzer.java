@@ -344,7 +344,7 @@ public class Benutzer implements Serializable{
         backgroundrec.setX(midx/2 - backgroundrec.getWidth()/2);
         backgroundrec.setY(midy/2 - backgroundrec.getHeight()/2);
 
-        iconView.setX(Main.stage.getWidth()/2 - sizeOfObjectsY);
+        iconView.setX(midx/2 - sizeOfObjectsY - 5);
         iconView.setY(backgroundrec.getY() + 10);
 
         // Unterscheidung zwischen Loginfenster und Registrierungsfenster beim Login/Registrierungs Text (clickable) und Fehlertext
@@ -353,20 +353,25 @@ public class Benutzer implements Serializable{
             txt.setLayoutY(midy/2 + 140);
             textfehler.setLayoutY(pane.getHeight()/2 - 55);
             textfehler.setLayoutX(pane.getWidth() / 2 - 149.0/ 2);
+
        }else {
            txt.setLayoutX(midx / 2 - 18);
            txt.setLayoutY(midy / 2 + 140);
            textfehler.setLayoutY(pane.getHeight() / 2 - 80);
-           if (Objects.equals(textfehler.getText(), "Kein Benutzername")) {
-               textfehler.setLayoutX(pane.getWidth() / 2 - 60);
-           } else if (Objects.equals(textfehler.getText(), "Passwörter stimmen nicht überein")) {
-               textfehler.setLayoutX(pane.getWidth() / 2 - 100);
-           }else if(Objects.equals(textfehler.getText(), "Bitte gib alle Daten ein")) {
-                ;textfehler.setLayoutX(pane.getWidth() / 2 - 72);
-           }else {
-               textfehler.setLayoutX(pane.getWidth() / 2 - 120);
-           }
        }
+        if (Objects.equals(textfehler.getText(), "Kein Benutzername")) {
+            textfehler.setLayoutX(pane.getWidth() / 2 - 60);
+        } else if (Objects.equals(textfehler.getText(), "Passwörter stimmen nicht überein")) {
+            textfehler.setLayoutX(pane.getWidth() / 2 - 100);
+        } else if (Objects.equals(textfehler.getText(), "Bitte gib alle Daten ein")) {
+            ;
+            textfehler.setLayoutX(pane.getWidth() / 2 - 72);
+        }else if(Objects.equals(textfehler.getText(), "Passwort oder Benutzername falsch!")) {
+            textfehler.setLayoutX(pane.getWidth() / 2 - 115);
+        }/*else {
+            textfehler.setLayoutX(pane.getWidth() / 2 - 120);
+        }
+        */
 
         adjustBackgroundSize();
     }
@@ -463,6 +468,7 @@ public class Benutzer implements Serializable{
             //homeStarten();
             home.startHome();
         }
+        updateUI();
     }
     //------------------getter und setter--------------------------
 
