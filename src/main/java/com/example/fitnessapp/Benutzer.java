@@ -22,7 +22,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Benutzer implements Serializable{
-    public transient Pane pane=new Pane();
+    public transient Pane pane = new Pane();
     private transient TextField textfieldRBenutzername = new TextField();
     private transient Button buttonReg = new Button();
     private final transient PasswordField[] passwordField = new PasswordField[2];
@@ -39,7 +39,7 @@ public class Benutzer implements Serializable{
 
 
     //--------------------------------------------
-    //Atribute für Benutzer und Passwort
+    //Attribute für Benutzer und Passwort
     private String benutzername;
     private String passwort;
     private Home home;
@@ -134,22 +134,18 @@ public class Benutzer implements Serializable{
 
 
         for (int i = 0; i < 2; i++) {
-
             passwordField[i] = new PasswordField();
             passwordField[i].setId("textfield-login");
             passwordField[i].setPrefHeight(sizeOfObjectsY);         // Size 2 Passwortfelder Registrierungsfenster
             passwordField[i].setPrefWidth(sizeOfObjectsX);
-            if(i==0){
-                passwordField[i].setPromptText("Passwort");
-            }else{
-                passwordField[i].setPromptText("Passwort wiederholen");
-            }
 
             pane.getChildren().add(passwordField[i]);
             passwordField[i].setVisible(false);
 
             //setzen der positionen der UI-Bausteine
         }
+        passwordField[0].setPromptText("Passwort");
+        passwordField[1].setPromptText("Passwort wiederholen");
 //--------------------------------------------------------------------------------------------------------\\
         buttonLLogin.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -194,7 +190,6 @@ public class Benutzer implements Serializable{
      */
     public void neuesKonto() {
         home = new Home();
-        //meinTagebuch.start();
         textfehler.setVisible(false);
         int counter = 400;
         pane.requestFocus();
@@ -219,7 +214,7 @@ public class Benutzer implements Serializable{
 
         pane.getChildren().add(buttonReg);
 
-        //Textfeld für den Benutzername
+        //Textfeld für den Benutzernamen
         textfieldRBenutzername = new TextField();
         textfieldRBenutzername.setMinHeight(25);
         textfieldRBenutzername.setMinWidth(149);
@@ -234,7 +229,7 @@ public class Benutzer implements Serializable{
 
         pane.getChildren().add(textfieldRBenutzername);
 
-        buttonReg.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        buttonReg.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
@@ -244,7 +239,7 @@ public class Benutzer implements Serializable{
                 }
             }
         });
-        txt.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        txt.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 textfehler.setVisible(false);
@@ -266,8 +261,7 @@ public class Benutzer implements Serializable{
     private void speichern() throws IOException {
         boolean loggedIn = false;
         // Speichern im File, wo alle Benutzernamen und Passwörter stehen
-        FileWriter fr = null;
-        fr = new FileWriter("Benutzer.txt");
+        FileWriter fr = new FileWriter("Benutzer.txt");
 
         BufferedWriter br = new BufferedWriter(fr);
         textfehler.setFill(Color.RED);
