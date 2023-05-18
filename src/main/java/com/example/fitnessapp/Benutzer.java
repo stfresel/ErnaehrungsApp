@@ -279,12 +279,12 @@ public class Benutzer implements Serializable{
 
         } else {
             textfehler.setVisible(true);
-            if (textfieldRBenutzername.getText().length() == 0 && !Objects.equals(passwordField[0].getText(), passwordField[1].getText()) && (passwordField[0].getText().length()==0 || passwordField[1].getText().length()==0)) {
-                textfehler.setText("Kein Benutzername und Passwort falsch");
-            } else if (Objects.equals(passwordField[0].getText(), passwordField[1].getText()) && textfieldRBenutzername.getText().length()==0){
-                textfehler.setText("Kein Benutzername");
-            }else {
+            if (textfieldRBenutzername.getText().isEmpty() || passwordField[0].getText().isEmpty() || passwordField[1].getText().isEmpty()){
+                    textfehler.setText("Bitte gibt alle Daten ein");
+            } else if (!passwordField[0].getText().equals(passwordField[1].getText())){
                 textfehler.setText("Passwörter stimmen nicht überein");
+            }else {
+                textfehler.setText("Benutzername oder Passwort sind falsch");
             }
         }
         updateUI();
@@ -441,6 +441,7 @@ public class Benutzer implements Serializable{
                     textfieldLPasswort.setText("");
                     textfehler.setFill(Color.RED);
                     textfehler.setText("Passwort oder Benutzername falsch!");
+                    textfehler.setVisible(true);
                 }
                 zeile = br.readLine();
             }
