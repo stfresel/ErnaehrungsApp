@@ -92,7 +92,7 @@ public class Konto implements Serializable {
                             gewichtTextField.getText().length() < 1){
                         setFehlermeldung(textfehler);
                     }
-                    meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getInt(), geschlechtCombobox.getValue());
+                    meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
                     calcPart(gridPaneCalcPart);
                 }
             });
