@@ -21,4 +21,25 @@
     -fx-background-radius: 25px;
     -fx-alignment: center;
 }
+#textfield-konto {
+    -fx-background-color: #ececec;
+    -fx-border-width: 1;
+    -fx-border-color: black;
+    -fx-text-fill: black;
+    -fx-border: none;
+    -fx-font-size: 11pt;
+    -fx-background-radius: 1px;
+
+}
+#label-konto {
+    -fx-text-fill: black;
+    -fx-border: none;
+    -fx-font-size: 11pt;
+    -fx-alignment: center;
+}
+#strong{
+    -fx-font-family: bold;
+    -fx-font-weight: bold;
+    -fx-font-size: 14pt;
+}
 
