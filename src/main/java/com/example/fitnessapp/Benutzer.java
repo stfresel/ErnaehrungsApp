@@ -280,7 +280,7 @@ public class Benutzer implements Serializable{
         } else {
             textfehler.setVisible(true);
             if (textfieldRBenutzername.getText().isEmpty() || passwordField[0].getText().isEmpty() || passwordField[1].getText().isEmpty()){
-                    textfehler.setText("Bitte gibt alle Daten ein");
+                    textfehler.setText("Bitte gib alle Daten ein");
             } else if (!passwordField[0].getText().equals(passwordField[1].getText())){
                 textfehler.setText("Passwörter stimmen nicht überein");
             }else {
@@ -361,7 +361,9 @@ public class Benutzer implements Serializable{
                textfehler.setLayoutX(pane.getWidth() / 2 - 60);
            } else if (Objects.equals(textfehler.getText(), "Passwörter stimmen nicht überein")) {
                textfehler.setLayoutX(pane.getWidth() / 2 - 100);
-           } else {
+           }else if(Objects.equals(textfehler.getText(), "Bitte gib alle Daten ein")) {
+                ;textfehler.setLayoutX(pane.getWidth() / 2 - 72);
+           }else {
                textfehler.setLayoutX(pane.getWidth() / 2 - 120);
            }
        }
