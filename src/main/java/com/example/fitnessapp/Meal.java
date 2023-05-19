@@ -50,17 +50,22 @@ public class Meal implements Serializable{
         }
 
         gridPane.addRow(1, new Label("Name des Gerichtes: "), nameTextField);
-        Button addZutatBtn = new Button("Zutat hinzufügen");
+        Button addZutatBtn = new Button("weiter");
         addZutatBtn.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                tempName = nameTextField.getText();
+                //---tempName = nameTextField.getText();
+                name = nameTextField.getText();
+
+                // evt abfrage??? mit fehlertext
+
                 System.out.println("neue Zutat");
                 loadZutatenScene();
             }
         });
 
-        Button mealFertig = new Button("fertig");
+        //Button mealFertig = new Button("fertig");
+        /*
         mealFertig.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -69,9 +74,11 @@ public class Meal implements Serializable{
                 //#################
             }
         });
+
+         */
         // sie sollten immer die letzten elemente im gridPane sein
         gridPane.addRow(1, addZutatBtn);
-        gridPane.addRow(2, mealFertig);
+        //gridPane.addRow(2, mealFertig);
         Main.switchScene(scene);
         //Main.stage.setScene(scene);
     }
@@ -213,7 +220,8 @@ public class Meal implements Serializable{
             @Override
             public void handle(MouseEvent mouseEvent) {
                 System.out.println("fertigggg");
-                loadMealScene();
+                //name = nameTextField.getText();
+                Controller.benutzer.getHome().startHome();
             }
         });
         zutatenPane.getChildren().add(0, bereitsHinzugefuegteZutaten);
