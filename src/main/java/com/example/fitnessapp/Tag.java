@@ -12,6 +12,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Die Klasse ...
+ */
 public class Tag implements Serializable {
     private final ArrayList<Meal> meals = new ArrayList<>();
     private final LocalDate date;
@@ -44,7 +47,9 @@ public class Tag implements Serializable {
     }
 
     /**
-     * Ladet sie detailansicht eines Tages.
+     * Ladet alle Mahlzeiten als Label in ein ScrollPane.
+     *
+     * @return Gibt ein ScrollPane mit allen gegessenen Mahlzeiten.
      */
     public ScrollPane ladeDetailansichtTag() {
         System.out.println(date);

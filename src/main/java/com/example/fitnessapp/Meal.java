@@ -28,6 +28,9 @@ public class Meal implements Serializable{
     private final transient VBox bereitsHinzugefuegteZutaten = new VBox();
     private transient Text fehlermeldung = new Text();
 
+    /**
+     *Die Methode
+     */
     public void loadMealScene() {
         GridPane gridPane = new GridPane();
 
@@ -36,23 +39,7 @@ public class Meal implements Serializable{
         gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
         Scene scene = new Scene(gridPane);
-
-        // wenn bereits Zutaten hinzugefügt wurden
-        /*
-        if (zutaten.size() > 0){
-            gridPane.getChildren().add(bereitsHinzugefuegteZutaten);
-        }
-
-         */
         TextField nameTextField = new TextField();
-        // wenn man den namen des gerichtes eingegeben hat und man dann zutaten hinzufügt, damit namen neu geladen wird
-
-        /*
-        if (tempName != null) {
-            nameTextField.setText(tempName);
-        }
-
-         */
 
         gridPane.addRow(1, new Label("Name des Gerichtes: "), nameTextField);
         Button addZutatBtn = new Button("weiter");
@@ -69,18 +56,6 @@ public class Meal implements Serializable{
             }
         });
 
-        //Button mealFertig = new Button("fertig");
-        /*
-        mealFertig.setOnMouseClicked(new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                name = nameTextField.getText();
-                Controller.benutzer.getHome().startHome();
-                //#################
-            }
-        });
-
-         */
         // sie sollten immer die letzten elemente im gridPane sein
         gridPane.addRow(1, addZutatBtn);
         //gridPane.addRow(2, mealFertig);

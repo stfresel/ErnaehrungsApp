@@ -385,7 +385,11 @@ public class Controller {
     }
 
     /**
-     * Die Methode speichert die Daten (Home) im .ser File.
+     * Die Methode speichert die Daten (Home) im (benutzername)_(passwort).ser File.
+     * <p>
+     *
+     * @serialData Die gesamte Klasse <code>Home</code>, samt den Attribute, werden serialisiert und in ein File geschrieben.
+     *
      */
     public static void datenSpeichern(){
         Path path = Paths.get(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
@@ -401,6 +405,8 @@ public class Controller {
 
     /**
      * Die Methode wird aufgerufen, wenn von initialize() aufgerufen, wenn man sich anmeldet.
+     * <p>
+     *
      * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben des Benutzer.txt files gibt.
      */
     public void einloggen() throws IOException {
@@ -442,19 +448,29 @@ public class Controller {
         br.close();
 
         if (loggedIn){
-            // path wieder erstellen evt funktion?
-            Path path = Paths.get(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
-            try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
-                benutzer.setHome((Home) whereToReadFrom.readObject());
-                System.out.println("auslesen vom file");
-            } catch (IOException | ClassNotFoundException e) {
-                System.out.println("Fehler beim Auslesen aus dem Tagebuch" + e.getMessage());
-            }
-            //homeStarten();
-
-            benutzer.getHome().startHome();
+            auslesenSer();
         }
         updateUI();
+    }
+
+    /**
+     * Die Methode ist für das Auslesen aus dem .ser File zuständig.
+     *
+     *
+     * @
+     */
+    private void auslesenSer(){
+        // path wieder erstellen evt funktion?
+        Path path = Paths.get(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
+        try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
+            benutzer.setHome((Home) whereToReadFrom.readObject());
+            System.out.println("auslesen vom file");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Fehler beim Auslesen aus dem Tagebuch" + e.getMessage());
+        }
+        //homeStarten();
+
+        benutzer.getHome().startHome();
     }
 
 }

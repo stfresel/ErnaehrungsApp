@@ -13,7 +13,6 @@ public class Main extends Application {
     static ArrayList<Zutat> gespeicherteZutaten = new ArrayList<>();
 
     //static Benutzer benutzer = new Benutzer();
-
     static Stage stage;
     @Override
     public void start(Stage stage1) {
