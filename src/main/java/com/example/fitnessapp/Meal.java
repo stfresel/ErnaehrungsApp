@@ -22,7 +22,7 @@ public class Meal implements Serializable{
     private String name;
     private final ArrayList<Zutat> zutaten = new ArrayList<>();
 
-    private String tempName = null;
+    private String tempName;
     private Naehrwerte naehrwerteMeal = new Naehrwerte(0,0,0,0);
     private transient VBox zutatenPane;
 
@@ -118,8 +118,6 @@ public class Meal implements Serializable{
         zutatErstellen.addRow(0, nameDerZutat, textFieldName);
         zutatErstellen.addRow(1, mengeGegessen, textFieldGegessen);
 
-
-
         NumericTextField proteineTextField = new NumericTextField();
         NumericTextField fetteTextField = new NumericTextField();
         NumericTextField kolenhydrateTextField = new NumericTextField();
@@ -174,11 +172,9 @@ public class Meal implements Serializable{
                                     addZutate2Meal(z);
                                     break;
                                 }
-
                             }
                         }
                     }
-
 
                     System.out.println("fertiggg");
                 } else {
@@ -196,13 +192,12 @@ public class Meal implements Serializable{
                                         (int) Math.round(kolenhydrateTextField.getDouble()), (int) Math.round(proteineTextField.getDouble())));
                         System.out.println(z);
                         Main.gespeicherteZutaten.add(z);
-                        // alle Eingabefelder zurücksetzen
                         textFieldName.setText("");
                         textFieldGegessen.setText("");
                         kcalTextField.setText("");
                         fetteTextField.setText("");
-                        kolenhydrateTextField.setText("");
                         proteineTextField.setText("");
+                        kolenhydrateTextField.setText("");
                         addZutate2Meal(z);
                     }
 
