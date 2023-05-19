@@ -22,7 +22,6 @@ public class Meal implements Serializable{
     private String name;
     private final ArrayList<Zutat> zutaten = new ArrayList<>();
 
-    private String tempName;
     private Naehrwerte naehrwerteMeal = new Naehrwerte(0,0,0,0);
     private transient VBox zutatenPane;
 
@@ -39,15 +38,21 @@ public class Meal implements Serializable{
         Scene scene = new Scene(gridPane);
 
         // wenn bereits Zutaten hinzugefügt wurden
+        /*
         if (zutaten.size() > 0){
             gridPane.getChildren().add(bereitsHinzugefuegteZutaten);
         }
-        TextField nameTextField;
+
+         */
+        TextField nameTextField = new TextField();
         // wenn man den namen des gerichtes eingegeben hat und man dann zutaten hinzufügt, damit namen neu geladen wird
-        nameTextField = new TextField();
+
+        /*
         if (tempName != null) {
             nameTextField.setText(tempName);
         }
+
+         */
 
         gridPane.addRow(1, new Label("Name des Gerichtes: "), nameTextField);
         Button addZutatBtn = new Button("weiter");
