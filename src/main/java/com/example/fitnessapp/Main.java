@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Main extends Application {
     static ArrayList<Zutat> gespeicherteZutaten = new ArrayList<>();
 
-    static Benutzer benutzer = new Benutzer();
+    //static Benutzer benutzer = new Benutzer();
 
     static Stage stage;
     @Override
@@ -30,7 +30,7 @@ public class Main extends Application {
         System.out.println(scene.getStylesheets());
         stage.setScene(scene);
         stage.show();
-        Controller c = new Controller(benutzer);
+        Controller c = new Controller();
         c.initialize();
     }
 

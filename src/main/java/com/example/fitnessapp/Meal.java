@@ -131,7 +131,7 @@ public class Meal implements Serializable{
         zutatErstellen.addRow(5, new Label("Fette: "),fetteTextField);
         zutatErstellen.addRow(6, fehlermeldung);
 
-        checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+        checkbox.selectedProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 System.out.println("change");
@@ -151,7 +151,7 @@ public class Meal implements Serializable{
         fertigBtn.setLayoutY(zutatenPane.getHeight()-100);
 
         // inuputs noch in Var speichern!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        fertigBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        fertigBtn.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 // Zutat aus Speicher holen
@@ -208,7 +208,7 @@ public class Meal implements Serializable{
         });
 
         Button alle_zutaten_wurden_eingegeben = new Button("das waren alle zutaten");
-        alle_zutaten_wurden_eingegeben.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        alle_zutaten_wurden_eingegeben.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 System.out.println("fertigggg");
@@ -247,7 +247,7 @@ public class Meal implements Serializable{
         System.out.println("insgesamt NW" + naehrwerteMeal);
         HBox hBox = new HBox();
         Button delZutatBtn = new Button("-");
-        delZutatBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        delZutatBtn.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 System.out.println("delete Zutat");

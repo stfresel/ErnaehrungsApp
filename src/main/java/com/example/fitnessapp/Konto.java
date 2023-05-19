@@ -4,13 +4,10 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -19,7 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Konto implements Serializable {
     private Koerperdaten meineKoerperdaten;
@@ -112,7 +108,7 @@ public class Konto implements Serializable {
             speichernBtn.setOnMouseClicked(new EventHandler<>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    if (geschlechtCombobox.getSelectionModel().getSelectedItem()==null ||
+                    if (geschlechtCombobox.getSelectionModel().getSelectedItem() == null ||
                             alterTextField.getText().length() < 1 || groesseTextField.getText().length() < 1 ||
                             gewichtTextField.getText().length() < 1){
                         setFehlermeldung(textfehler);

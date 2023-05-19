@@ -38,7 +38,7 @@ public class Home implements Serializable {
 
           //Main.benutzer.datenSpeichern();
           Controller.datenSpeichern();
-          Main.stage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+          Main.stage.setOnCloseRequest(new EventHandler<>(){
                @Override
                public void handle(WindowEvent windowEvent) {
                     System.out.println("closing");
@@ -54,14 +54,14 @@ public class Home implements Serializable {
           borderPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
           ToolBar toolBar = new ToolBar();
           Button tagebuchButton = new Button("Tagebuch");
-          tagebuchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          tagebuchButton.setOnMouseClicked(new EventHandler<>() {
                @Override
                public void handle(MouseEvent mouseEvent) {
                     borderPane.setCenter(tagebuch.loadTagebuch());
                }
           });
           Button kontoButton = new Button("Konto");
-          kontoButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          kontoButton.setOnMouseClicked(new EventHandler<>() {
                @Override
                public void handle(MouseEvent mouseEvent) {
                     borderPane.setCenter(konto.loadKonto());
@@ -69,7 +69,7 @@ public class Home implements Serializable {
           });
 
           Button statButton = new Button("Statistik");
-          statButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          statButton.setOnMouseClicked(new EventHandler<>() {
                @Override
                public void handle(MouseEvent mouseEvent) {
                     borderPane.setCenter(statistik.loadStat());

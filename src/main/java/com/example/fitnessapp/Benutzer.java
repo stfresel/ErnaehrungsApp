@@ -27,8 +27,7 @@ public class Benutzer implements Serializable{
     //Attribute für Benutzer und Passwort
     private String benutzername;
     private String passwort;
-    private Home home;
-    private Path path = null;
+    private Home home = new Home();
     //------------------------------
 
 

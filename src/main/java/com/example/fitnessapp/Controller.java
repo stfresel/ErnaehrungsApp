@@ -25,7 +25,7 @@ import java.util.Objects;
 public class Controller {
     static Benutzer benutzer;
     public Pane pane = new Pane();
-    private transient TextField textfieldRBenutzername = new TextField();
+    private TextField textfieldRBenutzername = new TextField();
     private Button buttonReg = new Button();
     private final PasswordField[] passwordField = new PasswordField[2];
     private final Text textfehler = new Text();
@@ -39,16 +39,13 @@ public class Controller {
     private final double sizeOfObjectsX = 200;
     private final double sizeOfObjectsY = 40;
 
-    public Controller(Benutzer b) {
-        benutzer = b;
-    }
-
 
     /**
      * Die Methode laden die Anmeldungs-Scene, mit den ganzen Komponenten.
      */
 
     public void initialize() {
+        benutzer = new Benutzer();
         pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
         //laden Hintergrund
@@ -145,14 +142,11 @@ public class Controller {
         passwordField[0].setPromptText("Passwort");
         passwordField[1].setPromptText("Passwort wiederholen");
 //--------------------------------------------------------------------------------------------------------\\
-        buttonLLogin.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                try {
-                    einloggen();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+        buttonLLogin.setOnMouseClicked(mouseEvent -> {
+            try {
+                einloggen();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
 
@@ -162,22 +156,15 @@ public class Controller {
         txt.setLayoutX(pane.getWidth()/2 - 30);
         txt.setText("Registrieren");
 
-        txt.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                updateUI();
-                neuesKonto();
-            }
+        txt.setOnMouseClicked(mouseEvent -> {
+            updateUI();
+            neuesKonto();
         });
 
         // achtung!!!!!!!!!!!!! scene net stage!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        Main.stage.getScene().widthProperty().addListener((obs, oldVal, newVal) -> {
-            updateUI();
-        });
+        Main.stage.getScene().widthProperty().addListener((obs, oldVal, newVal) -> updateUI());
 
-        Main.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
-            updateUI();
-        });
+        Main.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> updateUI());
 
         updateUI();
     }
@@ -187,9 +174,9 @@ public class Controller {
      * Die Methode ladet die Registrierungsszene. Sie wird immer von initialize() aufgerufen.
      */
     public void neuesKonto() {
-        benutzer.setHome(new Home());
+        //benutzer.setHome(new Home());
         textfehler.setVisible(false);
-        int counter = 400;
+        //int counter = 400;
         pane.requestFocus();
         textfieldLBenutzer.setVisible(false);
         textfieldLPasswort.setVisible(false);
@@ -219,8 +206,8 @@ public class Controller {
         textfieldRBenutzername.setPrefHeight(sizeOfObjectsY);       // Size Textfeld Benutzername Registrierungsfenster
         textfieldRBenutzername.setPrefWidth(sizeOfObjectsX);
         textfieldRBenutzername.setId("textfield-login");
-        double x = pane.getWidth() / 2 - textfieldRBenutzername.getMinWidth() / 2;
-        double y = pane.getHeight() - counter;
+        //double x = pane.getWidth() / 2 - textfieldRBenutzername.getMinWidth() / 2;
+        //double y = pane.getHeight() - counter;
         textfieldRBenutzername.setPromptText("Benutzername");
 
         updateUI();
