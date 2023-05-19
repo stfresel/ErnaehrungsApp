@@ -31,7 +31,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
         Controller c = new Controller(benutzer);
-        c.start();
+        c.initialize();
     }
 
     public static void switchScene(Scene s){

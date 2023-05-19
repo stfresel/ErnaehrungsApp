@@ -30,7 +30,8 @@ public class Statistik implements Serializable {
 
         lineChart.setTitle("Übersicht Nährwerte");
 
-        Tagebuch tagebuch = Main.benutzer.getHome().getTagebuch();
+        Tagebuch tagebuch = Controller.benutzer.getHome().getTagebuch();
+        //################
 
         XYChart.Series<Number, Number> seriesKcal = new XYChart.Series<Number, Number>();
         seriesKcal.setName("Kalorien");

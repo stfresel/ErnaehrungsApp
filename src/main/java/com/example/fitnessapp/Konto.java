@@ -95,7 +95,9 @@ public class Konto implements Serializable {
                     }else {
                         System.out.println("Combobox Geschlecht id: " + geschlechtCombobox.getValue());
                         meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
-                        Main.benutzer.getHome().startHome();
+                        //Main.benutzer.getHome().startHome();
+                        Controller.benutzer.getHome().startHome();
+                        //############
 
                     }
 
@@ -135,8 +137,9 @@ public class Konto implements Serializable {
         labellist.add(new Label("Alter (in Jahren): "));
         labellist.add(new Label("Geschlecht: "));
 
-        labellist.add(new Label(Main.benutzer.getBenutzername()));
-        labellist.add(new Label(Main.benutzer.getPasswort()));
+        labellist.add(new Label(Controller.benutzer.getBenutzername()));
+        //############2
+        labellist.add(new Label(Controller.benutzer.getPasswort()));
 
         //Setzen Style Labels
         for (int i = 0; i < labellist.size(); i++) {

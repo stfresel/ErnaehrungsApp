@@ -65,7 +65,8 @@ public class Meal implements Serializable{
             @Override
             public void handle(MouseEvent mouseEvent) {
                 name = nameTextField.getText();
-                Main.benutzer.getHome().startHome();
+                Controller.benutzer.getHome().startHome();
+                //#################
             }
         });
         // sie sollten immer die letzten elemente im gridPane sein
