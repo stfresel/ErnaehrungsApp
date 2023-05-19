@@ -25,18 +25,11 @@ import java.util.Objects;
 
 public class Home implements Serializable {
 
-     private Konto konto;
-     private Statistik statistik;
-     private Tagebuch tagebuch;
+     private Konto konto = new Konto();
+     private Statistik statistik = new Statistik();
+     private Tagebuch tagebuch = new Tagebuch();
 // wichtig, da ansonst die Zuatenen nicht serialisiert werden
      private ArrayList<Zutat> gespeicherteZutaten = new ArrayList<>();
-
-
-     public Home(){
-          tagebuch = new Tagebuch();
-          konto = new Konto();
-          statistik = new Statistik();
-     }
 
      /**
       * Die Methode ladet die Toolbar des HomeScreens.

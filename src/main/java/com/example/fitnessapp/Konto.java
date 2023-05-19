@@ -18,8 +18,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Konto implements Serializable {
-    private Koerperdaten meineKoerperdaten;
-
+    private Koerperdaten koerperdaten;
     private transient GridPane gridPaneCalcPart;
 
     private transient Rectangle backrec = new Rectangle();
@@ -37,15 +36,15 @@ public class Konto implements Serializable {
 
     public void calcPart(GridPane gridPane) {
         System.out.println("-------------------------------------------");
-        meineKoerperdaten.tagesUmsatzBerechnen();
+        koerperdaten.tagesUmsatzBerechnen();
         gridPane.getChildren().clear();
         //gridPane.getChildren().removeAll();
-        gridPane.addRow(0, new Label("BMI: " + meineKoerperdaten.getBMI()));
+        gridPane.addRow(0, new Label("BMI: " + koerperdaten.getBMI()));
         gridPane.addRow(1,new Label("täglicher Bedarf"));
-        gridPane.addRow(2,new Label("Kalorien       : " + meineKoerperdaten.getTagesUmsatz().getKcal()));
-        gridPane.addRow(3,new Label("Kohlenhydrate  : " + meineKoerperdaten.getTagesUmsatz().getKohlenhydrate()));
-        gridPane.addRow(4,new Label("Proteine       : " + meineKoerperdaten.getTagesUmsatz().getProtein()));
-        gridPane.addRow(5,new Label("Fette          : " + meineKoerperdaten.getTagesUmsatz().getFett()));
+        gridPane.addRow(2,new Label("Kalorien       : " + koerperdaten.getTagesUmsatz().getKcal()));
+        gridPane.addRow(3,new Label("Kohlenhydrate  : " + koerperdaten.getTagesUmsatz().getKohlenhydrate()));
+        gridPane.addRow(4,new Label("Proteine       : " + koerperdaten.getTagesUmsatz().getProtein()));
+        gridPane.addRow(5,new Label("Fette          : " + koerperdaten.getTagesUmsatz().getFett()));
     }
 
     public GridPane datenAnsicht(boolean... ifbackground) {
@@ -74,9 +73,9 @@ public class Konto implements Serializable {
         //gridPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#B6CC95"), null, null)));
 
         // Wenn es direkt nach dem Registrieren geöffnet wird
-        if (meineKoerperdaten == null){
+        if (koerperdaten == null){
             speichernBtn.setVisible(true);
-            meineKoerperdaten = new Koerperdaten();
+            koerperdaten = new Koerperdaten();
 
             // nur speichern
             speichernBtn.setOnMouseClicked(new EventHandler<>() {
@@ -90,7 +89,7 @@ public class Konto implements Serializable {
 
                     }else {
                         System.out.println("Combobox Geschlecht id: " + geschlechtCombobox.getValue());
-                        meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
+                        koerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
                         //Main.benutzer.getHome().startHome();
                         Controller.benutzer.getHome().startHome();
                         //############
@@ -100,10 +99,10 @@ public class Konto implements Serializable {
                 }
             });
         } else {
-            groesseTextField.setText(String.valueOf(meineKoerperdaten.getGroesse()));
-            gewichtTextField.setText(String.valueOf(meineKoerperdaten.getGewicht()));
-            alterTextField.setText(String.valueOf(meineKoerperdaten.getAlter()));
-            geschlechtCombobox.setValue(meineKoerperdaten.getGeschlecht());
+            groesseTextField.setText(String.valueOf(koerperdaten.getGroesse()));
+            gewichtTextField.setText(String.valueOf(koerperdaten.getGewicht()));
+            alterTextField.setText(String.valueOf(koerperdaten.getAlter()));
+            geschlechtCombobox.setValue(koerperdaten.getGeschlecht());
             //wenn man etwas verändert will
             speichernBtn.setOnMouseClicked(new EventHandler<>() {
                 @Override
@@ -113,7 +112,7 @@ public class Konto implements Serializable {
                             gewichtTextField.getText().length() < 1){
                         setFehlermeldung(textfehler);
                     }
-                    meineKoerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
+                    koerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
                     calcPart(gridPaneCalcPart);
                 }
             });
@@ -181,8 +180,8 @@ public class Konto implements Serializable {
 
     public boolean alleWerteEingetragen(){
         boolean b = false;
-        if (meineKoerperdaten.getGroesse() > 0 && meineKoerperdaten.getGewicht() > 0 &&
-                meineKoerperdaten.getAlter() > 0 && meineKoerperdaten.getGeschlecht() != null){
+        if (koerperdaten.getGroesse() > 0 && koerperdaten.getGewicht() > 0 &&
+                koerperdaten.getAlter() > 0 && koerperdaten.getGeschlecht() != null){
             b = true;
             System.out.println("alle daten richtig eingetragen");
         }
