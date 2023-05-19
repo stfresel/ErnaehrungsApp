@@ -49,3 +49,14 @@
     -fx-font-size: 14pt;
 }
 
+#tabBar{
+    -fx-text-fill: blue;
+}
+#tabBar:selected{
+    -fx-fill: #8ba662;
+}
+#icons-start{
+    -fx-tile-alignment: center;
+    -fx-page-information-alignment: center;
+    -fx-row-valignment: center;
+}
