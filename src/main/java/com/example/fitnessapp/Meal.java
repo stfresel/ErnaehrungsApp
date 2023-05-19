@@ -193,6 +193,7 @@ public class Meal implements Serializable{
                                         (int) Math.round(kolenhydrateTextField.getDouble()), (int) Math.round(proteineTextField.getDouble())));
                         System.out.println(z);
                         Main.gespeicherteZutaten.add(z);
+                        comboBox.getItems().add(z.getName());
                         textFieldName.setText("");
                         textFieldGegessen.setText("");
                         kcalTextField.setText("");
