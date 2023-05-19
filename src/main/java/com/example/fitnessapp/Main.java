@@ -1,12 +1,11 @@
 package com.example.fitnessapp;
 
 import javafx.application.Application;
-import javafx.css.Style;
+
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 

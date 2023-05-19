@@ -451,6 +451,7 @@ public class Controller {
                 System.out.println("Fehler beim Auslesen aus dem Tagebuch" + e.getMessage());
             }
             //homeStarten();
+
             benutzer.getHome().startHome();
         }
         updateUI();

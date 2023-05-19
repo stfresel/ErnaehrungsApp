@@ -33,7 +33,6 @@ public class Home implements Serializable {
       * Es wird festgelegt, dass beim schliessen des Fensters, die Daten automatisch gespeichert werden:
       */
      public void startHome(){
-
           Main.gespeicherteZutaten = gespeicherteZutaten;
 
           //Main.benutzer.datenSpeichern();
@@ -45,6 +44,7 @@ public class Home implements Serializable {
                     Platform.exit();
                     //Main.benutzer.datenSpeichern();
                     Controller.datenSpeichern();
+
                }
           });
 

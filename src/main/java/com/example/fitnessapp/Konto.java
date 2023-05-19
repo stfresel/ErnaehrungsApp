@@ -178,4 +178,14 @@ public class Konto implements Serializable {
         textfehler.setText("Bitte gib deine vollständigen Daten an");
         textfehler.setVisible(true);
     }
+
+    public boolean alleWerteEingetragen(){
+        boolean b = false;
+        if (meineKoerperdaten.getGroesse() > 0 && meineKoerperdaten.getGewicht() > 0 &&
+                meineKoerperdaten.getAlter() > 0 && meineKoerperdaten.getGeschlecht() != null){
+            b = true;
+            System.out.println("alle daten richtig eingetragen");
+        }
+        return b;
+    }
 }
