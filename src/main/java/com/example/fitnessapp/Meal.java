@@ -191,11 +191,18 @@ public class Meal implements Serializable{
                         fehlermeldung.setVisible(true);
                     }else {
                         fehlermeldung.setVisible(false);
-                        Zutat z = new Zutat(textFieldName.getText(), (int) textFieldGegessen.getDouble(),
-                                new Naehrwerte(((int) kcalTextField.getDouble()), (int) fetteTextField.getDouble(),
-                                        (int) kolenhydrateTextField.getDouble(), (int) proteineTextField.getDouble()));
+                        Zutat z = new Zutat(textFieldName.getText(), (int) Math.round(textFieldGegessen.getDouble()),
+                                new Naehrwerte((int) Math.round(kcalTextField.getDouble()), (int) Math.round(fetteTextField.getDouble()),
+                                        (int) Math.round(kolenhydrateTextField.getDouble()), (int) Math.round(proteineTextField.getDouble())));
                         System.out.println(z);
                         Main.gespeicherteZutaten.add(z);
+                        // alle Eingabefelder zurücksetzen
+                        textFieldName.setText("");
+                        textFieldGegessen.setText("");
+                        kcalTextField.setText("");
+                        fetteTextField.setText("");
+                        kolenhydrateTextField.setText("");
+                        proteineTextField.setText("");
                         addZutate2Meal(z);
                     }
 
@@ -281,8 +288,7 @@ public class Meal implements Serializable{
     }
 
     public ArrayList<Zutat> getZutaten() {
-        ArrayList<Zutat> z = zutaten;
-        return z;
+        return zutaten;
     }
 
     @Override
