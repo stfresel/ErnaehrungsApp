@@ -33,6 +33,7 @@ public class Statistik implements Serializable {
         Tagebuch tagebuch = Controller.benutzer.getHome().getTagebuch();
         //################
 
+
         XYChart.Series<Number, Number> seriesKcal = new XYChart.Series<Number, Number>();
         seriesKcal.setName("Kalorien");
         for (int i = 0; i < tagebuch.getAnzahlTage(); i++) {
