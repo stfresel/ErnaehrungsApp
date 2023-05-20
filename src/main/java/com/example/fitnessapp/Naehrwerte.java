@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public class Naehrwerte implements Serializable {
     private int kcal;
-    private int fett;
+    private int fette;
     private int kohlenhydrate;
     private int protein;
 
-    public Naehrwerte(int kcal, int fett, int kohlenhydrate, int protein) {
+    public Naehrwerte(int kcal, int fette, int kohlenhydrate, int protein) {
         this.kcal = kcal;
-        this.fett = fett;
+        this.fette = fette;
         this.kohlenhydrate = kohlenhydrate;
         this.protein = protein;
     }
@@ -22,8 +22,8 @@ public class Naehrwerte implements Serializable {
         this.kcal = kcal;
     }
 
-    public void setFett(int fett) {
-        this.fett = fett;
+    public void setFette(int fette) {
+        this.fette = fette;
     }
 
     public void setKohlenhydrate(int kohlenhydrate) {
@@ -38,8 +38,8 @@ public class Naehrwerte implements Serializable {
         return kcal;
     }
 
-    public int getFett() {
-        return fett;
+    public int getFette() {
+        return fette;
     }
 
     public int getKohlenhydrate() {
@@ -55,6 +55,6 @@ public class Naehrwerte implements Serializable {
         return "Kcal: " + kcal +
                 ", Kohlenhydrate: " + kohlenhydrate +
                 ", Protein: " + protein +
-                ", Fette: " + fett;
+                ", Fette: " + fette;
     }
 }

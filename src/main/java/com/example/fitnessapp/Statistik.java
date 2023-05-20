@@ -55,7 +55,7 @@ public class Statistik implements Serializable {
         XYChart.Series<Number, Number> seriesFette = new XYChart.Series<Number, Number>();
         seriesKcal.setName("Fette");
         for (int i = 0; i < tagebuch.getAnzahlTage(); i++) {
-            seriesFette.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getFett()));
+            seriesFette.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getFette()));
         }
 
         return diagramm;

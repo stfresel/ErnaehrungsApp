@@ -33,7 +33,7 @@ public class Koerperdaten implements Serializable {
        }
        tagesUmsatz.setKohlenhydrate((int) Math.round(tagesUmsatz.getKcal() * 0.5 / 4.1));
        tagesUmsatz.setProtein((int) Math.round(tagesUmsatz.getKcal()* 0.2 / 4.1));
-       tagesUmsatz.setFett((int) Math.round(tagesUmsatz.getKcal() * 0.3 / 9.3));
+       tagesUmsatz.setFette((int) Math.round(tagesUmsatz.getKcal() * 0.3 / 9.3));
    }
 
 

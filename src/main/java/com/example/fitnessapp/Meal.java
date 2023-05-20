@@ -301,7 +301,7 @@ public class Meal implements Serializable{
         int kcalNeu = (int) (alteZutat.getNaehrwerte().getKcal() * help);
         int carbsNeu = (int) (alteZutat.getNaehrwerte().getKohlenhydrate() * help);
         int proteinNeu = (int) (alteZutat.getNaehrwerte().getProtein() * help);
-        int fettNeu = (int) (alteZutat.getNaehrwerte().getFett() * help);
+        int fettNeu = (int) (alteZutat.getNaehrwerte().getFette() * help);
 
         Naehrwerte neueNaehrwerte = new Naehrwerte(kcalNeu,fettNeu, carbsNeu, proteinNeu);
 
@@ -319,7 +319,7 @@ public class Meal implements Serializable{
         zutaten.add(zutat);
         naehrwerteMeal.setKcal(naehrwerteMeal.getKcal() + zutat.getNaehrwerte().getKcal());
         naehrwerteMeal.setKohlenhydrate(naehrwerteMeal.getKohlenhydrate() + zutat.getNaehrwerte().getKohlenhydrate());
-        naehrwerteMeal.setFett(naehrwerteMeal.getFett() + zutat.getNaehrwerte().getFett());
+        naehrwerteMeal.setFette(naehrwerteMeal.getFette() + zutat.getNaehrwerte().getFette());
         naehrwerteMeal.setProtein(naehrwerteMeal.getProtein() + zutat.getNaehrwerte().getProtein());
         System.out.println("insgesamt NW" + naehrwerteMeal);
         HBox hBox = new HBox();
@@ -356,7 +356,7 @@ public class Meal implements Serializable{
         naehrwerteMeal.setKcal(naehrwerteMeal.getKcal()- zutat.getNaehrwerte().getKcal());
         naehrwerteMeal.setKohlenhydrate(naehrwerteMeal.getKohlenhydrate()- zutat.getNaehrwerte().getKohlenhydrate());
         naehrwerteMeal.setProtein(naehrwerteMeal.getProtein()- zutat.getNaehrwerte().getProtein());
-        naehrwerteMeal.setFett(naehrwerteMeal.getFett()- zutat.getNaehrwerte().getFett());
+        naehrwerteMeal.setFette(naehrwerteMeal.getFette()- zutat.getNaehrwerte().getFette());
         zutaten.remove(zutat);
     }
 

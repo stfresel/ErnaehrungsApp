@@ -44,7 +44,7 @@ public class Konto implements Serializable {
         gridPane.addRow(2,new Label("Kalorien       : " + koerperdaten.getTagesUmsatz().getKcal()));
         gridPane.addRow(3,new Label("Kohlenhydrate  : " + koerperdaten.getTagesUmsatz().getKohlenhydrate()));
         gridPane.addRow(4,new Label("Proteine       : " + koerperdaten.getTagesUmsatz().getProtein()));
-        gridPane.addRow(5,new Label("Fette          : " + koerperdaten.getTagesUmsatz().getFett()));
+        gridPane.addRow(5,new Label("Fette          : " + koerperdaten.getTagesUmsatz().getFette()));
     }
 
     public GridPane datenAnsicht(boolean... ifbackground) {

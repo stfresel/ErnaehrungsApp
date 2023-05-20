@@ -1,10 +1,6 @@
 package com.example.fitnessapp;
 
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.io.Serializable;
@@ -33,7 +29,7 @@ public class Tag implements Serializable {
             insgesamteNaehrwerte.setKcal(insgesamteNaehrwerte.getKcal() + temp.getKcal());
             insgesamteNaehrwerte.setKohlenhydrate(insgesamteNaehrwerte.getKohlenhydrate() + temp.getKohlenhydrate());
             insgesamteNaehrwerte.setProtein(insgesamteNaehrwerte.getProtein() + temp.getProtein());
-            insgesamteNaehrwerte.setFett(insgesamteNaehrwerte.getFett() + temp.getFett());
+            insgesamteNaehrwerte.setFette(insgesamteNaehrwerte.getFette() + temp.getFette());
         }
     }
 
