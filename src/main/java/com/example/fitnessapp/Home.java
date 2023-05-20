@@ -26,16 +26,30 @@ import java.util.Objects;
 
 public class Home implements Serializable {
 
+     /**
+      * Gibt das Konto des Benutzers an.
+      */
      private Konto konto = new Konto();
+     /**
+      * Gibt die Statistik des Benutzers an
+      */
      private Statistik statistik = new Statistik();
+     /**
+      * Gibt das Tagebuch des Benutzers an.
+      */
      private Tagebuch tagebuch = new Tagebuch();
 // wichtig, da ansonst die Zuatenen nicht serialisiert werden
+     /**
+      * In der ArrayList werden die bereits verwendeten Zutaten gespeichert.
+      */
      private ArrayList<Zutat> gespeicherteZutaten = new ArrayList<>();
      private int randobenunten = 100;
 
      /**
-      * Die Methode ladet die Toolbar des HomeScreens.
-      * Es wird festgelegt, dass beim schliessen des Fensters, die Daten automatisch gespeichert werden:
+      * <h3>Homescreen</h3>
+      * Die Methode ladet die UI-Komponenten des Homescreen.s
+      * Daz##
+      * Zudem wird festgelegt, dass beim schliessen des Fensters automatisch gespeichert wird.
       */
      public void startHome(){
           Main.gespeicherteZutaten = gespeicherteZutaten;
@@ -144,7 +158,9 @@ public class Home implements Serializable {
      }
 
      /**
-      * Die Methode fügt den heutigen Tag mit Datum zum Tagebuch hinzu, wenn er noch nicht erstellt wurde.
+      * <h3>Tag zum Tagebuch hinzufügen</h3>
+      * Die Methode überprüft ob der heutige Tag bereits abgespeichert wurde. Falls nicht, dann wird er hinzugefügt.
+      *
       */
      private void addTage2Tagebuch(){
           if (tagebuch.getAnzahlTage() < 1){
