@@ -238,9 +238,11 @@ public class Controller {
         });
     }
 
+
     /**
-     * Nach dem Registrieren wird der BEnutzer sowohl im Benutzer.txt File als auch in einem neuen Seialisierunsfile gespeichert.
-     * Name des Serialisierungsfile ist: Benutzername + Passwort + .ser
+     * Die Methode speichert den <code>benutzername</code> und das <code>passwort</code> im <code>Benutzer.txt</code> File.
+     * <p>
+     *
      * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben des Benutzer.txt files gibt.
      */
     private void speichern() throws IOException {
@@ -291,7 +293,10 @@ public class Controller {
     }
 
     /**
-     * Methode zum Anpassen der Positionen der einzelnen UI-Bauteile
+     * <h3>Position der UI-Bauteile anpassen</h3>
+     * Die Methode passt die Position der UI-Bauteile an.
+     * <p>
+     *
      * @author  René Weissteiner
      * @date    16.05.2023
      */
@@ -362,8 +367,10 @@ public class Controller {
     }
 
     /**
+     * <h3>Hintergrund anpassen</h3>
+     * Die Methode passt die Größe von <code>imageView</code> an die Fenstergröße an.
+     * <p>
      *
-     * Methode zum Anpassen der Groesse des Hintergrundes an die Fenstergroesse
      * @author  René Weissteiner
      * @date    16.05.2023
      */
@@ -385,7 +392,8 @@ public class Controller {
     }
 
     /**
-     * Die Methode speichert die Daten (Home) im (benutzername)_(passwort).ser File.
+     * <h3>Serialisation der Daten</h3>
+     * Die Methode speichert die Daten von <code>Home</code> im <code>(benutzername)_(passwort).ser</code> File.
      * <p>
      *
      * @serialData Die gesamte Klasse <code>Home</code>, samt den Attribute, werden serialisiert und in ein File geschrieben.
@@ -404,7 +412,9 @@ public class Controller {
 
 
     /**
-     * Die Methode wird aufgerufen, wenn von initialize() aufgerufen, wenn man sich anmeldet.
+     * <h3>login</h3>
+     * Die Methode ist für das login zuständig. Dabei überprüft sie, ob im <code>Benutzer.txt</code> der Benutzername und
+     * das dazugehörige Passwort abgespeichert sind.
      * <p>
      *
      * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben des Benutzer.txt files gibt.
@@ -422,7 +432,7 @@ public class Controller {
             if(zeile==null){
                 textfehler.setVisible(true);
                 textfehler.setFill(Color.RED);
-                textfehler.setText("Kein Benutzer regristriert");
+                textfehler.setText("Kein Benutzer registriert");
             }else{
                 String[] benutzerDaten = zeile.split(" ");
                 if (Objects.equals(textfieldLBenutzer.getText(), benutzerDaten[0]) && Objects.equals(textfieldLPasswort.getText(), benutzerDaten[1])) {
@@ -454,8 +464,11 @@ public class Controller {
     }
 
     /**
+     * <h3>Deserialization der Daten</h3>
      * Die Methode ist für das Auslesen aus dem .ser File zuständig.
-     *
+     * Der ausgelesene Stream wird in <code>Home</code> gecastet und im <code>Benutzer</code> unter <code>home</code>
+     * gespeichert.
+     * <p>
      *
      * @
      */

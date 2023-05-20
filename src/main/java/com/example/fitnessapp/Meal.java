@@ -19,17 +19,29 @@ import java.util.Objects;
 
 public class Meal implements Serializable{
 
+    /**
+     * Gibt den Namen der Mahlzeit an.
+     */
     private String name;
+
+    /**
+     * Gibt die Zutaten der Mahlzeit an.
+     */
     private final ArrayList<Zutat> zutaten = new ArrayList<>();
 
+    /**
+     * Gibt die Nährwerte der gesamten Mahlzeit an.
+     */
     private Naehrwerte naehrwerteMeal = new Naehrwerte(0,0,0,0);
+
+
     private transient VBox zutatenPane;
 
     private final transient VBox bereitsHinzugefuegteZutaten = new VBox();
     private transient Text fehlermeldung = new Text();
 
     /**
-     *Die Methode
+     * Die Methode fügt die UI-Komponenten in ein Pane, welches anschließend angezeigt wird.
      */
     public void loadMealScene() {
         GridPane gridPane = new GridPane();
@@ -64,7 +76,7 @@ public class Meal implements Serializable{
     }
 
     /**
-     * Ladet die Zutaten Scene, bei welcher man Zutaten zum Gericht hinzufügen kann.
+     * Fügt die UI-Komponenten zur <code>zutatenScene</code>, welche anschließend angezeigt wird.
      */
     public void loadZutatenScene(){
         zutatenPane = new VBox();
@@ -213,7 +225,14 @@ public class Meal implements Serializable{
         Main.switchScene(zutatenScene);
     }
 
-
+    /**
+     * Diese Methode passt die Menge der Nährwerte an der neuen Menge an.
+     * <p>
+     *
+     * @param alteZutat Dieser Parameter gibt die Zutat an, bei welcher man die Menge anpassen möchte.
+     * @param neueMenge Dieser Parameter gibt die neue Menge an, an die die Nährwerte angepasst werden sollen.
+     * @return Es wird eine neue Zutat zurückgegeben, mit den angepassten Nährwerten.
+     */
     private Zutat calcNaehrwerteZutat(Zutat alteZutat, int neueMenge){
         double help = (double) neueMenge/ alteZutat.getMenge();
         int kcalNeu = (int) (alteZutat.getNaehrwerte().getKcal() * help);
@@ -227,12 +246,18 @@ public class Meal implements Serializable{
     }
 
 
-    private void addZutate2Meal(Zutat z) {
-        zutaten.add(z);
-        naehrwerteMeal.setKcal(naehrwerteMeal.getKcal() + z.getNaehrwerte().getKcal());
-        naehrwerteMeal.setKohlenhydrate(naehrwerteMeal.getKohlenhydrate() + z.getNaehrwerte().getKohlenhydrate());
-        naehrwerteMeal.setFett(naehrwerteMeal.getFett() + z.getNaehrwerte().getFett());
-        naehrwerteMeal.setProtein(naehrwerteMeal.getProtein() + z.getNaehrwerte().getProtein());
+    /**
+     * Die Methode fügt eine Zutat zur Mahlzeit hinzu. Dabei werden auch die Nährwerte der Mahlzeit angepasst.
+     * <p>
+     *
+     * @param zutat Der Parameter gibt die Zutat an, welche zur Mahlzeit hinzugefügt werden soll.
+     */
+    private void addZutate2Meal(Zutat zutat) {
+        zutaten.add(zutat);
+        naehrwerteMeal.setKcal(naehrwerteMeal.getKcal() + zutat.getNaehrwerte().getKcal());
+        naehrwerteMeal.setKohlenhydrate(naehrwerteMeal.getKohlenhydrate() + zutat.getNaehrwerte().getKohlenhydrate());
+        naehrwerteMeal.setFett(naehrwerteMeal.getFett() + zutat.getNaehrwerte().getFett());
+        naehrwerteMeal.setProtein(naehrwerteMeal.getProtein() + zutat.getNaehrwerte().getProtein());
         System.out.println("insgesamt NW" + naehrwerteMeal);
         HBox hBox = new HBox();
         Button delZutatBtn = new Button("-");
@@ -241,7 +266,7 @@ public class Meal implements Serializable{
             public void handle(MouseEvent mouseEvent) {
                 System.out.println("delete Zutat");
                 System.out.println(zutaten);
-                delZutat(z);
+                delZutat(zutat);
                 bereitsHinzugefuegteZutaten.getChildren().remove(hBox);
                 //hBox.getChildren().removeAll();     // achtung beim löschen--> evt alle zutaten in ein VBox tun
                 System.out.println("a-" + zutaten);
@@ -249,16 +274,22 @@ public class Meal implements Serializable{
             }
         });
         hBox.getChildren().add(delZutatBtn);
-        hBox.getChildren().add(new Label(z.toString()));
+        hBox.getChildren().add(new Label(zutat.toString()));
         bereitsHinzugefuegteZutaten.getChildren().add(hBox);
     }
 
-    public void delZutat(Zutat z) {
-        naehrwerteMeal.setKcal(naehrwerteMeal.getKcal()-z.getNaehrwerte().getKcal());
-        naehrwerteMeal.setKohlenhydrate(naehrwerteMeal.getKohlenhydrate()-z.getNaehrwerte().getKohlenhydrate());
-        naehrwerteMeal.setProtein(naehrwerteMeal.getProtein()-z.getNaehrwerte().getProtein());
-        naehrwerteMeal.setFett(naehrwerteMeal.getFett()-z.getNaehrwerte().getFett());
-        zutaten.remove(z);
+    /**
+     * <h2>Zutat von Mahlzeit löschen</h2>
+     * Die Methode löscht eine Zutat aus einer Mahlzeit.
+     * Die Nährwerte der Mahlzeit werden auch angepasst.
+     * @param zutat Der Parameter gibt die Zutat an, welche gelöscht werden soll.
+     */
+    public void delZutat(Zutat zutat) {
+        naehrwerteMeal.setKcal(naehrwerteMeal.getKcal()- zutat.getNaehrwerte().getKcal());
+        naehrwerteMeal.setKohlenhydrate(naehrwerteMeal.getKohlenhydrate()- zutat.getNaehrwerte().getKohlenhydrate());
+        naehrwerteMeal.setProtein(naehrwerteMeal.getProtein()- zutat.getNaehrwerte().getProtein());
+        naehrwerteMeal.setFett(naehrwerteMeal.getFett()- zutat.getNaehrwerte().getFett());
+        zutaten.remove(zutat);
     }
 
     //_________________________getter und setter ________________________________________
