@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -127,8 +128,11 @@ public class Meal implements Serializable{
             zutatenNames[i] = Main.gespeicherteZutaten.get(i).getName();
         }
         ComboBox<String> comboBox = new ComboBox<>(FXCollections.observableArrayList(zutatenNames));
+
         NumericTextField mengeGespeicherteZutat = new NumericTextField();
 
+        mengeGespeicherteZutat.setId("textfield-konto");
+        comboBox.setId("textfield-konto");
 
         // no in eventhandler mochn
         loadZutate.addRow(0, comboBox, mengeGespeicherteZutat);
@@ -320,7 +324,7 @@ public class Meal implements Serializable{
         System.out.println("insgesamt NW" + naehrwerteMeal);
         HBox hBox = new HBox();
         Button delZutatBtn = new Button("-");
-        delZutatBtn.setId("textfield-konto");
+        delZutatBtn.setId("textfield-login");
         delZutatBtn.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -334,7 +338,11 @@ public class Meal implements Serializable{
             }
         });
         hBox.getChildren().add(delZutatBtn);
-        hBox.getChildren().add(new Label(zutat.toString()));
+        Label zutatlabel = new Label(zutat.toString());
+        zutatlabel.setId("strong");
+        zutatlabel.setAlignment(Pos.CENTER);
+
+        hBox.getChildren().add(zutatlabel);
         bereitsHinzugefuegteZutaten.getChildren().add(hBox);
     }
 
