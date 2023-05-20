@@ -56,19 +56,23 @@ public class Konto implements Serializable {
         ComboBox<String> geschlechtCombobox = new ComboBox<>();
         Text textfehler = new Text();
         geschlechtCombobox.getItems().addAll("weiblich", "männlich");
-        gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
+
+        // Größe vom Konto, beim öffnen vom Konto Tab
+        gridPane.setPrefSize(Main.stage.getScene().getWidth()/3, Main.stage.getScene().getHeight()/2);
 
         if (ifbackground.length > 0) {
-            InputStream stream;
-        try {
-            stream = new FileInputStream("src/main/resources/com/example/fitnessapp/backgroundGreen.png");
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        Image background = new Image(stream);
+                InputStream stream;
+            try {
+                stream = new FileInputStream("src/main/resources/com/example/fitnessapp/backgroundGreen.png");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            Image background = new Image(stream);
 
-        gridPane.setBackground(new Background(new BackgroundImage(background, null, null, null, new BackgroundSize(100, 100, true, true, false, true))));
-    }
+            gridPane.setBackground(new Background(new BackgroundImage(background, null, null, null, new BackgroundSize(100, 100, true, true, false, true))));
+            // Größe vom Konto gelich nach dem registrieren
+            gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
+        }
 
         //gridPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#B6CC95"), null, null)));
 
