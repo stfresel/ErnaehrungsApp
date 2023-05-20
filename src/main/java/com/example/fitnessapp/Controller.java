@@ -499,4 +499,8 @@ public class Controller {
         benutzer.getHome().startHome();
     }
 
+    static Naehrwerte getNaehrwerte(){
+        return benutzer.getHome().getKonto().getNaehrwerteTagesUmsatz();
+    }
+
 }

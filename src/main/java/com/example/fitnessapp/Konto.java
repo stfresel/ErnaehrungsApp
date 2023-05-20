@@ -95,6 +95,7 @@ public class Konto implements Serializable {
                         System.out.println("Combobox Geschlecht id: " + geschlechtCombobox.getValue());
                         koerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
                         //Main.benutzer.getHome().startHome();
+                        koerperdaten.tagesUmsatzBerechnen();
                         Controller.benutzer.getHome().startHome();
                         //############
 
@@ -118,6 +119,7 @@ public class Konto implements Serializable {
                     }
                     koerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
                     calcPart(gridPaneCalcPart);
+                    koerperdaten.tagesUmsatzBerechnen();
                 }
             });
 
@@ -190,5 +192,9 @@ public class Konto implements Serializable {
             System.out.println("alle daten richtig eingetragen");
         }
         return b;
+    }
+
+    public Naehrwerte getNaehrwerteTagesUmsatz() {
+        return koerperdaten.getTagesUmsatz();
     }
 }

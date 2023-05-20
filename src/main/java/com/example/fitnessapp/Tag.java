@@ -41,8 +41,9 @@ public class Tag implements Serializable {
     public void addMeal(Meal meal){
         meals.add(meal);
 
+        System.out.println("adddddddddddddddddd meal");
         // Nährwerte zum Tag hinzufügen
-        for (int i = 0; i < meal.getZutaten().size(); i++) {
+        for (int i = 0; i < meal.getZutaten().size(); i++) {//123456789
             Naehrwerte temp = meal.getZutaten().get(i).getNaehrwerte();
             insgesamteNaehrwerte.setKcal(insgesamteNaehrwerte.getKcal() + temp.getKcal());
             insgesamteNaehrwerte.setKohlenhydrate(insgesamteNaehrwerte.getKohlenhydrate() + temp.getKohlenhydrate());
@@ -66,23 +67,29 @@ public class Tag implements Serializable {
      *
      * @return Gibt ein ScrollPane mit allen gegessenen Mahlzeiten.
      */
-    public ScrollPane ladeDetailansichtTag() {
+    public VBox ladeDetailansichtTag() {
+        System.out.println("detailansichhhhhhhht----------");
         System.out.println(date);
-        ScrollPane scrollPane = new ScrollPane();
         VBox vBox = new VBox();
+        //vBox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
-        vBox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
+        vBox.getChildren().add(new Label("Nährwerte: "));
+        vBox.getChildren().add(new Label("Kalorien: " + insgesamteNaehrwerte.getKcal() + " / " + Controller.getNaehrwerte().getKcal()));
+        vBox.getChildren().add(new Label("Kohlenhydrate: " + insgesamteNaehrwerte.getKohlenhydrate() + " / " + Controller.getNaehrwerte().getKcal()));
+        vBox.getChildren().add(new Label("Proteine: " + insgesamteNaehrwerte.getProtein() + " / " + Controller.getNaehrwerte().getProtein()));
+        vBox.getChildren().add(new Label("Fette: " + insgesamteNaehrwerte.getFette() + " / " + Controller.getNaehrwerte().getFette()));
 
-        scrollPane.setContent(vBox);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        vBox.getChildren().add(new Label("Mahlzeiten vom " + date));
+        if (date.equals(LocalDate.now())){
+            vBox.getChildren().add(new Label("Mahlzeiten von heute: " + date));
+        }else{
+            vBox.getChildren().add(new Label("Mahlzeiten vom " + date));
+        }
 
         for (Meal meal : meals) {
             vBox.getChildren().addAll(new Label(meal.getName()));
         }
 
-        return scrollPane;
+        return vBox;
     }
 
 

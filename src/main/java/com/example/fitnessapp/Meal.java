@@ -43,7 +43,7 @@ public class Meal implements Serializable{
     /**
      * Die Methode fügt die UI-Komponenten in ein Pane, welches anschließend angezeigt wird.
      */
-    public void loadMealScene() {
+    public void loadMealScene(Tag tag) {
         GridPane gridPane = new GridPane();
 
         gridPane.setHgap(10);
@@ -81,7 +81,7 @@ public class Meal implements Serializable{
                 // evt abfrage??? mit fehlertext
 
                 System.out.println("neue Zutat");
-                loadZutatenScene();
+                loadZutatenScene(tag);
             }
         });
 
@@ -96,7 +96,7 @@ public class Meal implements Serializable{
     /**
      * Fügt die UI-Komponenten zur <code>zutatenScene</code>, welche anschließend angezeigt wird.
      */
-    public void loadZutatenScene(){
+    public void loadZutatenScene(Tag tag){
         zutatenPane = new VBox();
         zutatenPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         GridPane zutatErstellen = new GridPane();
@@ -272,7 +272,9 @@ public class Meal implements Serializable{
         alle_zutaten_wurden_eingegeben.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                //123456789
                 System.out.println("fertigggg");
+                tag.addMeal(Meal.this);
                 //name = nameTextField.getText();
                 Controller.benutzer.getHome().startHome();
             }

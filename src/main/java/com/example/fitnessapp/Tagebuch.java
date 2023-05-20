@@ -53,6 +53,7 @@ public class Tagebuch implements Serializable {
      * @return Gibt das ScrollPane zurück, welches beim <code>tabPane</code> als Tab <code>heute</code> verwendet wird.
      */
     private ScrollPane loadHeute() {
+        /*
         VBox vBox = new VBox();
         vBox.setSpacing(10);
         ScrollPane scrollPane = new ScrollPane();
@@ -62,19 +63,29 @@ public class Tagebuch implements Serializable {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         vBox.getChildren().add(new Label("Heute " + tage.get(tage.size()-1).getDate()));
+
+        vBox.getChildren().add(new Label("Nährwerte:"));
+        vBox.getChildren().add(new Label("Kalorien: " + Controller.getNaehrwerte().getKcal()))
+
         vBox.getChildren().add(new Label(tage.get(tage.size()-1).getMealsString()));
 
+         */
+        VBox vBox = new VBox(tage.get(tage.size()-1).ladeDetailansichtTag());
         Button addMealBtn = new Button("neue Mahlzeit");
         addMealBtn.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 System.out.println("add meal");
                 Meal meal = new Meal();
-                meal.loadMealScene();
-                tage.get(tage.size()-1).addMeal(meal);
+                meal.loadMealScene(tage.get(tage.size()-1));
+                //tage.get(tage.size()-1).addMeal(meal); //123456789
             }
         });
         vBox.getChildren().add(addMealBtn);
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(vBox);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         return scrollPane;
     }
 
@@ -111,7 +122,13 @@ public class Tagebuch implements Serializable {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 boolean containsTab = false;
-                Tab tab = new Tab(tage.get(index).getDate().toString(), tage.get(index).ladeDetailansichtTag());
+                VBox vBox = tage.get(index).ladeDetailansichtTag();
+                ScrollPane scrollPane = new ScrollPane();
+                scrollPane.setContent(vBox);
+                scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+                scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+                Tab tab = new Tab(tage.get(index).getDate().toString(), scrollPane);
                 SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
                 for (int i = 0; i < tabPane.getTabs().size(); i++) {
                     if (Objects.equals(tabPane.getTabs().get(i).getText(), tage.get(index).getDate().toString())){
