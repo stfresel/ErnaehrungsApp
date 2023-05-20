@@ -2,6 +2,7 @@ package com.example.fitnessapp;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -30,6 +31,7 @@ public class Home implements Serializable {
      private Tagebuch tagebuch = new Tagebuch();
 // wichtig, da ansonst die Zuatenen nicht serialisiert werden
      private ArrayList<Zutat> gespeicherteZutaten = new ArrayList<>();
+     private int randobenunten = 100;
 
      /**
       * Die Methode ladet die Toolbar des HomeScreens.
@@ -62,7 +64,6 @@ public class Home implements Serializable {
           Pane pane = new Pane();
 
           UIstart uiBackground = new UIstart();
-          uiBackground.setsize(600, 400);
           uiBackground.display(pane);
 
           //Bild
@@ -89,6 +90,9 @@ public class Home implements Serializable {
           iconHolder.getChildren().add(statImg);
 
           uispacer.getChildren().add(iconHolder);
+          iconHolder.setAlignment(Pos.CENTER);
+
+
           uispacer.getChildren().add(new Rectangle(100, 0));
           borderPane.setLeft(uispacer);
 
@@ -122,13 +126,17 @@ public class Home implements Serializable {
           toolBar.getItems().addAll(tagebuchButton, kontoButton, statButton);
           toolBar.setLayoutY(Main.stage.getHeight());
           //borderPane.setTop(toolBar);
-          borderPane.setBottom(new Rectangle(0, 80));
-          borderPane.setTop(new Rectangle(0 , 80));
+          borderPane.setBottom(new Rectangle(0, randobenunten));
+          borderPane.setTop(new Rectangle(0 , randobenunten));
           borderPane.getLeft().setStyle("-fx-row-valignment: center;");
           borderPane.setCenter(tagebuch.loadTagebuch());
           //Main.stage.setScene(new Scene(borderPane));
 
-          uiBackground.setpos(70, 70);
+          uiBackground.setsize(Main.stage.getScene().getWidth()+200, Main.stage.getScene().getHeight()-randobenunten*2+100);
+          uiBackground.setpos(70, randobenunten-50);
+          //Main.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> uiBackground.setsize(Main.stage.getScene().getWidth() - 50, Main.stage.getScene().getHeight()-randobenunten*2+100));
+
+
           pane.setStyle(" -fx-background-color: #B6CC95;");
           pane.getChildren().add(borderPane);
 
