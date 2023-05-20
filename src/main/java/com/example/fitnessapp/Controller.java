@@ -267,9 +267,9 @@ public class Controller {
     private void speichern() throws IOException {
         boolean loggedIn = false;
         // Speichern im File, wo alle Benutzernamen und Passwörter stehen
-        FileWriter fr = new FileWriter("Benutzer.txt");
+        FileWriter fr = new FileWriter("Benutzer.txt", true);
 
-        BufferedWriter br = new BufferedWriter(fr);
+        //BufferedWriter br = new BufferedWriter(fr);
         textfehler.setFill(Color.RED);
         if (passwordField[0].getText().equals(passwordField[1].getText()) && textfieldRBenutzername.getText().length() != 0 && passwordField[0].getText().length()!=0 &&passwordField[1].getText().length()!=0) {
             loggedIn = true;
@@ -278,10 +278,11 @@ public class Controller {
             System.out.println(passwordField[1].getText());
             benutzer.setBenutzername(textfieldRBenutzername.getText());
             benutzer.setPasswort(passwordField[1].getText());
-            br.write(benutzer.getBenutzername());
-            br.write(" ");
-            br.write(benutzer.getPasswort());
-            br.newLine();
+            fr.append(benutzer.getBenutzername());
+            //br.write(benutzer.getBenutzername());
+            fr.append(" ");
+            fr.append(benutzer.getPasswort());
+            fr.append("\n");
 
         } else {
             textfehler.setVisible(true);
@@ -294,7 +295,7 @@ public class Controller {
             }
         }
         updateUI();
-        br.close();
+        fr.close();
         if (loggedIn){
             // Erstellen des Paths zum .ser File
             datenSpeichern();
