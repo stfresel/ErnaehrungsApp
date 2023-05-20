@@ -9,17 +9,35 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Die Klasse ...
+ * <h2>Klasse: Tag</h2>
+ * Die Klasse beinhaltet das Datum, die Mahlzeiten und die gesamten Nährwerte eines Tages.
  */
 public class Tag implements Serializable {
-    private final ArrayList<Meal> meals = new ArrayList<>();
+
+    /**
+     * Gibt das Datum des Tages an.
+     */
     private final LocalDate date;
+
+    /**
+     * Gibt die Mahlzeiten, die an diesem Tag eingetragen wurden an.
+     */
+    private final ArrayList<Meal> meals = new ArrayList<>();
+
+    /**
+     * Gibt die gesamten Nährwerte, die an diesem Tag eingetragen wurden, an.
+     */
     private Naehrwerte insgesamteNaehrwerte = new Naehrwerte(0,0,0,0);
 
     public Tag(LocalDate date) {
         this.date = date;
     }
 
+    /**
+     * <h3>Mahlzeit hinzufügen</h3>
+     * Die Methode fügt die Mahlzeit zum Tag hinzu. Dabei werden die Nährwerte der einzelnen Zutaten zu den täglichen
+     * Nährwerten hinzugerechnet.
+     */
     public void addMeal(Meal meal){
         meals.add(meal);
 
@@ -43,7 +61,8 @@ public class Tag implements Serializable {
     }
 
     /**
-     * Ladet alle Mahlzeiten als Label in ein ScrollPane.
+     * Ladet alle die Mahlzeiten, die an einem Tag eingetragen wurden, in ein Pane.
+     *<p>
      *
      * @return Gibt ein ScrollPane mit allen gegessenen Mahlzeiten.
      */

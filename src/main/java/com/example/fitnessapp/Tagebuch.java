@@ -14,12 +14,15 @@ import java.util.Objects;
 /**
  * <h2>Tagebuch</h2>
  * In der Klasse werden alle vergangenen Tage abgespeichert.
- * Mit der Klasse Tagebuch hat man einen Überblick über alle vergangenen Tage, an denen man einen Eintrag erstellt hat.
- * Zudem kann man auch neue Einträge erstellen.
+ * Mit der Klasse Tagebuch hat man einen Überblick über alle vergangenen Tage, an denen einen Eintrag erstellt wurde.
+ * Zudem können auch neue Einträge erstellen werden.
  * <p>
- * @serial ???????????
+ *
  */
 public class Tagebuch implements Serializable {
+    /**
+     * Beinhaltet zusätzlich zum heutigen Tag auch alle vergangenen Tage.
+     */
     private final ArrayList<Tag> tage = new ArrayList<>();
     private transient VBox tagebuchVbox;
 
@@ -46,8 +49,8 @@ public class Tagebuch implements Serializable {
     }
 
     /**
-     * Die Funktion ladet den Tab heute, welcher in der Scene des Tagesbuches ist.
-     * @return Gibt das ScrollPane zurück, welches als Node beim Tab heute verwendet wird.
+     * Die Methode ladet den Tab heute, welcher in der Scene des Tagesbuches ist.
+     * @return Gibt das ScrollPane zurück, welches beim <code>tabPane</code> als Tab <code>heute</code> verwendet wird.
      */
     private ScrollPane loadHeute() {
         VBox vBox = new VBox();
@@ -76,7 +79,7 @@ public class Tagebuch implements Serializable {
     }
 
     /**
-     * Die Funktion git ein ScrollPane zurück, auf welchem alle Tage (außer der heutige) zur Übersicht dargestellt werden.
+     * Die Methode git ein ScrollPane zurück, auf welchem alle Tage (außer der heutige) zur Übersicht dargestellt werden.
      * @return Gibt ebenfalls ein ScrollPane zurück, welches man bei dem Tab Vergangenheit als Node verwenden.
      */
     public ScrollPane loadVergangeneTage(){
@@ -99,8 +102,8 @@ public class Tagebuch implements Serializable {
     }
 
     /**
-     * Die Funktion erstellt für einen Tag i einen EventHandler, welcher beim Klicken auf die detailansicht des jeweiligen Tages springt.
-     * @param index Der Index entspricht der Stelle, in der ArrayList tage. Die Funktion wird in einer Schleife aufgerufen.
+     * Die Methode erstellt für einen Tag index einen EventHandler, welcher beim Klicken auf die detailansicht des jeweiligen Tages springt.
+     * @param index <code>index</code> entspricht der Stelle in der ArrayList <code>tage</code>. Die Methode wird in einer Schleife aufgerufen.
      */
     private void showTag(int index) {
         Group group = new Group();
@@ -130,9 +133,19 @@ public class Tagebuch implements Serializable {
     }
 
     //----------getter---------------
+
+    /**
+     * Die Methode gibt das Datum, der letzte Stelle der ArrayList <code>tage</code> zurück.
+     * @return Gibt das Datum des letzten Tages im Tagebuch zurück.
+     */
     public LocalDate getLastDay(){
         return tage.get(tage.size()-1).getDate();
     }
+
+    /**
+     * Die Methode gibt die Länge der ArrayList <code>tage</code> zurück.
+     * @return Gibt die Anzahl der Tage im Tagebuch zurück.
+     */
     public int getAnzahlTage(){
         return tage.size();
     }

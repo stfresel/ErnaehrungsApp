@@ -486,7 +486,7 @@ public class Controller {
      * @
      */
     private void auslesenSer(){
-        // path wieder erstellen evt funktion?
+        // path wieder erstellen evt methode?
         Path path = Paths.get(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
         try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
             benutzer.setHome((Home) whereToReadFrom.readObject());

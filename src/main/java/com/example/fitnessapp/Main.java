@@ -9,10 +9,12 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * <h1>FitnessApp</h1>
+ * #####
+ */
 public class Main extends Application {
     static ArrayList<Zutat> gespeicherteZutaten = new ArrayList<>();
-
-    //static Benutzer benutzer = new Benutzer();
     static Stage stage;
     @Override
     public void start(Stage stage1) {
