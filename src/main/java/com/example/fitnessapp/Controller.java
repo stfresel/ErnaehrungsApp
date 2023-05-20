@@ -23,7 +23,13 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Controller {
+
+    /**
+     * Gibt den Benutzer an.
+     */
     static Benutzer benutzer;
+
+
     public Pane pane = new Pane();
     private TextField textfieldRBenutzername = new TextField();
     private Button buttonReg = new Button();
@@ -41,9 +47,10 @@ public class Controller {
 
 
     /**
-     * Die Methode laden die Anmeldungs-Scene, mit den ganzen Komponenten.
+     * <h3Initialisieren</h3>
+     * In der Methode werden die UI-Komponenten initializer. Der Hintergrund wird geladen und es werden alle Komponenten
+     * hinzugefügt.
      */
-
     public void initialize() {
         benutzer = new Benutzer();
         pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
@@ -93,8 +100,15 @@ public class Controller {
 
         loginfun();
     }
-    public void loginfun(){
 
+    /**
+     * <h3>Anmelden - login</h3>
+     * Die Methode ladet die UI-Komponenten, welche für die Anmeldung benötigt werden, in das <code>pane</code>.
+     * Zu den UI-Komponenten gehört ein Textfeld für den Benutzernamen (<code>textfieldLBenutzer</code>) und ein Textfeld
+     * für das Passwort (<code>textfieldLPasswort</code>).
+     */
+    public void loginfun(){
+        System.out.println("loginfunnnnnnn");
         textfehler.setVisible(false);
         pane.requestFocus();
         textfieldLBenutzer.setVisible(true);
@@ -171,7 +185,11 @@ public class Controller {
 
 
     /**
-     * Die Methode ladet die Registrierungsszene. Sie wird immer von initialize() aufgerufen.
+     * <h3>Neues Konto erstellen - Registrieren</h3>
+     * Die Methode ladet die UI-Komponenten, welche für die Registrierung benötigt werden, in das <code>pane</code>.
+     * Zu den UI-Komponenten gehört ein Textfeld für den Benutzernamen (<code>textfieldRBenutzername</code>) und zwei Textfelder
+     * für das Passwort und das wiedeholen des Passwortes (<code>passwordField[2]</code>. Es wurde eingebaut um
+     * eventuelle Tippfehler zu vermeiden.
      */
     public void neuesKonto() {
         //benutzer.setHome(new Home());
@@ -240,6 +258,7 @@ public class Controller {
 
 
     /**
+     * <h3>Speichern des Benutzernamens und Passwortes</h3>
      * Die Methode speichert den <code>benutzername</code> und das <code>passwort</code> im <code>Benutzer.txt</code> File.
      * <p>
      *
