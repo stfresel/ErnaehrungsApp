@@ -55,19 +55,24 @@ public class Konto implements Serializable {
         NumericTextField gewichtTextField = new NumericTextField();
         ComboBox<String> geschlechtCombobox = new ComboBox<>();
         Text textfehler = new Text();
-        geschlechtCombobox.getItems().addAll("weiblich", "männlich");
-        gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
+        geschlechtCombobox.getItems().addAll("weiblich", "männlich");
+        //###achtung de size zählt für die ansicht im konto 6net für de nochn registrieren
+        gridPane.setPrefSize(Main.stage.getScene().getWidth()/3, Main.stage.getScene().getHeight()/2);
+
+        // wenn es im unfong geöffnet werd (nach dem man sich registriert hat)
         if (ifbackground.length > 0) {
             InputStream stream;
-        try {
-            stream = new FileInputStream("src/main/resources/com/example/fitnessapp/background3.png");
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        Image background = new Image(stream);
+            try {
+                stream = new FileInputStream("src/main/resources/com/example/fitnessapp/background3.png");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            Image background = new Image(stream);
 
-        gridPane.setBackground(new Background(new BackgroundImage(background, null, null, null, new BackgroundSize(100, 100, true, true, false, true))));
+            gridPane.setBackground(new Background(new BackgroundImage(background, null, null, null, new BackgroundSize(100, 100, true, true, false, true))));
+            gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
+            System.out.println("xxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyxxxxxxxxxxxxxxxx");
     }
 
         //gridPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#B6CC95"), null, null)));
@@ -76,7 +81,6 @@ public class Konto implements Serializable {
         if (koerperdaten == null){
             speichernBtn.setVisible(true);
             koerperdaten = new Koerperdaten();
-
             // nur speichern
             speichernBtn.setOnMouseClicked(new EventHandler<>() {
                 @Override
@@ -116,7 +120,6 @@ public class Konto implements Serializable {
                     calcPart(gridPaneCalcPart);
                 }
             });
-
 
         }
 
