@@ -45,10 +45,8 @@ public class Zutat implements Serializable {
 
     @Override
     public String toString() {
-        return "Zutat{" +
-                "name='" + name + '\'' +
-                ", menge=" + menge +
-                ", naehrwerte=" + naehrwerte +
-                '}';
+        return name +
+                " (menge: " + menge +
+                ", " + naehrwerte + ")";
     }
 }

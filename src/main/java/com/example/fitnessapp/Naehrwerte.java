@@ -52,11 +52,9 @@ public class Naehrwerte implements Serializable {
 
     @Override
     public String toString() {
-        return "Naehrwerte{" +
-                "kcal=" + kcal +
-                ", kohlenhydrate=" + kohlenhydrate +
-                ", protein=" + protein +
-                ", fett=" + fett +
-                '}';
+        return "Kcal: " + kcal +
+                ", Kohlenhydrate: " + kohlenhydrate +
+                ", Protein: " + protein +
+                ", Fette: " + fett;
     }
 }
