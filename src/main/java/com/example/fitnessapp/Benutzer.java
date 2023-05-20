@@ -1,32 +1,29 @@
 package com.example.fitnessapp;
 
-import javafx.event.EventHandler;
+/**
+ * <h2>Benutzer Klasse</h2>
+ * Die Klasse ermöglicht es verschiedene Benutzer-Accounts anzulegen. Somit werden die Daten der einzelnen Benutzer
+ * getrennt voneinander gespeichert.
+ * <p>
+ */
 
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
-import java.util.Objects;
-
-public class Benutzer implements Serializable{
+public class Benutzer {
 
     //--------------------------------------------
     //Attribute für Benutzer und Passwort
+    /**
+     * Gibt den Benutzernamen des Benutzers an.
+     */
     private String benutzername;
+
+    /**
+     * Gibt das Passwort des Benutzers an.
+     */
     private String passwort;
+
+    /**
+     * Dort werden alle Daten serialisiert und gespeichert.
+     */
     private Home home = new Home();
     //------------------------------
 

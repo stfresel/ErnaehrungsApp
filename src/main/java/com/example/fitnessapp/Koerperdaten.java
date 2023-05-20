@@ -11,17 +11,41 @@ import java.io.Serializable;
  */
 
 public class Koerperdaten implements Serializable {
-    private double groesse; // in m
-    private double gewicht; // in kg
+    /**
+     * Gibt die Körpergröße in Meter an.
+     */
+    private double groesse;
+
+    /**
+     * Gibt das Körpergewicht in Kilogramm an.
+     */
+    private double gewicht;
+
+    /**
+     * Gibt das Geschlecht der Person an.
+     */
     private String geschlecht;
+
+    /**
+     * Gibt das Alter der Person an.
+     */
     private double alter;
+
+    /**
+     * Gibt die ideale Menge der täglichen Nährwerte an.
+     */
     private Naehrwerte tagesUmsatz = new Naehrwerte(0,0,0,0);
+
+    /**
+     * Gibt den Body-Mass-Index an.
+     */
     private double bmi;
 
 
     /**
-     * Die Methode berechnet die Menge der Nährwerte, die der Mensch am Tag braucht.
-     * Die Nährwerte werden mit einer Formel berechnet, welche die Körperdaten für die Berechnung benötigen.
+     * <h3>Berechnung der täglichen Nährwerte</h3>
+     * Die Methode berechnet die Menge der Nährwerte, die eine Person am Tag zu sich nehmen sollte.
+     * Bei der Berechnung des Kalorienbedarfs, gibt es unterschiedliche Formeln für Frauen und Männer.
      */
     public void tagesUmsatzBerechnen(){
        // Kalorien

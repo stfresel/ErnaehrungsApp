@@ -289,6 +289,7 @@ public class Meal implements Serializable{
     }
 
     /**
+     * <h3>Nährwerte an die Menge anpassen</h3>
      * Diese Methode passt die Menge der Nährwerte an der neuen Menge an.
      * <p>
      *
@@ -310,6 +311,7 @@ public class Meal implements Serializable{
 
 
     /**
+     * <h3>Zutat zu Mahlzeit hinzufügen</h3>
      * Die Methode fügt eine Zutat zur Mahlzeit hinzu. Dabei werden auch die Nährwerte der Mahlzeit angepasst.
      * <p>
      *
@@ -347,9 +349,11 @@ public class Meal implements Serializable{
     }
 
     /**
-     * <h2>Zutat von Mahlzeit löschen</h2>
+     * <h3>Zutat von Mahlzeit löschen</h3>
      * Die Methode löscht eine Zutat aus einer Mahlzeit.
      * Die Nährwerte der Mahlzeit werden auch angepasst.
+     * <p>
+     *
      * @param zutat Der Parameter gibt die Zutat an, welche gelöscht werden soll.
      */
     public void delZutat(Zutat zutat) {
