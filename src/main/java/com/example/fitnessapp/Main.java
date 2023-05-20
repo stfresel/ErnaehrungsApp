@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * <h1>FitnessApp</h1>
- * #####
+ * Die Applikation soll es ermöglichen seine Ernährung zu tracken und somit auch gesünder und bewusster zu essen.
+ * Die Menge der Nährwertangaben wird individuell für jede Person berechnet.
  */
 public class Main extends Application {
     static ArrayList<Zutat> gespeicherteZutaten = new ArrayList<>();
@@ -34,6 +34,10 @@ public class Main extends Application {
         c.initialize();
     }
 
+    /**
+     * Die Methode lädt eine neue Szene und fügt das Stylesheet hinzu.
+     * @param s GIbt die Szene an, welche angezeigt werden soll.
+     */
     public static void switchScene(Scene s){
         try {
             String cssStyleFile = Objects.requireNonNull( Main.class.getResource("styles.css").toExternalForm() );

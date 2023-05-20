@@ -12,16 +12,13 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * <h2>Tagebuch</h2>
- * In der Klasse werden alle vergangenen Tage abgespeichert.
+ * Beinhaltet alle Tage, an denen ein Eintrag getätigt wurde.
  * Mit der Klasse Tagebuch hat man einen Überblick über alle vergangenen Tage, an denen einen Eintrag erstellt wurde.
- * Zudem können auch neue Einträge erstellen werden.
- * <p>
- *
+ * Zudem können auch neue Einträge erstellen werden
  */
 public class Tagebuch implements Serializable {
     /**
-     * Beinhaltet zusätzlich zum heutigen Tag auch alle vergangenen Tage.
+     * Beinhaltet alle vergangenen Tage und den heutigen Tag, samt Einträge.
      */
     private final ArrayList<Tag> tage = new ArrayList<>();
     private transient VBox tagebuchVbox;
@@ -34,8 +31,8 @@ public class Tagebuch implements Serializable {
     }
 
     /**
-     * Ladet die Start-Scene des Tagebuches.
-     * Im Tagebuch gibt es zwei Tabs (Heute und Vergangenheit) wo man die jeweiligen Einträge sehen kann.
+     * Ladet die Hauptansicht mit den zwei Tabs.
+     * Im Tagebuch gibt es zwei Tabs (Heute und Vergangenheit) wo man informationen zum jeweiligen Tag erhällt.
      *
      */
     public TabPane loadTagebuch() {
@@ -49,27 +46,11 @@ public class Tagebuch implements Serializable {
     }
 
     /**
-     * Die Methode ladet den Tab heute, welcher in der Scene des Tagesbuches ist.
-     * @return Gibt das ScrollPane zurück, welches beim <code>tabPane</code> als Tab <code>heute</code> verwendet wird.
+     * Die Methode ladet den Tab <code>heute</code>, welcher in der Hauptansicht des Tagesbuches zu sehen ist.
+     * @return Gibt das ScrollPane zurück, welches beim in der Hauptansicht als Tab <code>Heute</code> angezeigt wird.
      */
     private ScrollPane loadHeute() {
-        /*
-        VBox vBox = new VBox();
-        vBox.setSpacing(10);
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
-        scrollPane.setContent(vBox);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-        vBox.getChildren().add(new Label("Heute " + tage.get(tage.size()-1).getDate()));
-
-        vBox.getChildren().add(new Label("Nährwerte:"));
-        vBox.getChildren().add(new Label("Kalorien: " + Controller.getNaehrwerte().getKcal()))
-
-        vBox.getChildren().add(new Label(tage.get(tage.size()-1).getMealsString()));
-
-         */
         VBox vBox = new VBox(tage.get(tage.size()-1).ladeDetailansichtTag());
         Button addMealBtn = new Button("neue Mahlzeit");
         addMealBtn.setOnMouseClicked(new EventHandler<>() {
@@ -90,8 +71,8 @@ public class Tagebuch implements Serializable {
     }
 
     /**
-     * Die Methode git ein ScrollPane zurück, auf welchem alle Tage (außer der heutige) zur Übersicht dargestellt werden.
-     * @return Gibt ebenfalls ein ScrollPane zurück, welches man bei dem Tab Vergangenheit als Node verwenden.
+     * Die Methode ladet alle vergangenen Tage in eine Szene.
+     * @return Gibt das ScrollPane zurück, welches beim in der Hauptansicht als Tab <code>Vergangenheit</code> angezeigt wird.
      */
     public ScrollPane loadVergangeneTage(){
         tagebuchVbox = new VBox();
@@ -113,8 +94,8 @@ public class Tagebuch implements Serializable {
     }
 
     /**
-     * Die Methode erstellt für einen Tag index einen EventHandler, welcher beim Klicken auf die detailansicht des jeweiligen Tages springt.
-     * @param index <code>index</code> entspricht der Stelle in der ArrayList <code>tage</code>. Die Methode wird in einer Schleife aufgerufen.
+     * Die Methode weisst einen Tag einen EventHandler zu, welcher beim Klicken auf das Label, in die detailansicht des jeweiligen Tages springt.
+     * @param index Entspricht der Stelle in der ArrayList <code>tage</code>.
      */
     private void showTag(int index) {
         Group group = new Group();
@@ -152,8 +133,8 @@ public class Tagebuch implements Serializable {
     //----------getter---------------
 
     /**
-     * Die Methode gibt das Datum, der letzte Stelle der ArrayList <code>tage</code> zurück.
-     * @return Gibt das Datum des letzten Tages im Tagebuch zurück.
+     * Die Methode gibt das neuste Datum (letzte Stelle im Array) zurück.
+     * @return Das aktuellste Datum im Array wird zurückgegeben
      */
     public LocalDate getLastDay(){
         return tage.get(tage.size()-1).getDate();
@@ -167,6 +148,12 @@ public class Tagebuch implements Serializable {
         return tage.size();
     }
 
+    /**
+     * Die Methode gibt einen den Tag mit dem Index <code>index</code> zurück.
+     *
+     * @param index Gibt die Stelle im Array an, die zurückgegeben werden soll.
+     * @return Gibt den Tag zurück.
+     */
     public Tag getTag(int index) {
         return tage.get(index);
     }

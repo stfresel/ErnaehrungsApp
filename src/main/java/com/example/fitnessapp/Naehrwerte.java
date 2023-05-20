@@ -3,8 +3,7 @@ package com.example.fitnessapp;
 import java.io.Serializable;
 
 /**
- * <h2>Klasse: Nährwerte</h2>
- * Zu den Nährwerte gehören: Kalorien, Kohlenhydrate, Proteine und Fette.
+ * In der Klasse kann man Kalorien, Kohlenhydrate, Proteine und Fette setzten und verändern.
  */
 public class Naehrwerte implements Serializable {
     /**

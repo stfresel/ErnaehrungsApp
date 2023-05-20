@@ -24,6 +24,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Ermöglicht den Zugriff auf alle Funktionalitäten des Programmes.
+ */
 public class Home implements Serializable {
 
      /**
@@ -46,10 +49,9 @@ public class Home implements Serializable {
      private int randobenunten = 100;
 
      /**
-      * <h3>Homescreen</h3>
-      * Die Methode ladet die UI-Komponenten des Homescreen.s
+      * Die Methode ladet die UI-Komponenten des Homescreens
       * Daz##
-      * Zudem wird festgelegt, dass beim schliessen des Fensters automatisch gespeichert wird.
+      * Zudem wird festgelegt, dass beim schliessen des Fensters, <code>home</code> automatisch gespeichert wird.
       */
      public void startHome(){
           Main.gespeicherteZutaten = gespeicherteZutaten;
@@ -158,8 +160,8 @@ public class Home implements Serializable {
      }
 
      /**
-      * <h3>Tag zum Tagebuch hinzufügen</h3>
-      * Die Methode überprüft ob der heutige Tag bereits abgespeichert wurde. Falls nicht, dann wird er hinzugefügt.
+      * Fügt einen Tag zum Tagebuch hinzu
+      * Die Methode überprüft, ob der heutige Tag bereits abgespeichert wurde. Falls nicht, dann wird er hinzugefügt.
       *
       */
      private void addTage2Tagebuch(){

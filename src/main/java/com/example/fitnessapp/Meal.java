@@ -17,6 +17,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Erlaubt es mehrere Zutaten zu einem Gericht zusammen zu führen.
+ */
 public class Meal implements Serializable{
 
     /**
@@ -291,9 +294,7 @@ public class Meal implements Serializable{
     }
 
     /**
-     * <h3>Nährwerte an die Menge anpassen</h3>
      * Diese Methode passt die Menge der Nährwerte an der neuen Menge an.
-     * <p>
      *
      * @param alteZutat Dieser Parameter gibt die Zutat an, bei welcher man die Menge anpassen möchte.
      * @param neueMenge Dieser Parameter gibt die neue Menge an, an die die Nährwerte angepasst werden sollen.
@@ -313,7 +314,6 @@ public class Meal implements Serializable{
 
 
     /**
-     * <h3>Zutat zu Mahlzeit hinzufügen</h3>
      * Die Methode fügt eine Zutat zur Mahlzeit hinzu. Dabei werden auch die Nährwerte der Mahlzeit angepasst.
      * <p>
      *
@@ -351,10 +351,8 @@ public class Meal implements Serializable{
     }
 
     /**
-     * <h3>Zutat von Mahlzeit löschen</h3>
      * Die Methode löscht eine Zutat aus einer Mahlzeit.
      * Die Nährwerte der Mahlzeit werden auch angepasst.
-     * <p>
      *
      * @param zutat Der Parameter gibt die Zutat an, welche gelöscht werden soll.
      */

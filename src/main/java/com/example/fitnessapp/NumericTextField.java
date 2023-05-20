@@ -4,6 +4,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 
+/**
+ * Ermöglicht es nur double Werte einzugeben.
+ */
 public class NumericTextField extends TextField {
     public NumericTextField() {
         this.textProperty().addListener(new ChangeListener<>() {
@@ -23,11 +26,5 @@ public class NumericTextField extends TextField {
     public double getDouble(){
         return Double.parseDouble(getText());
     }
-/*
-    public int getInt(){
-        return Integer.parseInt(getText());
-    }
-
- */
 
 }

@@ -3,8 +3,7 @@ package com.example.fitnessapp;
 import java.io.Serializable;
 
 /**
- * <h2>Klasse: Zutat</h2>
- * Die Klasse Zutat beinhaltet den Namen, die Menge und die Nährwerte.
+ * Ermöglicht es verschiedene Zutaten zu erstellen, um die Nährwerte je nach zutat einzugeben.
  */
 public class Zutat implements Serializable {
 

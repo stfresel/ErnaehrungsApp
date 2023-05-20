@@ -1,10 +1,8 @@
 package com.example.fitnessapp;
 
 /**
- * <h2>Benutzer Klasse</h2>
- * Die Klasse ermöglicht es verschiedene Benutzer-Accounts anzulegen. Somit werden die Daten der einzelnen Benutzer
- * getrennt voneinander gespeichert.
- * <p>
+ * Ermöglicht es verschiedene Benutzer-Accounts anzulegen.
+ * Somit werden die Daten der einzelnen Benutzer getrennt voneinander gespeichert.
  */
 
 public class Benutzer {

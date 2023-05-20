@@ -7,6 +7,9 @@ import javafx.scene.layout.Pane;
 
 import java.io.Serializable;
 
+/**
+ * Ermöglicht es die Nährwerte der Tage in einem Diagramm grafisch darzustellen.
+ */
 public class Statistik implements Serializable {
 
     public Pane loadStat() {

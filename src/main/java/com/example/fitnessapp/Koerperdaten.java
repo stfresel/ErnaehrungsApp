@@ -3,11 +3,8 @@ package com.example.fitnessapp;
 import java.io.Serializable;
 
 /**
- * <h1>Körperdaten</h1>
- * Die Klasse beinhaltet alle wichtigen Daten über den Körper.
+ * Beinhaltet alle wichtigen Daten über den Körper.
  * Anhand der Daten wird der BMI und die täglichen Nährwerte berechnet.
- * <p>
- *
  */
 
 public class Koerperdaten implements Serializable {
@@ -43,9 +40,9 @@ public class Koerperdaten implements Serializable {
 
 
     /**
-     * <h3>Berechnung der täglichen Nährwerte</h3>
+     * Berechnet die täglichen Nährwerte.
      * Die Methode berechnet die Menge der Nährwerte, die eine Person am Tag zu sich nehmen sollte.
-     * Bei der Berechnung des Kalorienbedarfs, gibt es unterschiedliche Formeln für Frauen und Männer.
+     * Bei der Berechnung des Kalorienbedarfs gibt es unterschiedliche Formeln für Frauen und Männer.
      */
     public void tagesUmsatzBerechnen(){
        // Kalorien
@@ -64,9 +61,8 @@ public class Koerperdaten implements Serializable {
     //________________getter und setter______________________//
 
     /**
-     * <h3>Body-Mass-Index Berechnung</h3>
+     * Berechnet den Body-Mass-Index.
      * Diese Methode berechnet den BMI anhand der Größe und des Gewichtes einer Person.
-     * <p>
      *
      * @return Der Rückgabewert entspricht dem BMI der Person. Dabei wird dieser auf zwei Nachkommastellen gerundet.
      */

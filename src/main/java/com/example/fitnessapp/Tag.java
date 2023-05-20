@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * <h2>Klasse: Tag</h2>
- * Die Klasse beinhaltet das Datum, die Mahlzeiten und die gesamten Nährwerte eines Tages.
+ * Ermöglicht es die Mahlzeiten Tagen zuzuweisen, dadurch erhällt man einen guten Überblick über den Verlauf.
  */
 public class Tag implements Serializable {
 
@@ -34,14 +33,13 @@ public class Tag implements Serializable {
     }
 
     /**
-     * <h3>Mahlzeit hinzufügen</h3>
+     * Mahlzeit zu einem Tag hinzufügen.
      * Die Methode fügt die Mahlzeit zum Tag hinzu. Dabei werden die Nährwerte der einzelnen Zutaten zu den täglichen
      * Nährwerten hinzugerechnet.
      */
     public void addMeal(Meal meal){
         meals.add(meal);
 
-        System.out.println("adddddddddddddddddd meal");
         // Nährwerte zum Tag hinzufügen
         for (int i = 0; i < meal.getZutaten().size(); i++) {//123456789
             Naehrwerte temp = meal.getZutaten().get(i).getNaehrwerte();
@@ -62,13 +60,11 @@ public class Tag implements Serializable {
     }
 
     /**
-     * Ladet alle die Mahlzeiten, die an einem Tag eingetragen wurden, in ein Pane.
-     *<p>
+     * Ladet alle Mahlzeiten, die an einem Tag eingetragen wurden, in ein Pane.
      *
      * @return Gibt ein ScrollPane mit allen gegessenen Mahlzeiten.
      */
     public VBox ladeDetailansichtTag() {
-        System.out.println("detailansichhhhhhhht----------");
         System.out.println(date);
         VBox vBox = new VBox();
         //vBox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
@@ -95,14 +91,6 @@ public class Tag implements Serializable {
 
     //------------------------------ getter und setter ____________________________________
 
-
-    /*
-    public String getDateString() {
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        return dateFormat.format(date);
-    }
-
-     */
 
     public LocalDate getDate() {
         return date;

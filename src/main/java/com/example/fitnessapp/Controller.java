@@ -47,9 +47,9 @@ public class Controller {
 
 
     /**
-     * <h3Initialisieren</h3>
-     * In der Methode werden die UI-Komponenten initializer. Der Hintergrund wird geladen und es werden alle Komponenten
-     * hinzugefügt.
+
+     * In der Methode werden die UI-Komponenten initialisiert.
+     * Der Hintergrund wird geladen und es werden alle Komponenten hinzugefügt.
      */
     public void initialize() {
         benutzer = new Benutzer();
@@ -102,7 +102,6 @@ public class Controller {
     }
 
     /**
-     * <h3>Anmelden - login</h3>
      * Die Methode ladet die UI-Komponenten, welche für die Anmeldung benötigt werden, in das <code>pane</code>.
      * Zu den UI-Komponenten gehört ein Textfeld für den Benutzernamen (<code>textfieldLBenutzer</code>) und ein Textfeld
      * für das Passwort (<code>textfieldLPasswort</code>).
@@ -185,10 +184,9 @@ public class Controller {
 
 
     /**
-     * <h3>Neues Konto erstellen - Registrieren</h3>
      * Die Methode ladet die UI-Komponenten, welche für die Registrierung benötigt werden, in das <code>pane</code>.
      * Zu den UI-Komponenten gehört ein Textfeld für den Benutzernamen (<code>textfieldRBenutzername</code>) und zwei Textfelder
-     * für das Passwort und das wiedeholen des Passwortes (<code>passwordField[2]</code>. Es wurde eingebaut um
+     * für das Passwort und das wiedeholen des Passwortes (<code>passwordField[2]</code>). Es wurde eingebaut um
      * eventuelle Tippfehler zu vermeiden.
      */
     public void neuesKonto() {
@@ -258,9 +256,7 @@ public class Controller {
 
 
     /**
-     * <h3>Speichern des Benutzernamens und Passwortes</h3>
      * Die Methode speichert den <code>benutzername</code> und das <code>passwort</code> im <code>Benutzer.txt</code> File.
-     * <p>
      *
      * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben des Benutzer.txt files gibt.
      */
@@ -313,12 +309,9 @@ public class Controller {
     }
 
     /**
-     * <h3>Position der UI-Bauteile anpassen</h3>
-     * Die Methode passt die Position der UI-Bauteile an.
-     * <p>
+     * Die Methode passt die Position der UI-Bauteile an die Größe des Fensters an.
      *
      * @author  René Weissteiner
-     * @date    16.05.2023
      */
     public void updateUI(){
         double midx = Main.stage.getScene().getWidth();
@@ -381,12 +374,9 @@ public class Controller {
     }
 
     /**
-     * <h3>Hintergrund anpassen</h3>
-     * Die Methode passt die Größe von <code>imageView</code> an die Fenstergröße an.
-     * <p>
+     * Die Methode passt die Größe vom Hintergrunf an die Fenstergröße an.
      *
      * @author  René Weissteiner
-     * @date    16.05.2023
      */
     public void adjustBackgroundSize(){
         // Binden Sie die Breite und Höhe der ImageView an die Breite und Höhe der Pane
@@ -406,9 +396,8 @@ public class Controller {
     }
 
     /**
-     * <h3>Serialisation der Daten</h3>
+     * Die Daten werden Serialisiert.
      * Die Methode speichert die Daten von <code>Home</code> im <code>(benutzername)_(passwort).ser</code> File.
-     * <p>
      *
      * @serialData Die gesamte Klasse <code>Home</code>, samt den Attribute, werden serialisiert und in ein File geschrieben.
      *
@@ -426,10 +415,9 @@ public class Controller {
 
 
     /**
-     * <h3>login</h3>
-     * Die Methode ist für das login zuständig. Dabei überprüft sie, ob im <code>Benutzer.txt</code> der Benutzername und
+     * Die Methode ist für das login zuständig.
+     * Dabei überprüft sie, ob im <code>Benutzer.txt</code> der Benutzername und
      * das dazugehörige Passwort abgespeichert sind.
-     * <p>
      *
      * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben des Benutzer.txt files gibt.
      */
@@ -478,13 +466,9 @@ public class Controller {
     }
 
     /**
-     * <h3>Deserialization der Daten</h3>
-     * Die Methode ist für das Auslesen aus dem .ser File zuständig.
+     * Die Methode ist für die Deserialization der Daten zuständig.
      * Der ausgelesene Stream wird in <code>Home</code> gecastet und im <code>Benutzer</code> unter <code>home</code>
      * gespeichert.
-     * <p>
-     *
-     * @
      */
     private void auslesenSer(){
         // path wieder erstellen evt methode?
