@@ -6,10 +6,9 @@ import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -50,11 +49,28 @@ public class Meal implements Serializable{
         gridPane.setVgap(10);
         gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
+        //background
+        InputStream stream;
+        try {
+            stream = new FileInputStream("src/main/resources/com/example/fitnessapp/backgroundGreen.png");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        Image background = new Image(stream);
+
+        gridPane.setBackground(new Background(new BackgroundImage(background, null, null, null, new BackgroundSize(100, 100, true, true, false, true))));
+
         Scene scene = new Scene(gridPane);
         TextField nameTextField = new TextField();
+        Label text = new Label("Name des Gerichtes: ");
+        text.setId("strong");
+        nameTextField.setId("textfield-konto");
 
-        gridPane.addRow(1, new Label("Name des Gerichtes: "), nameTextField);
+
+
+        gridPane.addRow(1, text, nameTextField);
         Button addZutatBtn = new Button("weiter");
+        addZutatBtn.setId("textfield-konto");
         addZutatBtn.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -71,6 +87,7 @@ public class Meal implements Serializable{
         // sie sollten immer die letzten elemente im gridPane sein
         gridPane.addRow(1, addZutatBtn);
         //gridPane.addRow(2, mealFertig);
+        gridPane.setId("label-konto");
         Main.switchScene(scene);
         //Main.stage.setScene(scene);
     }
@@ -85,6 +102,19 @@ public class Meal implements Serializable{
         GridPane loadZutate = new GridPane();
         CheckBox checkbox = new CheckBox("neue Zutat erstellen");
         checkbox.setSelected(true);
+        //zutatenPane.setId("label-konto");
+
+        //background
+        InputStream stream;
+        try {
+            stream = new FileInputStream("src/main/resources/com/example/fitnessapp/backgroundGreen.png");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        Image background = new Image(stream);
+
+        zutatenPane.setBackground(new Background(new BackgroundImage(background, null, null, null, new BackgroundSize(100, 100, true, true, false, true))));
+
 
         // Fehlermeldung setzten
         fehlermeldung.setText("Bitte gib die fehlenden Werte ein");
@@ -112,6 +142,8 @@ public class Meal implements Serializable{
         Label mengeGegessen = new Label("Gegessene Menge (in g): ");
         NumericTextField textFieldGegessen = new NumericTextField();
 
+
+
         zutatenPane.getChildren().add(0, checkbox);
         zutatenPane.getChildren().add(zutatErstellen);
 
@@ -124,10 +156,31 @@ public class Meal implements Serializable{
         NumericTextField kcalTextField = new NumericTextField();
         //fehlermeldung.setVisible(false);
 
-        zutatErstellen.addRow(2, new Label("Kalorien: "), kcalTextField);
-        zutatErstellen.addRow(3, new Label("Kolenhydrate: "), kolenhydrateTextField);
-        zutatErstellen.addRow(4, new Label("Proteine: "), proteineTextField);
-        zutatErstellen.addRow(5, new Label("Fette: "),fetteTextField);
+        Label kalorienLabel = new Label("Kalorien: ");
+        Label kolenLabel = new Label("Kolenhydrate: ");
+        Label proteinLabel = new Label("Proteine: ");
+        Label fettLabel = new Label("Fette: ");
+
+        //design Css
+        nameDerZutat.setId("strong");
+        mengeGegessen.setId("strong");
+        kalorienLabel.setId("strong");
+        kolenLabel.setId("strong");
+        proteinLabel.setId("strong");
+        fettLabel.setId("strong");
+        textFieldName.setId("textfield-konto");
+        textFieldGegessen.setId("textfield-konto");
+        kcalTextField.setId("textfield-konto");
+        kolenhydrateTextField.setId("textfield-konto");
+        proteineTextField.setId("textfield-konto");
+        fetteTextField.setId("textfield-konto");
+        checkbox.setId("strong");
+
+
+        zutatErstellen.addRow(2, kalorienLabel, kcalTextField);
+        zutatErstellen.addRow(3, kolenLabel, kolenhydrateTextField);
+        zutatErstellen.addRow(4, proteinLabel, proteineTextField);
+        zutatErstellen.addRow(5, fettLabel,fetteTextField);
         zutatErstellen.addRow(6, fehlermeldung);
 
         checkbox.selectedProperty().addListener(new ChangeListener<>() {
@@ -146,7 +199,8 @@ public class Meal implements Serializable{
         });
 
         Button fertigBtn = new Button("Zutat Hinzufügen");
-        fertigBtn.setPrefSize(60,30);
+        fertigBtn.setPrefSize(180,30);
+        fertigBtn.setId("textfield-konto");
         fertigBtn.setLayoutY(zutatenPane.getHeight()-100);
 
         // inuputs noch in Var speichern!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -208,6 +262,9 @@ public class Meal implements Serializable{
         });
 
         Button alle_zutaten_wurden_eingegeben = new Button("das waren alle zutaten");
+        alle_zutaten_wurden_eingegeben.setId("textfield-konto");
+        alle_zutaten_wurden_eingegeben.setPrefSize(180,30);
+
         alle_zutaten_wurden_eingegeben.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -219,6 +276,8 @@ public class Meal implements Serializable{
         zutatenPane.getChildren().add(0, bereitsHinzugefuegteZutaten);
         zutatenPane.getChildren().add(zutatenPane.getChildren().size(),fertigBtn);
         zutatenPane.getChildren().add(zutatenPane.getChildren().size(),alle_zutaten_wurden_eingegeben);
+
+
 
         Scene zutatenScene = new Scene(zutatenPane);
         //Main.stage.setScene(zutatenScene);
@@ -261,6 +320,7 @@ public class Meal implements Serializable{
         System.out.println("insgesamt NW" + naehrwerteMeal);
         HBox hBox = new HBox();
         Button delZutatBtn = new Button("-");
+        delZutatBtn.setId("textfield-konto");
         delZutatBtn.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {

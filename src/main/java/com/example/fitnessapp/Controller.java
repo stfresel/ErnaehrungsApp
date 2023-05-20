@@ -51,7 +51,7 @@ public class Controller {
         //laden Hintergrund
         InputStream stream;
         try {
-            stream = new FileInputStream("src/main/resources/com/example/fitnessapp/login.png");
+            stream = new FileInputStream("src/main/resources/com/example/fitnessapp/backgroundLogin.png");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
