@@ -271,7 +271,7 @@ public class Controller {
             } else if (!passwordField[0].getText().equals(passwordField[1].getText())){
                 textfehler.setText("Passwörter stimmen nicht überein");
             }else {
-                textfehler.setText("Benutzername oder Passwort sind falsch");
+                textfehler.setText("Benutzername und/oder Passwort sind falsch");
             }
         }
         updateUI();
@@ -349,19 +349,13 @@ public class Controller {
             txt.setLayoutY(midy / 2 + 140);
             textfehler.setLayoutY(pane.getHeight() / 2 - 80);
         }
-        if (Objects.equals(textfehler.getText(), "Kein Benutzername")) {
+        if (Objects.equals(textfehler.getText(), "Bitte gib alle Daten ein")) {
             textfehler.setLayoutX(pane.getWidth() / 2 - 60);
         } else if (Objects.equals(textfehler.getText(), "Passwörter stimmen nicht überein")) {
             textfehler.setLayoutX(pane.getWidth() / 2 - 100);
-        } else if (Objects.equals(textfehler.getText(), "Bitte gib alle Daten ein")) {
-            ;
-            textfehler.setLayoutX(pane.getWidth() / 2 - 72);
-        }else if(Objects.equals(textfehler.getText(), "Passwort oder Benutzername falsch!")) {
+        }else if(Objects.equals(textfehler.getText(), "Benutzername und/oder Passwort sind falsch")) {
             textfehler.setLayoutX(pane.getWidth() / 2 - 115);
-        }/*else {
-            textfehler.setLayoutX(pane.getWidth() / 2 - 120);
         }
-        */
 
         adjustBackgroundSize();
     }
@@ -432,7 +426,7 @@ public class Controller {
             if(zeile==null){
                 textfehler.setVisible(true);
                 textfehler.setFill(Color.RED);
-                textfehler.setText("Kein Benutzer registriert");
+                textfehler.setText("Benutzername und/oder Passwort sind falsch");
             }else{
                 String[] benutzerDaten = zeile.split(" ");
                 if (Objects.equals(textfieldLBenutzer.getText(), benutzerDaten[0]) && Objects.equals(textfieldLPasswort.getText(), benutzerDaten[1])) {
@@ -448,7 +442,7 @@ public class Controller {
                     textfieldLBenutzer.setText("");
                     textfieldLPasswort.setText("");
                     textfehler.setFill(Color.RED);
-                    textfehler.setText("Passwort oder Benutzername falsch!");
+                    textfehler.setText("Benutzername und/oder Passwort sind falsch");
                     textfehler.setVisible(true);
                 }
                 zeile = br.readLine();

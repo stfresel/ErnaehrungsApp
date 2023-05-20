@@ -57,7 +57,7 @@ public class Konto implements Serializable {
         Text textfehler = new Text();
         geschlechtCombobox.getItems().addAll("weiblich", "männlich");
 
-        // Größe vom Konto, beim öffnen vom Konto Tab
+        // Größe vom Konto, beim Öffnen vom Konto Tab
         gridPane.setPrefSize(Main.stage.getScene().getWidth()/3, Main.stage.getScene().getHeight()/2);
 
         if (ifbackground.length > 0) {
