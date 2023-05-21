@@ -3,9 +3,14 @@ package com.example.fitnessapp;
 import javafx.application.Application;
 
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 /*
@@ -24,9 +29,13 @@ public class Main extends Application {
         stage = stage1;
         stage.setMinWidth(500);
         stage.setMinHeight(500);
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("logo.png")));
+        stage.getIcons().add(icon);
+        stage.setTitle("Ernährungsapp");
         Pane pane = new Pane();
         pane.setPrefSize(500, 500);
-        stage.setTitle("FitnessApp");
+
+
         Scene scene = new Scene(pane);
         String css = Objects.requireNonNull(this.getClass().getResource("styles.css")).toExternalForm();
         scene.getStylesheets().add(css);
