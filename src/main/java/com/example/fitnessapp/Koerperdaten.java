@@ -75,21 +75,46 @@ public class Koerperdaten implements Serializable {
         // um auf zwei Nachkommastellen zu runden
         return Math.round(bmi * 100.0)/100.0;
     }
+
+    /**
+     * Gibt die Größe der Person zurück.
+     * @return Größe in Meter
+     */
     public double getGroesse() {
         return groesse;
     }
 
+    /**
+     * Gibt das Gewicht der Person zurück.
+     * @return Gewicht in Kilogramm
+     */
     public double getGewicht() {
         return gewicht;
     }
 
+    /**
+     * Gibt das Geschlecht der Person zurück.
+     * @return String mit dem Geschlecht (männlich oder weiblich)
+     */
     public String getGeschlecht() {
         return geschlecht;
     }
 
+    /**
+     * Gibt das Alter der Person zurück.
+     * @return Alter in Jahren
+     */
     public double getAlter() {
         return alter;
     }
+
+    /**
+     * Setzt die Körperdaten einer Person.
+     * @param groesse neue Größe in Meter
+     * @param gewicht neues Gewicht in Kilogramm
+     * @param alter neues Alter in Jahren
+     * @param geschlecht neues Geschlecht (männlich oder weiblich)
+     */
 
     public void setKoerperdaten(double groesse, double gewicht, double alter, String geschlecht){
        this.groesse = groesse;
@@ -99,6 +124,10 @@ public class Koerperdaten implements Serializable {
     }
 
 
+    /**
+     * Gibt den Tagesumsatz einer Person zurück.
+     * @return Tagesumsatz der Nährwerte
+     */
     public Naehrwerte getTagesUmsatz() {
         return tagesUmsatz;
     }

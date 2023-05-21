@@ -479,6 +479,10 @@ public class Controller {
         benutzer.getHome().startHome();
     }
 
+    /**
+     * Gibt den Tagesumsatz einer Person zurück
+     * @return Tagesumsatz an Nährwerten
+     */
     static Naehrwerte getNaehrwerte(){
         return benutzer.getHome().getKonto().getNaehrwerteTagesUmsatz();
     }

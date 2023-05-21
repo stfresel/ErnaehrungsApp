@@ -35,35 +35,67 @@ public class Naehrwerte implements Serializable {
 
     //_________________getter und setter__________________________//
 
+    /**
+     * Setzt die Kalorien.
+     * @param kcal Menge der Kalorien
+     */
 
     public void setKcal(int kcal) {
         this.kcal = kcal;
     }
 
+    /**
+     * Setzt die Fette.
+     * @param fette Menge der Fette
+     */
     public void setFette(int fette) {
         this.fette = fette;
     }
 
+    /**
+     * Setzt die Kohlenhydrate.
+     * @param kohlenhydrate Menge der Kohlenhydrate
+     */
     public void setKohlenhydrate(int kohlenhydrate) {
         this.kohlenhydrate = kohlenhydrate;
     }
 
-    public void setProtein(int protein) {
-        this.protein = protein;
+    /**
+     * Setzt die Proteine.
+     * @param proteine Menge der Kolorien
+     */
+    public void setProtein(int proteine) {
+        this.protein = proteine;
     }
 
+    /**
+     * Gibt die Kalorien zurück.
+     * @return Menge der Kalorien
+     */
     public int getKcal() {
         return kcal;
     }
 
+    /**
+     * Gibt die Fette zurück.
+     * @return Menge der Fette
+     */
     public int getFette() {
         return fette;
     }
 
+    /**
+     * Gibt die Kohlenhydrate zurück.
+     * @return Menge der Kohlenhydrate
+     */
     public int getKohlenhydrate() {
         return kohlenhydrate;
     }
 
+    /**
+     * Gibt die Proteine zurück.
+     * @return Menge der Proteine
+     */
     public int getProtein() {
         return protein;
     }

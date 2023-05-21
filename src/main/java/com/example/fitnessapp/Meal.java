@@ -43,10 +43,6 @@ public class Meal implements Serializable{
     private final transient VBox bereitsHinzugefuegteZutaten = new VBox();
     private transient Text fehlermeldung = new Text();
 
-    public Meal(){
-
-    }
-
     /**
      * Die Methode fügt die UI-Komponenten in ein Pane, welches anschließend angezeigt wird.
      */
@@ -379,6 +375,10 @@ public class Meal implements Serializable{
         return name + "\n\t" + zutaten;
     }
 
+    /**
+     * Gibt die ArrayList, in der die Zutaten der Mahlzeit stehen, zurück.
+     * @return ArrayList der Zutaten
+     */
     public ArrayList<Zutat> getZutaten() {
         return zutaten;
     }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Ermöglicht es die Mahlzeiten Tagen zuzuweisen, dadurch erhällt man einen guten Überblick über den Verlauf.
+ * Ermöglicht es die Mahlzeiten Tagen zuzuweisen, dadurch erhält man einen guten Überblick über den Verlauf.
  */
 public class Tag implements Serializable {
 
@@ -109,6 +109,10 @@ public class Tag implements Serializable {
     //------------------------------ getter und setter ____________________________________
 
 
+    /**
+     * Gibt das Datum des Tages zurück.
+     * @return LocalDate vom Tag
+     */
     public LocalDate getDate() {
         return date;
     }
@@ -117,6 +121,10 @@ public class Tag implements Serializable {
         return meals.toString();
     }
 
+    /**
+     * Gibt die insgesamt an einem Tag gegessene Nährwerte zurück.
+     * @return insgesamt gegessene Nährwerte vom Tag
+     */
     public Naehrwerte getInsgesamteNaehrwerte() {
         return insgesamteNaehrwerte;
     }

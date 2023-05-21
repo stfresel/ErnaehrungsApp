@@ -199,6 +199,11 @@ public class Home implements Serializable {
           imageView.setImage(image);
           return imageView;
      }
+
+     /**
+      * Erstellt ein Pane und fügt die UI-Komponenten dazu.
+      * @return Gibt das Pane mit der Statistik zurück
+      */
      public Pane loadStat() {
           Pane pane = new Pane();
 /*
