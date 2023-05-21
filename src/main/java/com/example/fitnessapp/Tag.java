@@ -95,7 +95,9 @@ public class Tag implements Serializable {
         if (date.equals(LocalDate.now())){
             vBox.getChildren().add(mahlheute);
         }else{
-            vBox.getChildren().add(new Label("Mahlzeiten vom " + date));
+            Label mahlLabel = new Label("Mahlzeiten vom " + date);
+            mahlLabel.setId("strong");
+            vBox.getChildren().add(mahlLabel);
         }
 
         for (Meal meal : meals) {
