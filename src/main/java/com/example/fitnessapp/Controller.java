@@ -186,7 +186,7 @@ public class Controller {
     /**
      * Die Methode ladet die UI-Komponenten, welche für die Registrierung benötigt werden, in das <code>pane</code>.
      * Zu den UI-Komponenten gehört ein Textfeld für den Benutzernamen (<code>textfieldRBenutzername</code>) und zwei Textfelder
-     * für das Passwort und das wiedeholen des Passwortes (<code>passwordField[2]</code>). Es wurde eingebaut um
+     * für das Passwort und das Wiederholen des Passwortes (<code>passwordField[2]</code>). Es wurde eingebaut um
      * eventuelle Tippfehler zu vermeiden.
      */
     public void neuesKonto() {
@@ -430,37 +430,29 @@ public class Controller {
         benutzer.setPasswort(textfieldLPasswort.getText());
         boolean loggedIn = false;
         String zeile = br.readLine();
-        do {
-            if(zeile==null){
-                textfehler.setVisible(true);
-                textfehler.setFill(Color.RED);
-                textfehler.setText("Benutzername und/oder Passwort sind falsch");
-            }else{
-                String[] benutzerDaten = zeile.split(" ");
-                if (Objects.equals(textfieldLBenutzer.getText(), benutzerDaten[0]) && Objects.equals(textfieldLPasswort.getText(), benutzerDaten[1])) {
-                    textfehler.setText("");
-                    System.out.println("Passwort und Benutzer stimmen überein");
+        while(zeile != null){
+            String[] benutzerDaten = zeile.split(" ");
+            if (Objects.equals(textfieldLBenutzer.getText(), benutzerDaten[0]) && Objects.equals(textfieldLPasswort.getText(), benutzerDaten[1])) {
+                textfehler.setText("");
+                System.out.println("Passwort und Benutzer stimmen überein");
 
-                    benutzer.setBenutzername(textfieldLBenutzer.getText());
-                    benutzer.setPasswort(textfieldLPasswort.getText());
-                    loggedIn = true;
-                } else {
-                    pane.requestFocus();
-
-                    textfieldLBenutzer.setText("");
-                    textfieldLPasswort.setText("");
-                    textfehler.setFill(Color.RED);
-                    textfehler.setText("Benutzername und/oder Passwort sind falsch");
-                    textfehler.setVisible(true);
-                }
-                zeile = br.readLine();
+                benutzer.setBenutzername(textfieldLBenutzer.getText());
+                benutzer.setPasswort(textfieldLPasswort.getText());
+                loggedIn = true;
+                break;
             }
-
-        } while (zeile != null);
-        br.close();
+            zeile = br.readLine();
+        }
 
         if (loggedIn){
             auslesenSer();
+        }else{
+            pane.requestFocus();
+            textfieldLBenutzer.setText("");
+            textfieldLPasswort.setText("");
+            textfehler.setVisible(true);
+            textfehler.setFill(Color.RED);
+            textfehler.setText("Benutzername und/oder Passwort sind falsch");
         }
         updateUI();
     }

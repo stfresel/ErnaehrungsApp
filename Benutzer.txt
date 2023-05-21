@@ -1,11 +1,2 @@
-test1 1
-test222 22
-12 12
-q q
-b b
-u u
-cc cc
-e e
-z z
-x x
-z z
+seli 12
+www 12
