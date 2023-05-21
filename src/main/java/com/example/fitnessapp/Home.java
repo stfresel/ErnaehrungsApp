@@ -86,6 +86,7 @@ public class Home implements Serializable {
           ImageView profileImg = loadImg("src/main/resources/com/example/fitnessapp/profilIcon.png");
           ImageView tagebuchImg = loadImg("src/main/resources/com/example/fitnessapp/tagebuchIcon.png");
           ImageView settingsImg = loadImg("src/main/resources/com/example/fitnessapp/settingsIcon.png");
+          ImageView iconImg = loadImg("src/main/resources/com/example/fitnessapp/logo.png");
           double iconsize = 50;
           profileImg.setFitHeight(iconsize);
           profileImg.setFitWidth(iconsize);
@@ -95,20 +96,30 @@ public class Home implements Serializable {
           statImg.setFitWidth(iconsize);
           settingsImg.setFitHeight(iconsize);
           settingsImg.setFitWidth(iconsize);
+          iconImg.setFitHeight(iconsize*1.7);
+          iconImg.setFitWidth(iconsize*1.7);
           borderPane.getStyleClass().add("button-login");
 
           VBox iconHolder = new VBox();
           HBox uispacer = new HBox();
+          HBox topUIspacer = new HBox();
+
+          topUIspacer.getChildren().add(iconImg);
+          topUIspacer.getChildren().add(new Rectangle(0 , randobenunten));
+
+
+
 
           iconHolder.getChildren().add(profileImg);
           iconHolder.getChildren().add(tagebuchImg);
           iconHolder.getChildren().add(statImg);
 
+          uispacer.getChildren().add(new Rectangle(5, 0));
           uispacer.getChildren().add(iconHolder);
           iconHolder.setAlignment(Pos.CENTER);
 
 
-          uispacer.getChildren().add(new Rectangle(100, 0));
+          uispacer.getChildren().add(new Rectangle(95, 0));
           borderPane.setLeft(uispacer);
 
 
@@ -141,7 +152,8 @@ public class Home implements Serializable {
           });
 
           borderPane.setBottom(new Rectangle(0, randobenunten));
-          borderPane.setTop(new Rectangle(0 , randobenunten));
+
+          borderPane.setTop(topUIspacer);
           borderPane.getLeft().setStyle("-fx-row-valignment: center;");
           borderPane.setCenter(tagebuch.loadTagebuch());
           //Main.stage.setScene(new Scene(borderPane));

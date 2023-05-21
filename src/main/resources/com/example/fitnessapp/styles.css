@@ -59,23 +59,48 @@
 #text{
     -fx-font-size: 11pt;
     -fx-font-style: italic;
-
+}
+#vergangeneTage{
+    -fx-font-size: 12pt;
 }
 
+/* Tab Pabe, tab header, tab background und tab */
 #tabpane{
     -fx-background-color: transparent;
     -fx-font-size: 14pt;
 }
 
-#vergangeneTage{
-    text-decoration: underline;
-}
 
 .tab-pane .tab-header-area .tab-header-background {
     -fx-background-color: transparent;
 }
 
-.tab-pane .tab .tab-label {
+.tab-pane .tab {
     -fx-background-color: transparent;
     -fx-background-insets: 0, 0 0 1 0;
+}
+
+
+/* Scroll Pane, Scroll bar und thumb */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #888888;
+    -fx-background-radius: 5px;  /* runde Kanten */
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: #999999;
+}
+
+.scroll-pane .scroll-bar .thumb:pressed {
+    -fx-background-color: #acc094;
 }
