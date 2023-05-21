@@ -260,6 +260,7 @@ public class Home implements Serializable {
           lineChart.getData().add(seriesFette);
 
           pane.getChildren().add(lineChart);
+          pane.getChildren().get(0).setLayoutY(-50);
           return pane;
      }
 
