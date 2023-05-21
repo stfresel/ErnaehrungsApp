@@ -27,7 +27,7 @@ public class Main extends Application {
         stage.setMaxWidth(750);
         stage.setMaxHeight(500);
         Pane pane = new Pane();
-        pane.setPrefSize(500, 500);
+        pane.setPrefSize(750, 500);
         stage.setTitle("FitnessApp");
         Scene scene = new Scene(pane);
         String css = Objects.requireNonNull(this.getClass().getResource("styles.css")).toExternalForm();

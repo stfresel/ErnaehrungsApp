@@ -124,6 +124,7 @@ public class Home implements Serializable {
           tagebuchImg.setOnMouseClicked(new EventHandler<>() {
                @Override
                public void handle(MouseEvent mouseEvent) {
+                    System.out.println("\t width: " + Main.stage.getScene().getWidth() + "\t height: " + Main.stage.getScene().getHeight());
                     borderPane.setCenter(tagebuch.loadTagebuch());
                }
           });
@@ -228,6 +229,8 @@ public class Home implements Serializable {
           LineChart<Number,Number> lineChart = new LineChart<>(xAxis, yAxis);
 
           lineChart.setTitle("Übersicht Nährwerte");
+          lineChart.setScaleX(0.85);
+          lineChart.setScaleY(0.85);
 
           Tagebuch tagebuch = Controller.benutzer.getHome().getTagebuch();
           //################
