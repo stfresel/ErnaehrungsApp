@@ -45,7 +45,7 @@ public class Konto implements Serializable {
         gridPane.getChildren().clear();
         //gridPane.getChildren().removeAll();
         Label bmiLabel = new Label("\t BMI: " + koerperdaten.getBMI());
-        Label tagbedarfLabel = new Label("täglicher Bedarf:");
+        Label tagbedarfLabel = new Label("       täglicher Bedarf:");
         Label kalorienLabel = new Label("\t Kalorien       : " + koerperdaten.getTagesUmsatz().getKcal());
         Label kohlenhydrateLabel = new Label("\t Kohlenhydrate  : " + koerperdaten.getTagesUmsatz().getKohlenhydrate());
         Label proteinLabel = new Label("\t Proteine       : " + koerperdaten.getTagesUmsatz().getProtein());
