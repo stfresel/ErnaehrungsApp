@@ -71,7 +71,7 @@ public class Tag implements Serializable {
 
         vBox.getChildren().add(new Label("Nährwerte: "));
         vBox.getChildren().add(new Label("Kalorien: " + insgesamteNaehrwerte.getKcal() + " / " + Controller.getNaehrwerte().getKcal()));
-        vBox.getChildren().add(new Label("Kohlenhydrate: " + insgesamteNaehrwerte.getKohlenhydrate() + " / " + Controller.getNaehrwerte().getKcal()));
+        vBox.getChildren().add(new Label("Kohlenhydrate: " + insgesamteNaehrwerte.getKohlenhydrate() + " / " + Controller.getNaehrwerte().getKohlenhydrate()));
         vBox.getChildren().add(new Label("Proteine: " + insgesamteNaehrwerte.getProtein() + " / " + Controller.getNaehrwerte().getProtein()));
         vBox.getChildren().add(new Label("Fette: " + insgesamteNaehrwerte.getFette() + " / " + Controller.getNaehrwerte().getFette()));
 
