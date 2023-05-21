@@ -1,9 +1,13 @@
 package com.example.fitnessapp;
 
 import javafx.application.Platform;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,7 +16,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.WindowEvent;
 
@@ -33,10 +36,7 @@ public class Home implements Serializable {
       * Gibt das Konto des Benutzers an.
       */
      private Konto konto = new Konto();
-     /**
-      * Gibt die Statistik des Benutzers an
-      */
-     private Statistik statistik = new Statistik();
+
      /**
       * Gibt das Tagebuch des Benutzers an.
       */
@@ -49,8 +49,7 @@ public class Home implements Serializable {
      private int randobenunten = 100;
 
      /**
-      * Die Methode ladet die UI-Komponenten des Homescreens
-      * Daz##
+      * Die Methode ladet die UI-Komponenten des Homescreens.
       * Zudem wird festgelegt, dass beim schliessen des Fensters, <code>home</code> automatisch gespeichert wird.
       */
      public void startHome(){
@@ -132,16 +131,18 @@ public class Home implements Serializable {
 
 
           //Button für Statistiken
+
           Button statButton = new Button("Statistik");
           statImg.setOnMouseClicked(new EventHandler<>() {
                @Override
                public void handle(MouseEvent mouseEvent) {
-                    borderPane.setCenter(statistik.loadStat());
+                    borderPane.setCenter(loadStat());
                }
           });
+
           toolBar.getItems().addAll(tagebuchButton, kontoButton, statButton);
           toolBar.setLayoutY(Main.stage.getHeight());
-          //borderPane.setTop(toolBar);
+          borderPane.setTop(toolBar);
           borderPane.setBottom(new Rectangle(0, randobenunten));
           borderPane.setTop(new Rectangle(0 , randobenunten));
           borderPane.getLeft().setStyle("-fx-row-valignment: center;");
@@ -160,7 +161,7 @@ public class Home implements Serializable {
      }
 
      /**
-      * Fügt einen Tag zum Tagebuch hinzu
+      * Fügt einen Tag zum Tagebuch hinzu.
       * Die Methode überprüft, ob der heutige Tag bereits abgespeichert wurde. Falls nicht, dann wird er hinzugefügt.
       *
       */
@@ -180,6 +181,11 @@ public class Home implements Serializable {
           }
      }
 
+     /**
+      * Ladet den Hintergrund der Szene.
+      * @param src Speicherort des Bildes
+      * @return Gibt das Bild als ImageView zurück
+      */
      public ImageView loadImg(String src){
           //laden Hintergrund
           InputStream stream;
@@ -193,30 +199,105 @@ public class Home implements Serializable {
           imageView.setImage(image);
           return imageView;
      }
+     public Pane loadStat() {
+          Pane pane = new Pane();
+/*
+          ObservableList<XYChart.Series<LocalDate, Number>> series = FXCollections.observableArrayList();
+
+          ObservableList<XYChart.Series<LocalDate, Number>> seriesKcal = FXCollections.observableArrayList();
+          ObservableList<XYChart.Series<LocalDate, Number>> seriesKohlenhydrate = FXCollections.observableArrayList();
+          ObservableList<XYChart.Series<LocalDate, Number>> seriesProteine = FXCollections.observableArrayList();
+          ObservableList<XYChart.Series<LocalDate, Number>> seriesFette = FXCollections.observableArrayList();
+
+
+ */
+
+
+          final NumberAxis xAxis = new NumberAxis();
+          final NumberAxis yAxis = new NumberAxis();
+
+          XYChart.Series<Number, Number> seriesKcal = new XYChart.Series<>();
+          XYChart.Series<Number, Number> seriesKohlenhydrate = new XYChart.Series<>();
+          XYChart.Series<Number, Number> seriesProteine = new XYChart.Series<>();
+          XYChart.Series<Number, Number> seriesFette = new XYChart.Series<>();
+
+          // idee --> mann konn die anzahl der tage verändern mit an comboBox
+
+          xAxis.setLabel("Datum");
+          yAxis.setLabel("Aufgenommen");
+          LineChart<Number,Number> lineChart = new LineChart<>(xAxis, yAxis);
+
+          lineChart.setTitle("Übersicht Nährwerte");
+
+          Tagebuch tagebuch = Controller.benutzer.getHome().getTagebuch();
+          //################
+
+
+          seriesKcal.setName("Kcal");
+          for (int i = 0; i < tagebuch.getAnzahlTage(); i++) {
+               seriesKcal.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getKcal()));
+          }
+
+          seriesKohlenhydrate.setName("Kohlenhydrate");
+          for (int i = 0; i < tagebuch.getAnzahlTage(); i++) {
+               seriesKohlenhydrate.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getKohlenhydrate()));
+          }
+
+          seriesProteine.setName("Proteine");
+          for (int i = 0; i < tagebuch.getAnzahlTage(); i++) {
+               seriesProteine.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getProtein()));
+          }
+
+          seriesFette.setName("Fette");
+          for (int i = 0; i < tagebuch.getAnzahlTage(); i++) {
+               seriesFette.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getFette()));
+          }
+
+
+
+          lineChart.getData().add(seriesKcal);
+          lineChart.getData().add(seriesKohlenhydrate);
+          lineChart.getData().add(seriesProteine);
+          lineChart.getData().add(seriesFette);
+
+          pane.getChildren().add(lineChart);
+          return pane;
+     }
+
 
 
 
      //---------------getter und setter--------------------------
+
+     /**
+      * Gibt das Konto zurück.
+      * @return Gibt eine Instanz von Konto zurück
+      */
      public Konto getKonto() {
           return konto;
      }
 
+     /**
+      * Setzt das Konto.
+      * @param konto Gibt das neue Konto an
+      */
      public void setKonto(Konto konto) {
           this.konto = konto;
      }
 
-     public Statistik getStatistik() {
-          return statistik;
-     }
 
-     public void setStatistik(Statistik statistik) {
-          this.statistik = statistik;
-     }
-
+     /**
+      * Gibt das Tagebuch zurück.
+      * @return Gibt eine Instanz von Tagebuch zurück
+      */
      public Tagebuch getTagebuch() {
           return tagebuch;
      }
 
+     /**
+      * Setzt das Tagebuch.
+      * @param tagebuch Gibt das neue Tagebuch an
+      */
      public void setTagebuch(Tagebuch tagebuch) {
           this.tagebuch = tagebuch;
      }

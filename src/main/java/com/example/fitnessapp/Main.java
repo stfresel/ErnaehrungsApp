@@ -8,10 +8,13 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
-/**
+/*
  * Die Applikation soll es ermöglichen seine Ernährung zu tracken und somit auch gesünder und bewusster zu essen.
  * Die Menge der Nährwertangaben wird individuell für jede Person berechnet.
+ */
+
+/**
+ * Erstellt die Stage und bindet das css-File ein.
  */
 public class Main extends Application {
     static ArrayList<Zutat> gespeicherteZutaten = new ArrayList<>();
@@ -36,7 +39,7 @@ public class Main extends Application {
 
     /**
      * Die Methode lädt eine neue Szene und fügt das Stylesheet hinzu.
-     * @param s GIbt die Szene an, welche angezeigt werden soll.
+     * @param s Gibt die Szene an, welche angezeigt werden soll.
      */
     public static void switchScene(Scene s){
         try {
