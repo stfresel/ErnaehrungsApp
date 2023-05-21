@@ -239,6 +239,11 @@ public class Controller {
                     }else{
                         //########Textfehler stezten!!!!!!!!
                         System.out.println("Benutzername bereits vergeben");
+                        textfehler.setText("Benutzername bereits vergeben");
+                        textfehler.setVisible(true);
+                        textfehler.setFill(Color.RED);
+                        textfehler.setLayoutY(pane.getHeight()/2 - 80);
+                        updateUI();
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -402,9 +407,10 @@ public class Controller {
         } else if (Objects.equals(textfehler.getText(), "Passwörter stimmen nicht überein")) {
             textfehler.setLayoutX(pane.getWidth() / 2 - 105);
         }else if(Objects.equals(textfehler.getText(), "Benutzername und/oder Passwort sind falsch")) {
-            textfehler.setLayoutX(pane.getWidth() / 2 - 115);
+            textfehler.setLayoutX(pane.getWidth() / 2 - 137);
+        }else if(Objects.equals(textfehler.getText(), "Benutzername bereits vergeben")){
+            textfehler.setLayoutX(pane.getWidth() / 2 - 99);
         }
-
         adjustBackgroundSize();
     }
 
