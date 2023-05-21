@@ -234,7 +234,12 @@ public class Controller {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
-                    speichern();
+                    if (isBenutzernameFrei(textfieldRBenutzername.getText())){
+                        speichern();
+                    }else{
+                        //########Textfehler stezten!!!!!!!!
+                        System.out.println("Benutzername bereits vergeben");
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -254,6 +259,33 @@ public class Controller {
         });
     }
 
+    /**
+     * Überprüft, ob der Benutzername nicht schon vergeben ist
+     * @param benutzername Benutzername, nach welchem gesucht werden soll
+     * @return Gibt true zurück, wenn er noch frei ist
+     */
+
+    private boolean isBenutzernameFrei(String benutzername){
+        try {
+            FileReader fr = new FileReader("Benutzer.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String line = br.readLine();
+
+            while(line != null){
+                String[] userdata = line.split(" ");
+                if (Objects.equals(userdata[0], benutzername)){
+                    return false;
+                }
+                line = br.readLine();
+            }
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+            //##### fehlermeldung setzten??
+        }
+        return true;
+    }
 
     /**
      * Die Methode speichert den <code>benutzername</code> und das <code>passwort</code> im <code>Benutzer.txt</code> File.
