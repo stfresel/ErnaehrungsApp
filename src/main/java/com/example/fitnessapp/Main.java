@@ -29,11 +29,14 @@ public class Main extends Application {
         stage = stage1;
         stage.setMinWidth(500);
         stage.setMinHeight(500);
+        stage.setMaxWidth(750);
+        stage.setMaxHeight(500);
+
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("logo.png")));
         stage.getIcons().add(icon);
         stage.setTitle("Ernährungsapp");
         Pane pane = new Pane();
-        pane.setPrefSize(500, 500);
+        pane.setPrefSize(750, 500);
 
 
         Scene scene = new Scene(pane);

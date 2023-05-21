@@ -228,6 +228,8 @@ public class Home implements Serializable {
           LineChart<Number,Number> lineChart = new LineChart<>(xAxis, yAxis);
 
           lineChart.setTitle("Übersicht Nährwerte");
+          lineChart.setScaleX(0.85);
+          lineChart.setScaleY(0.85);
 
           Tagebuch tagebuch = Controller.benutzer.getHome().getTagebuch();
           //################
