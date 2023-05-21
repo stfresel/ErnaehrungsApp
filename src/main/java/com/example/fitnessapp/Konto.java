@@ -82,9 +82,11 @@ public class Konto implements Serializable {
         Text textfehler = new Text();
         geschlechtCombobox.getItems().addAll("weiblich", "männlich");
 
+
         // Größe vom Konto, beim Öffnen vom Konto Tab
         gridPane.setPrefSize(Main.stage.getScene().getWidth()/1.5, Main.stage.getScene().getHeight()/2);
 
+        System.out.println(Main.stage.getScene().getWidth());
         if (ifbackground.length > 0) {
                 InputStream stream;
             try {
@@ -95,7 +97,7 @@ public class Konto implements Serializable {
             Image background = new Image(stream);
 
             gridPane.setBackground(new Background(new BackgroundImage(background, null, null, null, new BackgroundSize(100, 100, true, true, false, true))));
-            // Größe vom Konto gelich nach dem registrieren
+            // Größe vom Konto gleich nach dem registrieren
             gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         }
 
@@ -105,7 +107,6 @@ public class Konto implements Serializable {
         if (koerperdaten == null){
             speichernBtn.setVisible(true);
             koerperdaten = new Koerperdaten();
-
             // nur speichern
             speichernBtn.setOnMouseClicked(new EventHandler<>() {
                 @Override
@@ -207,7 +208,7 @@ public class Konto implements Serializable {
         gridPane.addRow(8, labellist.get(7), geschlechtCombobox);
         gridPane.addRow(9, textfehler,speichernBtn);
 
-        gridPane.setPrefSize(Main.stage.getScene().getWidth()/1.5, Main.stage.getScene().getHeight()/2);
+        //gridPane.setPrefSize(Main.stage.getScene().getWidth()/1.5, Main.stage.getScene().getHeight()/2);
 
         return gridPane;
     }
