@@ -61,10 +61,8 @@ public class Home implements Serializable {
                @Override
                public void handle(WindowEvent windowEvent) {
                     System.out.println("closing");
-                    Platform.exit();
-                    //Main.benutzer.datenSpeichern();
                     Controller.datenSpeichern();
-
+                    Platform.exit();
                }
           });
 

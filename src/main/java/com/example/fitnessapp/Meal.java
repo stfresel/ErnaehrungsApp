@@ -268,7 +268,7 @@ public class Meal implements Serializable{
             }
         });
 
-        Button alle_zutaten_wurden_eingegeben = new Button("das waren alle zutaten");
+        Button alle_zutaten_wurden_eingegeben = new Button("fertig");
         alle_zutaten_wurden_eingegeben.setId("textfield-konto");
         alle_zutaten_wurden_eingegeben.setPrefSize(180,30);
 
