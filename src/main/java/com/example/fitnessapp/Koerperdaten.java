@@ -1,6 +1,8 @@
 package com.example.fitnessapp;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Period;
 
 /**
  * Beinhaltet alle wichtigen Daten über den Körper.
@@ -24,9 +26,9 @@ public class Koerperdaten implements Serializable {
     private String geschlecht;
 
     /**
-     * Gibt das Alter der Person an.
+     * Gibt das Geburtsdatum der Person an.
      */
-    private double alter;
+    private LocalDate birthday;
 
     /**
      * Gibt die ideale Menge der täglichen Nährwerte an.
@@ -48,9 +50,9 @@ public class Koerperdaten implements Serializable {
        // Kalorien
        switch (geschlecht) {
            case "weiblich" ->
-                   tagesUmsatz.setKcal((int) Math.round(655 + (9.6 * gewicht) + (1.8 * groesse * 100) - (4.7 * alter)));
+                   tagesUmsatz.setKcal((int) Math.round(655 + (9.6 * gewicht) + (1.8 * groesse * 100) - (4.7 * getAlter())));
            case "männlich" ->
-                   tagesUmsatz.setKcal((int) Math.round(66.5 + (13.7 * gewicht) + (5.0 * groesse * 100) - (6.8 * alter)));
+                   tagesUmsatz.setKcal((int) Math.round(66.5 + (13.7 * gewicht) + (5.0 * groesse * 100) - (6.8 * getAlter())));
        }
        tagesUmsatz.setKohlenhydrate((int) Math.round(tagesUmsatz.getKcal() * 0.5 / 4.1));
        tagesUmsatz.setProtein((int) Math.round(tagesUmsatz.getKcal()* 0.2 / 4.1));
@@ -105,21 +107,21 @@ public class Koerperdaten implements Serializable {
      * @return Alter in Jahren
      */
     public double getAlter() {
-        return alter;
+        return Period.between(birthday, LocalDate.now()).getYears();
     }
 
     /**
      * Setzt die Körperdaten einer Person.
      * @param groesse neue Größe in Meter
      * @param gewicht neues Gewicht in Kilogramm
-     * @param alter neues Alter in Jahren
+     * @param gebDate neues Geburtstagsdatum
      * @param geschlecht neues Geschlecht (männlich oder weiblich)
      */
 
-    public void setKoerperdaten(double groesse, double gewicht, double alter, String geschlecht){
+    public void setKoerperdaten(double groesse, double gewicht, LocalDate gebDate, String geschlecht){
        this.groesse = groesse;
        this.gewicht = gewicht;
-       this.alter = alter;
+       this.birthday = gebDate;
        this.geschlecht = geschlecht;
     }
 
@@ -144,8 +146,12 @@ public class Koerperdaten implements Serializable {
         this.geschlecht = geschlecht;
     }
 
-    public void setAlter(double alter) {
-        this.alter = alter;
+    /**
+     * Gibt das Geburtsdatum des Benutzers zurück.
+     * @return LocalDate Geburtsdatum
+     */
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
     @Override
@@ -154,7 +160,7 @@ public class Koerperdaten implements Serializable {
                 "groesse=" + groesse +
                 ", gewicht=" + gewicht +
                 ", geschlecht=" + geschlecht +
-                ", alter=" + alter +
+                ", alter=" + getAlter() +
                 ", tagesUmsatzKcal=" + tagesUmsatz +
                 ", bmi=" + bmi +
                 '}';

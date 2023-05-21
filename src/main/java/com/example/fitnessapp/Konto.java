@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +17,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class Konto implements Serializable {
@@ -68,7 +71,8 @@ public class Konto implements Serializable {
     public GridPane datenAnsicht(boolean... ifbackground) {
         GridPane gridPane = new GridPane();
         Button speichernBtn = new Button("speichern");
-        NumericTextField alterTextField = new NumericTextField();
+        //NumericTextField alterTextField = new NumericTextField();
+        DatePicker alterDatePicker = new DatePicker();
         NumericTextField groesseTextField = new NumericTextField();
         NumericTextField gewichtTextField = new NumericTextField();
         ComboBox<String> geschlechtCombobox = new ComboBox<>();
@@ -105,13 +109,14 @@ public class Konto implements Serializable {
                 public void handle(MouseEvent mouseEvent) {
                     System.out.println(gewichtTextField.getText().length());
                     if (geschlechtCombobox.getSelectionModel().getSelectedItem()==null ||
-                            alterTextField.getText().length() < 1 || groesseTextField.getText().length() < 1 ||
+                            alterDatePicker.getValue().toEpochDay() > LocalDate.now().toEpochDay() || groesseTextField.getText().length() < 1 ||
                             gewichtTextField.getText().length() < 1){
                         setFehlermeldung(textfehler);
 
                     }else {
                         System.out.println("Combobox Geschlecht id: " + geschlechtCombobox.getValue());
-                        koerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
+                        koerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(),
+                                alterDatePicker.getValue(), geschlechtCombobox.getValue());
                         //Main.benutzer.getHome().startHome();
                         koerperdaten.tagesUmsatzBerechnen();
                         Controller.benutzer.getHome().startHome();
@@ -124,18 +129,20 @@ public class Konto implements Serializable {
         } else {
             groesseTextField.setText(String.valueOf(koerperdaten.getGroesse()));
             gewichtTextField.setText(String.valueOf(koerperdaten.getGewicht()));
-            alterTextField.setText(String.valueOf(koerperdaten.getAlter()));
+            //alterTextField.setText(String.valueOf(koerperdaten.getAlter()));
+            alterDatePicker.setValue(koerperdaten.getBirthday());
             geschlechtCombobox.setValue(koerperdaten.getGeschlecht());
             //wenn man etwas verändert will
             speichernBtn.setOnMouseClicked(new EventHandler<>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     if (geschlechtCombobox.getSelectionModel().getSelectedItem() == null ||
-                            alterTextField.getText().length() < 1 || groesseTextField.getText().length() < 1 ||
-                            gewichtTextField.getText().length() < 1){
+                            alterDatePicker.getValue().toEpochDay() > LocalDate.now().toEpochDay()
+                            || groesseTextField.getText().length() < 1 || gewichtTextField.getText().length() < 1){
                         setFehlermeldung(textfehler);
                     }
-                    koerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(), alterTextField.getDouble(), geschlechtCombobox.getValue());
+                    koerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(),
+                            alterDatePicker.getValue(), geschlechtCombobox.getValue());
                     calcPart(gridPaneCalcPart);
                     koerperdaten.tagesUmsatzBerechnen();
                 }
@@ -173,7 +180,8 @@ public class Konto implements Serializable {
         //Setzen Style Textfelder
         groesseTextField.setId("textfield-konto");
         gewichtTextField.setId("textfield-konto");
-        alterTextField.setId("textfield-konto");
+        //alterTextField.setId("textfield-konto");
+        alterDatePicker.setId("textfield-konto");
         geschlechtCombobox.setId("textfield-konto");
         speichernBtn.setId("textfield-konto");
         gridPane.setVgap(3);
@@ -187,7 +195,7 @@ public class Konto implements Serializable {
         gridPane.addRow(4, labellist.get(3));
         gridPane.addRow(5, labellist.get(4), groesseTextField);
         gridPane.addRow(6, labellist.get(5), gewichtTextField);
-        gridPane.addRow(7, labellist.get(6), alterTextField);
+        gridPane.addRow(7, labellist.get(6), alterDatePicker);
         gridPane.addRow(8, labellist.get(7), geschlechtCombobox);
         gridPane.addRow(9, textfehler,speichernBtn);
 
