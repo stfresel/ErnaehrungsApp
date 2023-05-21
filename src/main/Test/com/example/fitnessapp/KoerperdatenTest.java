@@ -22,6 +22,9 @@ public class KoerperdatenTest {
         koerperdaten.setGeschlecht("männlich");
         koerperdaten.tagesUmsatzBerechnen();
         assertEquals(2233, koerperdaten.getTagesUmsatz().getKcal());
+        assertEquals(272, koerperdaten.getTagesUmsatz().getKohlenhydrate());
+        assertEquals(109, koerperdaten.getTagesUmsatz().getProtein());
+        assertEquals(72, koerperdaten.getTagesUmsatz().getFette());
     }
 
     @Test
@@ -32,6 +35,9 @@ public class KoerperdatenTest {
         koerperdaten.setGeschlecht("weiblich");
         koerperdaten.tagesUmsatzBerechnen();
         assertEquals(1354, koerperdaten.getTagesUmsatz().getKcal());
+        assertEquals(165, koerperdaten.getTagesUmsatz().getKohlenhydrate());
+        assertEquals(66, koerperdaten.getTagesUmsatz().getProtein());
+        assertEquals(44, koerperdaten.getTagesUmsatz().getFette());
     }
 
     @Test
@@ -42,6 +48,9 @@ public class KoerperdatenTest {
         koerperdaten.setGeschlecht("weiblich");
         koerperdaten.tagesUmsatzBerechnen();
         assertEquals(1787, koerperdaten.getTagesUmsatz().getKcal());
+        assertEquals(218, koerperdaten.getTagesUmsatz().getKohlenhydrate());
+        assertEquals(87, koerperdaten.getTagesUmsatz().getProtein());
+        assertEquals(58, koerperdaten.getTagesUmsatz().getFette());
     }
 
     @Test
@@ -52,6 +61,22 @@ public class KoerperdatenTest {
         koerperdaten.setGeschlecht("weiblich");
         koerperdaten.tagesUmsatzBerechnen();
         assertEquals(1422, koerperdaten.getTagesUmsatz().getKcal());
+        assertEquals(173, koerperdaten.getTagesUmsatz().getKohlenhydrate());
+        assertEquals(69, koerperdaten.getTagesUmsatz().getProtein());
+        assertEquals(46, koerperdaten.getTagesUmsatz().getFette());
+    }
+
+    @Test
+    public void testTagesUmsatzBerechnen_KeineZahlenVorKomma(){
+        koerperdaten.setGroesse(.12);
+        koerperdaten.setGewicht(.3478);
+        koerperdaten.setAlter(.1294);
+        koerperdaten.setGeschlecht("weiblich");
+        koerperdaten.tagesUmsatzBerechnen();
+        assertEquals(679, koerperdaten.getTagesUmsatz().getKcal());
+        assertEquals(83, koerperdaten.getTagesUmsatz().getKohlenhydrate());
+        assertEquals(33, koerperdaten.getTagesUmsatz().getProtein());
+        assertEquals(22, koerperdaten.getTagesUmsatz().getFette());
     }
 
 
