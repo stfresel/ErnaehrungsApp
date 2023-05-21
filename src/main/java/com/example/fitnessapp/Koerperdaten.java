@@ -103,10 +103,11 @@ public class Koerperdaten implements Serializable {
     }
 
     /**
-     * Gibt das Alter der Person zurück.
+     * Berechnet das Alter der Person anhand des Geburtsdatums.
      * @return Alter in Jahren
      */
     public double getAlter() {
+        System.out.println("alter: " + Period.between(birthday, LocalDate.now()).getYears());
         return Period.between(birthday, LocalDate.now()).getYears();
     }
 

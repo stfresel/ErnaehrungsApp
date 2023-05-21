@@ -213,16 +213,6 @@ public class Home implements Serializable {
       */
      public Pane loadStat() {
           Pane pane = new Pane();
-/*
-          ObservableList<XYChart.Series<LocalDate, Number>> series = FXCollections.observableArrayList();
-
-          ObservableList<XYChart.Series<LocalDate, Number>> seriesKcal = FXCollections.observableArrayList();
-          ObservableList<XYChart.Series<LocalDate, Number>> seriesKohlenhydrate = FXCollections.observableArrayList();
-          ObservableList<XYChart.Series<LocalDate, Number>> seriesProteine = FXCollections.observableArrayList();
-          ObservableList<XYChart.Series<LocalDate, Number>> seriesFette = FXCollections.observableArrayList();
-
-
- */
 
 
           final NumberAxis xAxis = new NumberAxis();
