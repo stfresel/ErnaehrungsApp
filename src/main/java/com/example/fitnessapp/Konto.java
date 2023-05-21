@@ -18,18 +18,24 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 
+/**
+ * Ermöglicht es die Körperdaten anzuzeigen und zu verändern.
+ */
 public class Konto implements Serializable {
+    /**
+     * Beinhaltet alle Körperdaten einer Person.
+     */
     private Koerperdaten koerperdaten;
     private transient GridPane gridPaneCalcPart;
 
     private transient Rectangle backrec = new Rectangle();
 
+    /**
+     * Laden die UI-Komponenten mit den Log-In-Daten, BMI, täglichen Nährwerte und den Körperdaten in die HBox.
+     * @return Gibt die HBox mit den UI-Komponenten zurück
+     */
     public HBox loadKonto() {
         HBox hBox = new HBox();
         hBox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
@@ -41,6 +47,10 @@ public class Konto implements Serializable {
         return hBox;
     }
 
+    /**
+     * Die Methode passt den BMI und die täglichen Nährwerte laufen an die Änderungen der Körperdaten an.
+     * @param gridPane Auf dieses Pane werden die Änderungen gespeichert.
+     */
     public void calcPart(GridPane gridPane) {
         System.out.println("-------------------------------------------");
         koerperdaten.tagesUmsatzBerechnen();
@@ -71,6 +81,11 @@ public class Konto implements Serializable {
         gridPane.addRow(5,fetteLabel);
     }
 
+    /**
+     * Ladet die Körperdaten und die Inputs in ein GridPane.
+     * @param ifbackground optionaler Übergabeparameter, der die Farbe des Hintergrundes bestimmt
+     * @return Gibt das GridPane mit den UI-Komponenten zurück
+     */
     public GridPane datenAnsicht(boolean... ifbackground) {
         GridPane gridPane = new GridPane();
         Button speichernBtn = new Button("speichern");
@@ -213,26 +228,20 @@ public class Konto implements Serializable {
         return gridPane;
     }
 
-    private void setFehlermeldung(Text textfehler){
-        /*
-           textfehler.setLayoutX(50);
-           textfehler.setLayoutY(225);
-          */
-        textfehler.setFill(Color.RED);
-        textfehler.setText("Bitte gib die Daten vollständig und korrekt an");
-        textfehler.setVisible(true);
+    /**
+     * Setzt eine Fehlermeldung
+     * @param text Gibt die UI-Komponente an, welche verändert werden soll.
+     */
+    private void setFehlermeldung(Text text){
+        text.setFill(Color.RED);
+        text.setText("Bitte gib die Daten vollständig und korrekt an");
+        text.setVisible(true);
     }
 
-    public boolean alleWerteEingetragen(){
-        boolean b = false;
-        if (koerperdaten.getGroesse() > 0 && koerperdaten.getGewicht() > 0 &&
-                koerperdaten.getAlter() > 0 && koerperdaten.getGeschlecht() != null){
-            b = true;
-            System.out.println("alle daten richtig eingetragen");
-        }
-        return b;
-    }
-
+    /**
+     * Gibt den Tagesumsatz der Person zurück
+     * @return Tagesumsatz der Nährwerte
+     */
     public Naehrwerte getNaehrwerteTagesUmsatz() {
         return koerperdaten.getTagesUmsatz();
     }
