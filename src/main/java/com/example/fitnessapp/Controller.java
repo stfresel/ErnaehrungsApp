@@ -353,7 +353,7 @@ public class Controller {
         iconView.setX(midx/2 - sizeOfObjectsY - 5);
         iconView.setY(backgroundrec.getY() + 10);
 
-        // Unterscheidung zwischen Loginfenster und Registrierungsfenster beim Login/Registrierungs Text (clickable) und Fehlertext
+        // Unterscheidung zwischen Loginfenster und Registrierungsfenster beim Login/Registrierungs-Text (clickable) und Fehlertext
         if(buttonLLogin.isVisible()){
             txt.setLayoutX(midx/2 - 32);
             txt.setLayoutY(midy/2 + 140);
@@ -368,7 +368,7 @@ public class Controller {
         if (Objects.equals(textfehler.getText(), "Bitte gib alle Daten ein")) {
             textfehler.setLayoutX(pane.getWidth() / 2 - 60);
         } else if (Objects.equals(textfehler.getText(), "Passwörter stimmen nicht überein")) {
-            textfehler.setLayoutX(pane.getWidth() / 2 - 100);
+            textfehler.setLayoutX(pane.getWidth() / 2 - 105);
         }else if(Objects.equals(textfehler.getText(), "Benutzername und/oder Passwort sind falsch")) {
             textfehler.setLayoutX(pane.getWidth() / 2 - 115);
         }
