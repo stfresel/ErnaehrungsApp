@@ -19,6 +19,9 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 
 public class Konto implements Serializable {
@@ -109,8 +112,9 @@ public class Konto implements Serializable {
                 public void handle(MouseEvent mouseEvent) {
                     System.out.println(gewichtTextField.getText().length());
                     if (geschlechtCombobox.getSelectionModel().getSelectedItem()==null ||
-                            alterDatePicker.getValue().toEpochDay() > LocalDate.now().toEpochDay() || groesseTextField.getText().length() < 1 ||
-                            gewichtTextField.getText().length() < 1){
+                            alterDatePicker.getValue() == null ||
+                            alterDatePicker.getValue().isAfter(LocalDate.now())
+                            || groesseTextField.getText().length() < 1 || gewichtTextField.getText().length() < 1){
                         setFehlermeldung(textfehler);
 
                     }else {
@@ -137,7 +141,8 @@ public class Konto implements Serializable {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     if (geschlechtCombobox.getSelectionModel().getSelectedItem() == null ||
-                            alterDatePicker.getValue().toEpochDay() > LocalDate.now().toEpochDay()
+                            alterDatePicker.getValue() == null ||
+                            alterDatePicker.getValue().isAfter(LocalDate.now())
                             || groesseTextField.getText().length() < 1 || gewichtTextField.getText().length() < 1){
                         setFehlermeldung(textfehler);
                     }
@@ -160,7 +165,7 @@ public class Konto implements Serializable {
         labellist.add(new Label("Größe (in m): "));
 
         labellist.add(new Label("Gewicht (in kg): "));
-        labellist.add(new Label("Alter (in Jahren): "));
+        labellist.add(new Label("Geburtsdatum: "));
         labellist.add(new Label("Geschlecht: "));
 
         labellist.add(new Label(Controller.benutzer.getBenutzername()));
@@ -208,7 +213,7 @@ public class Konto implements Serializable {
            textfehler.setLayoutY(225);
           */
         textfehler.setFill(Color.RED);
-        textfehler.setText("Bitte gib deine vollständigen Daten an");
+        textfehler.setText("Bitte gib die Daten vollständig und korrekt an");
         textfehler.setVisible(true);
     }
 
