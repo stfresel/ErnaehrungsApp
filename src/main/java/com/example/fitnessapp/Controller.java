@@ -368,7 +368,7 @@ public class Controller {
         if (Objects.equals(textfehler.getText(), "Bitte gib alle Daten ein")) {
             textfehler.setLayoutX(pane.getWidth() / 2 - 60);
         } else if (Objects.equals(textfehler.getText(), "Passwörter stimmen nicht überein")) {
-            textfehler.setLayoutX(pane.getWidth() / 2 - 100);
+            textfehler.setLayoutX(pane.getWidth() / 2 - 105);
         }else if(Objects.equals(textfehler.getText(), "Benutzername und/oder Passwort sind falsch")) {
             textfehler.setLayoutX(pane.getWidth() / 2 - 115);
         }
