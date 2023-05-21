@@ -93,8 +93,6 @@ public class Tagebuch implements Serializable {
         scrollPane.setId("vergangeneTage");
         scrollPane.setContent(tagebuchVbox);
 
-        // Vertikale ScrollBar wird immer angezeigt
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         // Horizontale ScrollBar wird nur angezeigt, wenn sie gebraucht wird
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
