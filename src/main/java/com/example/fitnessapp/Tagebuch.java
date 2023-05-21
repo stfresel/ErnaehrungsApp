@@ -74,6 +74,7 @@ public class Tagebuch implements Serializable {
         scrollPane.setContent(vBox);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
         return scrollPane;
     }
 
