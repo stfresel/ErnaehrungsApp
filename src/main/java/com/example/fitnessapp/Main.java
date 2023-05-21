@@ -24,6 +24,8 @@ public class Main extends Application {
         stage = stage1;
         stage.setMinWidth(500);
         stage.setMinHeight(500);
+        stage.setMaxWidth(750);
+        stage.setMaxHeight(500);
         Pane pane = new Pane();
         pane.setPrefSize(500, 500);
         stage.setTitle("FitnessApp");
