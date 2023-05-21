@@ -1,6 +1,7 @@
 package com.example.fitnessapp;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -39,12 +40,28 @@ public class Konto implements Serializable {
         koerperdaten.tagesUmsatzBerechnen();
         gridPane.getChildren().clear();
         //gridPane.getChildren().removeAll();
-        gridPane.addRow(0, new Label("BMI: " + koerperdaten.getBMI()));
-        gridPane.addRow(1,new Label("täglicher Bedarf"));
-        gridPane.addRow(2,new Label("Kalorien       : " + koerperdaten.getTagesUmsatz().getKcal()));
-        gridPane.addRow(3,new Label("Kohlenhydrate  : " + koerperdaten.getTagesUmsatz().getKohlenhydrate()));
-        gridPane.addRow(4,new Label("Proteine       : " + koerperdaten.getTagesUmsatz().getProtein()));
-        gridPane.addRow(5,new Label("Fette          : " + koerperdaten.getTagesUmsatz().getFette()));
+        Label bmiLabel = new Label("\t BMI: " + koerperdaten.getBMI());
+        Label tagbedarfLabel = new Label("täglicher Bedarf:");
+        Label kalorienLabel = new Label("\t Kalorien       : " + koerperdaten.getTagesUmsatz().getKcal());
+        Label kohlenhydrateLabel = new Label("\t Kohlenhydrate  : " + koerperdaten.getTagesUmsatz().getKohlenhydrate());
+        Label proteinLabel = new Label("\t Proteine       : " + koerperdaten.getTagesUmsatz().getProtein());
+        Label fetteLabel = new Label("\t Fette          : " + koerperdaten.getTagesUmsatz().getFette());
+
+        bmiLabel.setId("text");
+        tagbedarfLabel.setId("strong");
+        kalorienLabel.setId("text");
+        kohlenhydrateLabel.setId("text");
+        proteinLabel.setId("text");
+        fetteLabel.setId("text");
+
+        gridPane.setAlignment(Pos.TOP_CENTER);
+
+        gridPane.addRow(0, bmiLabel);
+        gridPane.addRow(1,tagbedarfLabel);
+        gridPane.addRow(2,kalorienLabel);
+        gridPane.addRow(3,kohlenhydrateLabel);
+        gridPane.addRow(4,proteinLabel);
+        gridPane.addRow(5,fetteLabel);
     }
 
     public GridPane datenAnsicht(boolean... ifbackground) {
@@ -142,12 +159,14 @@ public class Konto implements Serializable {
         //############2
         labellist.add(new Label(Controller.benutzer.getPasswort()));
 
+
+
         //Setzen Style Labels
         for (int i = 0; i < labellist.size(); i++) {
             if(i == 0 || i == 3){
                 labellist.get(i).setId("strong");
             }else
-                labellist.get(i).setId("label-konto");
+                labellist.get(i).setId("text");
         }
 
         //Setzen Style Textfelder

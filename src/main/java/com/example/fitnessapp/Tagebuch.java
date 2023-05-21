@@ -1,6 +1,7 @@
 package com.example.fitnessapp;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -39,6 +40,11 @@ public class Tagebuch implements Serializable {
         tabPane = new TabPane();
         Tab heute = new Tab("Heute", loadHeute());
         Tab vergangeneTage = new Tab("Vergangenheit", loadVergangeneTage());
+
+        heute.setId("textfield-konto");
+        vergangeneTage.setId("textfield-konto");
+        tabPane.setId("tabpane");
+
         heute.setClosable(false);
         vergangeneTage.setClosable(false);
         tabPane.getTabs().addAll(heute, vergangeneTage);
@@ -53,6 +59,7 @@ public class Tagebuch implements Serializable {
 
         VBox vBox = new VBox(tage.get(tage.size()-1).ladeDetailansichtTag());
         Button addMealBtn = new Button("neue Mahlzeit");
+        addMealBtn.setId("textfield-konto");
         addMealBtn.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -82,6 +89,7 @@ public class Tagebuch implements Serializable {
         }
         tagebuchVbox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setId("vergangeneTage");
         scrollPane.setContent(tagebuchVbox);
 
         // Vertikale ScrollBar wird immer angezeigt
@@ -110,6 +118,7 @@ public class Tagebuch implements Serializable {
                 scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
                 Tab tab = new Tab(tage.get(index).getDate().toString(), scrollPane);
+                tab.setId("textfield-konto");
                 SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
                 for (int i = 0; i < tabPane.getTabs().size(); i++) {
                     if (Objects.equals(tabPane.getTabs().get(i).getText(), tage.get(index).getDate().toString())){

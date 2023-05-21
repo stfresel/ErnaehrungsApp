@@ -69,14 +69,31 @@ public class Tag implements Serializable {
         VBox vBox = new VBox();
         //vBox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
-        vBox.getChildren().add(new Label("Nährwerte: "));
-        vBox.getChildren().add(new Label("Kalorien: " + insgesamteNaehrwerte.getKcal() + " / " + Controller.getNaehrwerte().getKcal()));
-        vBox.getChildren().add(new Label("Kohlenhydrate: " + insgesamteNaehrwerte.getKohlenhydrate() + " / " + Controller.getNaehrwerte().getKohlenhydrate()));
-        vBox.getChildren().add(new Label("Proteine: " + insgesamteNaehrwerte.getProtein() + " / " + Controller.getNaehrwerte().getProtein()));
-        vBox.getChildren().add(new Label("Fette: " + insgesamteNaehrwerte.getFette() + " / " + Controller.getNaehrwerte().getFette()));
+
+        Label naehrwerteLabel = new Label("Nährwerte: ");
+        Label kalorienLabel = new Label("Kalorien: " + insgesamteNaehrwerte.getKcal() + " / " + Controller.getNaehrwerte().getKcal());
+        Label kohlenLabel = new Label("Kohlenhydrate: " + insgesamteNaehrwerte.getKohlenhydrate() + " / " + Controller.getNaehrwerte().getKohlenhydrate());
+        Label proteinLabel = new Label("Proteine: " + insgesamteNaehrwerte.getProtein() + " / " + Controller.getNaehrwerte().getProtein());
+        Label fetteLabel = new Label("Fette: " + insgesamteNaehrwerte.getFette() + " / " + Controller.getNaehrwerte().getFette());
+
+        Label mahlheute = new Label("Mahlzeiten von heute: " + date);
+
+        naehrwerteLabel.setId("strong");
+        kalorienLabel.setId("text");
+        kohlenLabel.setId("text");
+        proteinLabel.setId("text");
+        fetteLabel.setId("text");
+
+        mahlheute.setId("strong");
+
+        vBox.getChildren().add(naehrwerteLabel);
+        vBox.getChildren().add(kalorienLabel);
+        vBox.getChildren().add(kohlenLabel);
+        vBox.getChildren().add(proteinLabel);
+        vBox.getChildren().add(fetteLabel);
 
         if (date.equals(LocalDate.now())){
-            vBox.getChildren().add(new Label("Mahlzeiten von heute: " + date));
+            vBox.getChildren().add(mahlheute);
         }else{
             vBox.getChildren().add(new Label("Mahlzeiten vom " + date));
         }

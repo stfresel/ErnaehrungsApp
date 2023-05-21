@@ -43,9 +43,39 @@
     -fx-alignment: center;
 }
 
+#bigstrong{
+    -fx-font-family: bold;
+    -fx-font-weight: bold;
+    -fx-font-size: 16pt;
+}
+
 #strong{
     -fx-font-family: bold;
     -fx-font-weight: bold;
     -fx-font-size: 14pt;
 
+}
+
+#text{
+    -fx-font-size: 11pt;
+    -fx-font-style: italic;
+
+}
+
+#tabpane{
+    -fx-background-color: transparent;
+    -fx-font-size: 14pt;
+}
+
+#vergangeneTage{
+    text-decoration: underline;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0, 0 0 1 0;
 }

@@ -140,9 +140,6 @@ public class Home implements Serializable {
                }
           });
 
-          toolBar.getItems().addAll(tagebuchButton, kontoButton, statButton);
-          toolBar.setLayoutY(Main.stage.getHeight());
-          borderPane.setTop(toolBar);
           borderPane.setBottom(new Rectangle(0, randobenunten));
           borderPane.setTop(new Rectangle(0 , randobenunten));
           borderPane.getLeft().setStyle("-fx-row-valignment: center;");
@@ -216,6 +213,7 @@ public class Home implements Serializable {
           final NumberAxis xAxis = new NumberAxis();
           final NumberAxis yAxis = new NumberAxis();
 
+
           XYChart.Series<Number, Number> seriesKcal = new XYChart.Series<>();
           XYChart.Series<Number, Number> seriesKohlenhydrate = new XYChart.Series<>();
           XYChart.Series<Number, Number> seriesProteine = new XYChart.Series<>();
@@ -223,11 +221,12 @@ public class Home implements Serializable {
 
           // idee --> mann konn die anzahl der tage verändern mit an comboBox
 
-          xAxis.setLabel("Datum");
+          xAxis.setTickLabelsVisible(false);
           yAxis.setLabel("Aufgenommen");
           LineChart<Number,Number> lineChart = new LineChart<>(xAxis, yAxis);
 
           lineChart.setTitle("Übersicht Nährwerte");
+
 
           Tagebuch tagebuch = Controller.benutzer.getHome().getTagebuch();
           //################
