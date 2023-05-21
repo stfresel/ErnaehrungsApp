@@ -9,16 +9,43 @@ import javafx.scene.shape.Rectangle;
 import java.util.Objects;
 
 public class UIstart {
+
+    /**
+     * Ist das Hauptrechteck, das die Form ausmacht
+     */
     Rectangle mainRec;
+
+    /**
+     * Ist das Rechteck, das zum ergenzen der Kreise genutzt wird
+     * und dafür sorgt, dass die Form wie ein gerundetes Rechteck
+     * (nur auf zwei seiten gerundet) wirken lässt
+     */
     Rectangle sideRec;
+
+    /**
+     * ist der Kreis der die obere Rundung auf der linken Seite erbringt.
+     */
     Circle upperCircle;
+    /**
+     * ist der Kreis der die untere Rundung auf der linken Seite erbringt.
+     */
     Circle lowerCircle;
     double angleRatio;
 
-
+    /**
+     * Im Konstruktor werden die Positionen das erste Mal angepasst.
+     * Dabei sind keine Übergabeparameter von nöten, da man später mit den beiden Methoden
+     * größe sowohl als auch die Position leicht anpassen kann
+     */
     public UIstart() {
+        /**
+         * Setzen der Farbe
+         */
         Paint color = Paint.valueOf("#f5f5f5");
 
+        /**
+         * Initialisieren der benötigten Formen
+         */
         this.mainRec = new Rectangle(0, 0, color);
         this.sideRec = new Rectangle(0, 0, color);
         this.upperCircle = new Circle(0, color);
@@ -38,6 +65,11 @@ public class UIstart {
         this.angleRatio = 0.5;
     }
 
+    /**
+     * Die Methode setsize verändert die größe der Form beliebig und passt die position der Formen an
+     * @param x ist der Parameter, der die Breite der Form angibt
+     * @param y ist der Parameter, der die Höhe der Form angibt
+     */
     public void setsize(double x, double y){
         double oldposx = upperCircle.getLayoutX();
         double oldposy = upperCircle.getLayoutY();
@@ -46,17 +78,24 @@ public class UIstart {
 
         lowerCircle.setRadius((y*angleRatio)/2);
 
-        //mainRec.setWidth(x-x/angleRatio);
-        //mainRec.setHeight(y-y/angleRatio);
         mainRec.setWidth(x-upperCircle.getRadius());
         mainRec.setHeight(y);
 
         sideRec.setWidth(upperCircle.getRadius()*2);
         sideRec.setHeight(mainRec.getHeight()- upperCircle.getRadius()*2);
 
+        /**
+         * Die Position muss erneut angepasst werden, da die verschiedenen Formen erst nur die neue größe angenommen haben,
+         * sprich nun eine falsche Anordnung bilden
+         */
         setpos(oldposx, oldposy);
     }
 
+    /**
+     * Die Methode setpos ändert die position der Form
+     * @param x ist der Parameter der die x-Koordinate angibt
+     * @param y ist der Parameter der die y-Koordinate angibt
+     */
     public void setpos(double x, double y){
         upperCircle.setLayoutX(x+upperCircle.getRadius());
         upperCircle.setLayoutY(y+upperCircle.getRadius());
@@ -70,6 +109,10 @@ public class UIstart {
         lowerCircle.setLayoutY(mainRec.getLayoutY()+mainRec.getHeight() - lowerCircle.getRadius());
     }
 
+    /**
+     * Diese Methode dient zum einfachen Hinzufügen der Form auf ein übergebenes Pane
+     * @param pane dieser Übergabeparameter ist das Pane auf den die Form hinzugefügt wird
+     */
     public void display(Pane pane){
         pane.getChildren().add(upperCircle);
         pane.getChildren().add(lowerCircle);
