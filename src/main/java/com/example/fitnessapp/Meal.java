@@ -43,6 +43,10 @@ public class Meal implements Serializable{
     private final transient VBox bereitsHinzugefuegteZutaten = new VBox();
     private transient Text fehlermeldung = new Text();
 
+    public Meal(){
+
+    }
+
     /**
      * Die Methode fügt die UI-Komponenten in ein Pane, welches anschließend angezeigt wird.
      */

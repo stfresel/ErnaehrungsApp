@@ -86,7 +86,6 @@ public class Home implements Serializable {
           ImageView profileImg = loadImg("src/main/resources/com/example/fitnessapp/profilIcon.png");
           ImageView tagebuchImg = loadImg("src/main/resources/com/example/fitnessapp/tagebuchIcon.png");
           ImageView settingsImg = loadImg("src/main/resources/com/example/fitnessapp/settingsIcon.png");
-          ImageView iconImg = loadImg("src/main/resources/com/example/fitnessapp/logo.png");
           double iconsize = 50;
           profileImg.setFitHeight(iconsize);
           profileImg.setFitWidth(iconsize);
@@ -96,30 +95,20 @@ public class Home implements Serializable {
           statImg.setFitWidth(iconsize);
           settingsImg.setFitHeight(iconsize);
           settingsImg.setFitWidth(iconsize);
-          iconImg.setFitHeight(iconsize*1.7);
-          iconImg.setFitWidth(iconsize*1.7);
           borderPane.getStyleClass().add("button-login");
 
           VBox iconHolder = new VBox();
           HBox uispacer = new HBox();
-          HBox topUIspacer = new HBox();
-
-          topUIspacer.getChildren().add(iconImg);
-          topUIspacer.getChildren().add(new Rectangle(0 , randobenunten));
-
-
-
 
           iconHolder.getChildren().add(profileImg);
           iconHolder.getChildren().add(tagebuchImg);
           iconHolder.getChildren().add(statImg);
 
-          uispacer.getChildren().add(new Rectangle(5, 0));
           uispacer.getChildren().add(iconHolder);
           iconHolder.setAlignment(Pos.CENTER);
 
 
-          uispacer.getChildren().add(new Rectangle(95, 0));
+          uispacer.getChildren().add(new Rectangle(100, 0));
           borderPane.setLeft(uispacer);
 
 
@@ -151,9 +140,11 @@ public class Home implements Serializable {
                }
           });
 
+          toolBar.getItems().addAll(tagebuchButton, kontoButton, statButton);
+          toolBar.setLayoutY(Main.stage.getHeight());
+          borderPane.setTop(toolBar);
           borderPane.setBottom(new Rectangle(0, randobenunten));
-
-          borderPane.setTop(topUIspacer);
+          borderPane.setTop(new Rectangle(0 , randobenunten));
           borderPane.getLeft().setStyle("-fx-row-valignment: center;");
           borderPane.setCenter(tagebuch.loadTagebuch());
           //Main.stage.setScene(new Scene(borderPane));
@@ -225,7 +216,6 @@ public class Home implements Serializable {
           final NumberAxis xAxis = new NumberAxis();
           final NumberAxis yAxis = new NumberAxis();
 
-
           XYChart.Series<Number, Number> seriesKcal = new XYChart.Series<>();
           XYChart.Series<Number, Number> seriesKohlenhydrate = new XYChart.Series<>();
           XYChart.Series<Number, Number> seriesProteine = new XYChart.Series<>();
@@ -233,12 +223,11 @@ public class Home implements Serializable {
 
           // idee --> mann konn die anzahl der tage verändern mit an comboBox
 
-          xAxis.setTickLabelsVisible(false);
+          xAxis.setLabel("Datum");
           yAxis.setLabel("Aufgenommen");
           LineChart<Number,Number> lineChart = new LineChart<>(xAxis, yAxis);
 
           lineChart.setTitle("Übersicht Nährwerte");
-
 
           Tagebuch tagebuch = Controller.benutzer.getHome().getTagebuch();
           //################
@@ -272,7 +261,6 @@ public class Home implements Serializable {
           lineChart.getData().add(seriesFette);
 
           pane.getChildren().add(lineChart);
-          pane.getChildren().get(0).setLayoutY(-50);
           return pane;
      }
 

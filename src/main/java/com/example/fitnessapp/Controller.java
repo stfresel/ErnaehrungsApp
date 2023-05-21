@@ -296,8 +296,11 @@ public class Controller {
             // Erstellen des Paths zum .ser File
             datenSpeichern();
             //--------------
-            benutzer.getHome().getTagebuch().addTag(new Tag(LocalDate.of(2023,5,1)));
-            benutzer.getHome().getTagebuch().addTag(new Tag(LocalDate.of(2023, 5, 2)));
+            Tag t1 = new Tag(LocalDate.of(2023,5,1));
+            System.out.println(t1.getInsgesamteNaehrwerte());
+            Tag t2 = new Tag(LocalDate.of(2023, 5, 2));
+            benutzer.getHome().getTagebuch().addTag(t1);
+            benutzer.getHome().getTagebuch().addTag(t2);
 
             //----------------
 

@@ -38,6 +38,7 @@ public class Konto implements Serializable {
     public void calcPart(GridPane gridPane) {
         System.out.println("-------------------------------------------");
         koerperdaten.tagesUmsatzBerechnen();
+        gridPane.setPrefSize(Main.stage.getWidth()/2, Main.stage.getHeight()/2);
         gridPane.getChildren().clear();
         //gridPane.getChildren().removeAll();
         Label bmiLabel = new Label("\t BMI: " + koerperdaten.getBMI());
@@ -75,7 +76,7 @@ public class Konto implements Serializable {
         geschlechtCombobox.getItems().addAll("weiblich", "männlich");
 
         // Größe vom Konto, beim Öffnen vom Konto Tab
-        gridPane.setPrefSize(Main.stage.getScene().getWidth()/3, Main.stage.getScene().getHeight()/2);
+        gridPane.setPrefSize(Main.stage.getScene().getWidth()/2, Main.stage.getScene().getHeight()/2);
 
         if (ifbackground.length > 0) {
                 InputStream stream;
