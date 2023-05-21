@@ -74,10 +74,10 @@ public class Home implements Serializable {
 
           //-------------------UI--------------------------------------------------------------------------------
           //Pane
-          Pane pane = new Pane();
+          //Pane pane = new Pane();
 
           UIstart uiBackground = new UIstart();
-          uiBackground.display(pane);
+          uiBackground.display(borderPane);
 
           //Bild
           ImageView statImg = loadImg("src/main/resources/com/example/fitnessapp/statsIcon.png");
@@ -159,10 +159,10 @@ public class Home implements Serializable {
           //Main.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> uiBackground.setsize(Main.stage.getScene().getWidth() - 50, Main.stage.getScene().getHeight()-randobenunten*2+100));
 
 
-          pane.setStyle(" -fx-background-color: #B6CC95;");
-          pane.getChildren().add(borderPane);
+          borderPane.setStyle(" -fx-background-color: #B6CC95;");
+          //borderPane.getChildren().add(borderPane);
 
-          Main.switchScene(new Scene(pane));
+          Main.switchScene(new Scene(borderPane));
      }
 
      /**
