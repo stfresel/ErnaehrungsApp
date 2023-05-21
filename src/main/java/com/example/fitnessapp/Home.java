@@ -225,7 +225,7 @@ public class Home implements Serializable {
 
           // idee --> mann konn die anzahl der tage verändern mit an comboBox
 
-          xAxis.setLabel("Datum");
+          xAxis.setTickLabelsVisible(false);
           yAxis.setLabel("Aufgenommen");
           LineChart<Number,Number> lineChart = new LineChart<>(xAxis, yAxis);
 
