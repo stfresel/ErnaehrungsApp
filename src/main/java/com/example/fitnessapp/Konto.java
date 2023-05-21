@@ -83,7 +83,7 @@ public class Konto implements Serializable {
         geschlechtCombobox.getItems().addAll("weiblich", "männlich");
 
         // Größe vom Konto, beim Öffnen vom Konto Tab
-        gridPane.setPrefSize(Main.stage.getScene().getWidth()/2, Main.stage.getScene().getHeight()/2);
+        gridPane.setPrefSize(Main.stage.getScene().getWidth()/1.5, Main.stage.getScene().getHeight()/2);
 
         if (ifbackground.length > 0) {
                 InputStream stream;
@@ -192,10 +192,13 @@ public class Konto implements Serializable {
         gridPane.setVgap(3);
 
         //Konfigurieren Gridpane
-        gridPane.addRow(0, labellist.get(0));
+        //gridPane.addRow(0, labellist.get(0));
+        GridPane.setColumnSpan(labellist.get(0), 2);
+        GridPane.setColumnSpan(labellist.get(3), 2);
+        gridPane.addRow(0,labellist.get(0));
         gridPane.addRow(1, labellist.get(1), labellist.get(8));
         gridPane.addRow(2, labellist.get(2), labellist.get(9));
-        gridPane.addRow(3, new Label());
+        gridPane.addRow(3, new Label(""));
 
         gridPane.addRow(4, labellist.get(3));
         gridPane.addRow(5, labellist.get(4), groesseTextField);
@@ -203,6 +206,8 @@ public class Konto implements Serializable {
         gridPane.addRow(7, labellist.get(6), alterDatePicker);
         gridPane.addRow(8, labellist.get(7), geschlechtCombobox);
         gridPane.addRow(9, textfehler,speichernBtn);
+
+        gridPane.setPrefSize(Main.stage.getScene().getWidth()/1.5, Main.stage.getScene().getHeight()/2);
 
         return gridPane;
     }

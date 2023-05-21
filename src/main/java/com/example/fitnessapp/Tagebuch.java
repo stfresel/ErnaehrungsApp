@@ -56,7 +56,6 @@ public class Tagebuch implements Serializable {
      * @return Gibt das ScrollPane zurück, welches beim in der Hauptansicht als Tab <code>Heute</code> angezeigt wird.
      */
     private ScrollPane loadHeute() {
-
         VBox vBox = new VBox(tage.get(tage.size()-1).ladeDetailansichtTag());
         Button addMealBtn = new Button("neue Mahlzeit");
         addMealBtn.setId("textfield-konto");
@@ -74,6 +73,7 @@ public class Tagebuch implements Serializable {
         scrollPane.setContent(vBox);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getWidth());
 
         return scrollPane;
     }
