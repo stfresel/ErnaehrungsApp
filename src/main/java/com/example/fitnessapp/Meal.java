@@ -375,14 +375,14 @@ public class Meal implements Serializable{
 
     //_________________________getter und setter ________________________________________
 
-
+    /**
+     * Gibt den Namen der Mahlzeit zurück.
+     * @return String mit dem Namen der Mahlzeit
+     */
     public String getName() {
         return name;
     }
 
-    public String getMealString() {
-        return name + "\n\t" + zutaten;
-    }
 
     /**
      * Gibt die ArrayList, in der die Zutaten der Mahlzeit stehen, zurück.

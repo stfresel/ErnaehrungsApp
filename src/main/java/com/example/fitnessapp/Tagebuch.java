@@ -28,7 +28,10 @@ public class Tagebuch implements Serializable {
 
     private transient TabPane tabPane;
 
-
+    /**
+     * Fügt einen Tag zum Tagebuch hinzu.
+     * @param tag
+     */
     public void addTag(Tag tag) {
         tage.add(tag);
     }

@@ -23,6 +23,10 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Ladet die Anmeldungs- und Registrierungsszene.
+ * Zudem ist er für das Speichern der Daten verantwortlich.
+ */
 public class Controller {
 
     /**

@@ -50,15 +50,6 @@ public class Tag implements Serializable {
         }
     }
 
-    public void removeMeal(String mealName){
-        for (int i = 0; i < meals.size(); i++) {
-            if (Objects.equals(mealName, meals.get(i).getName())) {
-                meals.remove(i);
-                break;
-            }
-        }
-    }
-
     /**
      * Ladet alle Mahlzeiten, die an einem Tag eingetragen wurden, in ein Pane.
      *
@@ -119,9 +110,6 @@ public class Tag implements Serializable {
         return date;
     }
 
-    public String getMealsString() {
-        return meals.toString();
-    }
 
     /**
      * Gibt die insgesamt an einem Tag gegessene Nährwerte zurück.

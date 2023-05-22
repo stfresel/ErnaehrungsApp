@@ -18,13 +18,19 @@ public class Zutat implements Serializable {
     private int menge;
 
     /**
-     * Gibt die Nährwerte einer zutat an.
+     * Gibt die Nährwerte einer Zutat an.
      */
     private Naehrwerte naehrwerte;
 
     public Zutat(){
     }
 
+    /**
+     *
+     * @param name Name der Zutat
+     * @param menge Menge der Nährwertangabe
+     * @param naehrwerte Nährwerte der Zutat
+     */
     public Zutat(String name, int menge, Naehrwerte naehrwerte) {
         this.name = name;
         this.menge = menge;
@@ -32,29 +38,42 @@ public class Zutat implements Serializable {
     }
     //______________getter und setter______________
 
+    /**
+     * Gibt den Namen der Zutat zurück
+     * @return String mit dem Namen der Zutat
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    //public void setName(String name) {
+    //    this.name = name;
+    //}
 
+    /**
+     * Gibt die Menge der Zutat zurück.
+     * @return Menge der Zutat und Nährwertangaben
+     */
     public int getMenge() {
         return menge;
     }
 
-    public void setMenge(int menge) {
-        this.menge = menge;
-    }
+    //public void setMenge(int menge) {
+    //    this.menge = menge;
+    //}
 
+    /**
+     * Gibt die Nährwerte der Zutat zurück.
+     * @return String mit den Nährwerten der Zutat
+     */
     public Naehrwerte getNaehrwerte() {
         return naehrwerte;
     }
 
-    public void setNaehrwerte(Naehrwerte naehrwerte) {
-        this.naehrwerte = naehrwerte;
-    }
+
+    //public void setNaehrwerte(Naehrwerte naehrwerte) {
+    //    this.naehrwerte = naehrwerte;
+    //}
 
     @Override
     public String toString() {

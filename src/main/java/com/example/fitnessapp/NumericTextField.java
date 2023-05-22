@@ -23,6 +23,10 @@ public class NumericTextField extends TextField {
         });
     }
 
+    /**
+     * Gibt die Zahl im Textfeld als double zurück.
+     * @return Zahl im Textfeld als double
+     */
     public double getDouble(){
         return Double.parseDouble(getText());
     }

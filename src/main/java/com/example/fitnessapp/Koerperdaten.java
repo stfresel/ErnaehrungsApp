@@ -135,18 +135,33 @@ public class Koerperdaten implements Serializable {
         return tagesUmsatz;
     }
 
+    /**
+     * Setzt die Größe der Person.
+     * @param groesse Größe in Meter
+     */
     public void setGroesse(double groesse) {
         this.groesse = groesse;
     }
 
+    /**
+     * Setzt das Gewicht der Person.
+     * @param gewicht Gewicht in Kilogramm
+     */
     public void setGewicht(double gewicht) {
         this.gewicht = gewicht;
     }
-
+    /**
+     * Setzt das Geschlecht der Person.
+     * @param geschlecht String, in dem entweder <code>weiblich</code> oder <code>männlich</code>
+     */
     public void setGeschlecht(String geschlecht) {
         this.geschlecht = geschlecht;
     }
 
+    /**
+     * Setzt das Geburtsdatum einer Person, anhand dessen das Alter berechnet wird.
+     * @param birthday Geburtsdatum
+     */
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
