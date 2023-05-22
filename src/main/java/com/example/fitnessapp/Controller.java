@@ -276,12 +276,14 @@ public class Controller {
 
     private boolean isBenutzernameFrei(String benutzername){
         try {
-            File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
+            //File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
+            File file = new File("src/main/resources/com/example/fitnessapp/Benutzer.txt");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             String line = br.readLine();
 
             while(line != null){
+                System.out.println(line);
                 String[] userdata = line.split(" ");
                 if (Objects.equals(userdata[0], benutzername)){
                     return false;
@@ -305,24 +307,22 @@ public class Controller {
     private void speichern() throws IOException {
         boolean loggedIn = false;
         // Speichern im File, wo alle Benutzernamen und Passwörter stehen
-        File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
+        //File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
+        File file = new File("src/main/resources/com/example/fitnessapp/Benutzer.txt");
 
         //###
         //BufferedWriter br = new BufferedWriter(fr);
         textfehler.setFill(Color.RED);
         if (passwordField[0].getText().equals(passwordField[1].getText()) && textfieldRBenutzername.getText().length() != 0 && passwordField[0].getText().length()!=0 &&passwordField[1].getText().length()!=0) {
             loggedIn = true;
-            FileWriter fr = new FileWriter(file, true);
+            BufferedWriter fr = new BufferedWriter(new FileWriter(file, true));
             System.out.println("Passwort richtig");
-            System.out.println(textfieldRBenutzername.getText());
-            System.out.println(passwordField[1].getText());
+
             benutzer.setBenutzername(textfieldRBenutzername.getText());
             benutzer.setPasswort(passwordField[1].getText());
-            fr.append(benutzer.getBenutzername());
-            //br.write(benutzer.getBenutzername());
-            fr.append(" ");
-            fr.append(benutzer.getPasswort());
-            fr.append("\n");
+            String temp = benutzer.getBenutzername() + " " + benutzer.getPasswort();
+            fr.append(temp);
+            fr.newLine();
             fr.close();
 
         } else {
