@@ -56,12 +56,12 @@ public class Home implements Serializable {
           Main.gespeicherteZutaten = gespeicherteZutaten;
 
           //Main.benutzer.datenSpeichern();
-          Controller.datenSpeichern();
+          Controller.datenSpeichern(this);
           Main.stage.setOnCloseRequest(new EventHandler<>(){
                @Override
                public void handle(WindowEvent windowEvent) {
                     System.out.println("closing");
-                    Controller.datenSpeichern();
+                    Controller.datenSpeichern(this);
                     Platform.exit();
                }
           });

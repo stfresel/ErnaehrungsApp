@@ -334,7 +334,7 @@ public class Controller {
         fr.close();
         if (loggedIn){
             // Erstellen des Paths zum .ser File
-            datenSpeichern();
+            datenSpeichern(this);
             //--------------
             Tag t1 = new Tag(LocalDate.of(2023,5,1));
             System.out.println(t1.getInsgesamteNaehrwerte());
@@ -446,10 +446,18 @@ public class Controller {
      * @serialData Die gesamte Klasse <code>Home</code>, samt den Attribute, werden serialisiert und in ein File geschrieben.
      *
      */
-    public static void datenSpeichern(){
-        Path path = Paths.get(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
-        // Erstellen eines .ser Files wo das Tagebuch gespeichert wird
-        try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path , StandardOpenOption.CREATE))) {
+    public static void datenSpeichern(Object o){
+        Path path;
+        InputStream is = o.getClass().getClassLoader().getResourceAsStream(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
+        if (is == null) {
+            path = Paths.get("src/main/resources/com/example/fitnessapp/"+benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
+
+        }else {
+            File file = new File(is.toString());
+            path = Path.of(file.getPath());
+        }
+
+        try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path, StandardOpenOption.CREATE))) {
             whereToWrite.writeObject(benutzer.getHome());
             System.out.println("Saved Home");
         } catch (IOException e) {
