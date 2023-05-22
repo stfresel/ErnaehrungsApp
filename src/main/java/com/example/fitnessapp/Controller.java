@@ -465,7 +465,8 @@ public class Controller {
      */
     public void einloggen() throws IOException {
         pane.requestFocus();
-        File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
+        //File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
+        File file = new File("src/main/resources/com/example/fitnessapp/Benutzer.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         textfehler.setVisible(false);
         benutzer.setBenutzername(textfieldLBenutzer.getText());
