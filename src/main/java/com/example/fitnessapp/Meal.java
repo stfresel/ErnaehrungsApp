@@ -101,9 +101,13 @@ public class Meal implements Serializable{
      */
     public void loadZutatenScene(Tag tag){
         zutatenPane = new VBox();
+        zutatenPane.setAlignment(Pos.CENTER);
         zutatenPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         GridPane zutatErstellen = new GridPane();
         GridPane loadZutate = new GridPane();
+        zutatErstellen.setAlignment(Pos.CENTER);
+        loadZutate.setAlignment(Pos.CENTER);
+
         CheckBox checkbox = new CheckBox("neue Zutat erstellen");
         checkbox.setSelected(true);
         //zutatenPane.setId("label-konto");
