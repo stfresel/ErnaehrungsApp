@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.*;
@@ -110,7 +111,6 @@ public class Meal implements Serializable{
 
         CheckBox checkbox = new CheckBox("neue Zutat erstellen");
         checkbox.setSelected(true);
-        //zutatenPane.setId("label-konto");
 
         //background
         InputStream stream;
@@ -140,10 +140,13 @@ public class Meal implements Serializable{
 
         mengeGespeicherteZutat.setId("textfield-konto");
         comboBox.setId("textfield-konto");
+        comboBox.setPrefWidth(140);
+        mengeGespeicherteZutat.setPrefWidth(40);
 
         // no in eventhandler mochn
         loadZutate.addRow(0, comboBox, mengeGespeicherteZutat);
         loadZutate.addRow(1, fehlermeldung);
+        zutatenPane.setSpacing(2);
 
 
         // zutat neu erstellen ----------------------------------------------------------------
