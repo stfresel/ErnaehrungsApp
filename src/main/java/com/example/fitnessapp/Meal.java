@@ -198,13 +198,15 @@ public class Meal implements Serializable{
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 System.out.println("change");
+                zutaten.clear();
                 if (checkbox.isSelected()){ // neue Zutat erstellen
-                    zutatenPane.getChildren().remove(loadZutate);
-                    zutatenPane.getChildren().add(zutatErstellen);
+                    //zutatenPane.getChildren().remove(loadZutate);
+                    int x = zutatenPane.getChildren().indexOf(loadZutate);
+                    zutatenPane.getChildren().set(x, zutatErstellen);
 
                 } else {                    // Zutat aus Speicher holen
-                    zutatenPane.getChildren().remove(zutatErstellen);
-                    zutatenPane.getChildren().add(loadZutate);
+                    int x = zutatenPane.getChildren().indexOf(zutatErstellen);
+                    zutatenPane.getChildren().set(x, loadZutate);
                 }
             }
         });
