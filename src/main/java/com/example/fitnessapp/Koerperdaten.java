@@ -147,6 +147,10 @@ public class Koerperdaten implements Serializable {
         this.geschlecht = geschlecht;
     }
 
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
     /**
      * Gibt das Geburtsdatum des Benutzers zurück.
      * @return LocalDate Geburtsdatum

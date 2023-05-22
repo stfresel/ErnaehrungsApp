@@ -3,6 +3,8 @@ package com.example.fitnessapp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class KoerperdatenTest {
@@ -18,7 +20,7 @@ public class KoerperdatenTest {
     public void testTagesUmsatzBerechnen_Mann(){
         koerperdaten.setGroesse(2.00);
         koerperdaten.setGewicht(100.0);
-        koerperdaten.setAlter(30);
+        koerperdaten.setBirthday(LocalDate.of(1993, 3, 20));
         koerperdaten.setGeschlecht("männlich");
         koerperdaten.tagesUmsatzBerechnen();
         assertEquals(2233, koerperdaten.getTagesUmsatz().getKcal());
@@ -31,10 +33,10 @@ public class KoerperdatenTest {
     public void testTagesUmsatzBerechnen_Frau(){
         koerperdaten.setGroesse(1.5397);
         koerperdaten.setGewicht(53.009);
-        koerperdaten.setAlter(18.5);
+        koerperdaten.setBirthday(LocalDate.of(2004, 3, 17));
         koerperdaten.setGeschlecht("weiblich");
         koerperdaten.tagesUmsatzBerechnen();
-        assertEquals(1354, koerperdaten.getTagesUmsatz().getKcal());
+        assertEquals(1352, koerperdaten.getTagesUmsatz().getKcal());
         assertEquals(165, koerperdaten.getTagesUmsatz().getKohlenhydrate());
         assertEquals(66, koerperdaten.getTagesUmsatz().getProtein());
         assertEquals(44, koerperdaten.getTagesUmsatz().getFette());
@@ -44,7 +46,8 @@ public class KoerperdatenTest {
     public void testTagesUmsatzBerechnen_GanzeZahlen(){
         koerperdaten.setGroesse(2);
         koerperdaten.setGewicht(100);
-        koerperdaten.setAlter(40);
+        //koerperdaten.setAlter(40);
+        koerperdaten.setBirthday(LocalDate.of(1983, 5, 18));
         koerperdaten.setGeschlecht("weiblich");
         koerperdaten.tagesUmsatzBerechnen();
         assertEquals(1787, koerperdaten.getTagesUmsatz().getKcal());
@@ -57,7 +60,7 @@ public class KoerperdatenTest {
     public void testTagesUmsatzBerechnen_KommaZahlen(){
         koerperdaten.setGroesse(1.7861);
         koerperdaten.setGewicht(55.2375);
-        koerperdaten.setAlter(18.1294);
+        koerperdaten.setBirthday(LocalDate.of(2005, 4, 3));
         koerperdaten.setGeschlecht("weiblich");
         koerperdaten.tagesUmsatzBerechnen();
         assertEquals(1422, koerperdaten.getTagesUmsatz().getKcal());
@@ -70,10 +73,10 @@ public class KoerperdatenTest {
     public void testTagesUmsatzBerechnen_KeineZahlenVorKomma(){
         koerperdaten.setGroesse(.12);
         koerperdaten.setGewicht(.3478);
-        koerperdaten.setAlter(.1294);
+        koerperdaten.setBirthday(LocalDate.of(2023, 1, 12));
         koerperdaten.setGeschlecht("weiblich");
         koerperdaten.tagesUmsatzBerechnen();
-        assertEquals(679, koerperdaten.getTagesUmsatz().getKcal());
+        assertEquals(680, koerperdaten.getTagesUmsatz().getKcal());
         assertEquals(83, koerperdaten.getTagesUmsatz().getKohlenhydrate());
         assertEquals(33, koerperdaten.getTagesUmsatz().getProtein());
         assertEquals(22, koerperdaten.getTagesUmsatz().getFette());
@@ -82,25 +85,25 @@ public class KoerperdatenTest {
 
     @Test
     public void testGetBmi_Double2() {
-        koerperdaten.setKoerperdaten(1.7543, 54.257, 20, "weiblich");
+        koerperdaten.setKoerperdaten(1.7543, 54.257, LocalDate.now(), "weiblich");
         assertEquals(17.63, koerperdaten.getBMI());
     }
 
     @Test
     public void testGetBmi_Integer() {
-        koerperdaten.setKoerperdaten(2, 90, 20, "weiblich");
+        koerperdaten.setKoerperdaten(2, 90, LocalDate.of(2000, 1, 12), "weiblich");
         assertEquals(22.5, koerperdaten.getBMI());
     }
 
     @Test
     public void testGetBmi_DoubleInteger() {
-        koerperdaten.setKoerperdaten(1.7, 54.2, 20.1, "weiblich");
+        koerperdaten.setKoerperdaten(1.7, 54.2, LocalDate.of(1989, 1, 12), "weiblich");
         assertEquals(18.75, koerperdaten.getBMI());
     }
 
     @Test
     public void testGetBmi_0() {
-        koerperdaten.setKoerperdaten(0, 0, 0, "weiblich");
+        koerperdaten.setKoerperdaten(0, 0, LocalDate.of(1940, 12, 12), "weiblich");
         assertEquals(0, koerperdaten.getBMI());
     }
 

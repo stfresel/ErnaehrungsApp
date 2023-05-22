@@ -70,11 +70,7 @@ public class Home implements Serializable {
 
           BorderPane borderPane = new BorderPane();
           borderPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
-          //borderPane.setStyle("-fx-background-color: transparent;");
 
-          //-------------------UI--------------------------------------------------------------------------------
-          //Pane
-          //Pane pane = new Pane();
 
           UIstart uiBackground = new UIstart();
           uiBackground.display(borderPane);
@@ -119,15 +115,15 @@ public class Home implements Serializable {
           borderPane.setLeft(uispacer);
 
 
-          ToolBar toolBar = new ToolBar();
-          Button tagebuchButton = new Button("Tagebuch");
+          //ToolBar toolBar = new ToolBar();
+          //Button tagebuchButton = new Button("Tagebuch");
           tagebuchImg.setOnMouseClicked(new EventHandler<>() {
                @Override
                public void handle(MouseEvent mouseEvent) {
                     borderPane.setCenter(tagebuch.loadTagebuch());
                }
           });
-          Button kontoButton = new Button("Konto");
+          //Button kontoButton = new Button("Konto");
           profileImg.setOnMouseClicked(new EventHandler<>() {
                @Override
                public void handle(MouseEvent mouseEvent) {
@@ -139,7 +135,7 @@ public class Home implements Serializable {
 
           //Button für Statistiken
 
-          Button statButton = new Button("Statistik");
+          //Button statButton = new Button("Statistik");
           statImg.setOnMouseClicked(new EventHandler<>() {
                @Override
                public void handle(MouseEvent mouseEvent) {
@@ -152,15 +148,11 @@ public class Home implements Serializable {
           borderPane.setTop(topUIspacer);
           borderPane.getLeft().setStyle("-fx-row-valignment: center;");
           borderPane.setCenter(tagebuch.loadTagebuch());
-          //Main.stage.setScene(new Scene(borderPane));
 
           uiBackground.setsize(Main.stage.getScene().getWidth()+200, Main.stage.getScene().getHeight()-randobenunten*2+100);
           uiBackground.setpos(70, randobenunten-50);
-          //Main.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> uiBackground.setsize(Main.stage.getScene().getWidth() - 50, Main.stage.getScene().getHeight()-randobenunten*2+100));
-
 
           borderPane.setStyle(" -fx-background-color: #B6CC95;");
-          //borderPane.getChildren().add(borderPane);
 
           Main.switchScene(new Scene(borderPane));
      }
@@ -212,7 +204,6 @@ public class Home implements Serializable {
      public Pane loadStat() {
           Pane pane = new Pane();
 
-
           final NumberAxis xAxis = new NumberAxis();
           final NumberAxis yAxis = new NumberAxis();
 
@@ -220,8 +211,6 @@ public class Home implements Serializable {
           XYChart.Series<Number, Number> seriesKohlenhydrate = new XYChart.Series<>();
           XYChart.Series<Number, Number> seriesProteine = new XYChart.Series<>();
           XYChart.Series<Number, Number> seriesFette = new XYChart.Series<>();
-
-          // idee --> mann konn die anzahl der tage verändern mit an comboBox
 
           xAxis.setTickLabelsVisible(false);
           yAxis.setLabel("Aufgenommen");
@@ -232,28 +221,20 @@ public class Home implements Serializable {
           lineChart.setScaleY(0.85);
 
           Tagebuch tagebuch = Controller.benutzer.getHome().getTagebuch();
-          //################
-
 
           seriesKcal.setName("Kcal");
-          for (int i = 0; i < tagebuch.getAnzahlTage(); i++) {
-               seriesKcal.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getKcal()));
-          }
-
           seriesKohlenhydrate.setName("Kohlenhydrate");
-          for (int i = 0; i < tagebuch.getAnzahlTage(); i++) {
-               seriesKohlenhydrate.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getKohlenhydrate()));
-          }
-
           seriesProteine.setName("Proteine");
-          for (int i = 0; i < tagebuch.getAnzahlTage(); i++) {
-               seriesProteine.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getProtein()));
-          }
-
           seriesFette.setName("Fette");
           for (int i = 0; i < tagebuch.getAnzahlTage(); i++) {
+               seriesKcal.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getKcal()));
+               seriesKohlenhydrate.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getKohlenhydrate()));
+               seriesProteine.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getProtein()));
                seriesFette.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getFette()));
+
           }
+
+
 
 
 
