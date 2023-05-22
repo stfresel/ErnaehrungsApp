@@ -407,7 +407,7 @@ public class Controller {
     }
 
     /**
-     * Die Methode passt die Größe vom Hintergrunf an die Fenstergröße an.
+     * Die Methode passt die Größe vom Hintergrund an die Fenstergröße an.
      */
     public void adjustBackgroundSize(){
         // Binden Sie die Breite und Höhe der ImageView an die Breite und Höhe der Pane
