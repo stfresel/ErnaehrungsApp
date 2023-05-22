@@ -27,7 +27,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage1) {
         stage = stage1;
-
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("logo.png")));
         stage.getIcons().add(icon);
         stage.setTitle("Ernährungsapp");

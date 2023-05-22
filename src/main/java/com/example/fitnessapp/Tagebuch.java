@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -68,7 +69,6 @@ public class Tagebuch implements Serializable {
                 System.out.println("add meal");
                 Meal meal = new Meal();
                 meal.loadMealScene(tage.get(tage.size()-1));
-                //tage.get(tage.size()-1).addMeal(meal); //123456789
             }
         });
         vBox.getChildren().add(addMealBtn);
@@ -88,9 +88,17 @@ public class Tagebuch implements Serializable {
     public ScrollPane loadVergangeneTage(){
         tagebuchVbox = new VBox();
         tagebuchVbox.setSpacing(10);
-        for (int i = tage.size()-2; i >= 0; i--) {      // tag.size -1 ist immer der heutige Tag
-            showTag(i);
+        Text message = new Text("Keine vergangenen Tage gespeichert.");
+        if (tage.size() < 2){
+            message.setVisible(true);
+            tagebuchVbox.getChildren().add(message);
+        }else {
+            message.setVisible(false);
+            for (int i = tage.size()-2; i >= 0; i--) {      // tag.size -1 ist immer der heutige Tag
+                showTag(i);
+            }
         }
+
         tagebuchVbox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setId("vergangeneTage");

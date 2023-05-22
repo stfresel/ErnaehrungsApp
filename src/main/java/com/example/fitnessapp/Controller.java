@@ -30,7 +30,6 @@ public class Controller {
      */
     static Benutzer benutzer;
 
-
     public Pane pane = new Pane();
     private TextField textfieldRBenutzername = new TextField();
     private Button buttonReg = new Button();
@@ -303,12 +302,13 @@ public class Controller {
         boolean loggedIn = false;
         // Speichern im File, wo alle Benutzernamen und Passwörter stehen
         File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
-        FileWriter fr = new FileWriter(file, true);
+
         //###
         //BufferedWriter br = new BufferedWriter(fr);
         textfehler.setFill(Color.RED);
         if (passwordField[0].getText().equals(passwordField[1].getText()) && textfieldRBenutzername.getText().length() != 0 && passwordField[0].getText().length()!=0 &&passwordField[1].getText().length()!=0) {
             loggedIn = true;
+            FileWriter fr = new FileWriter(file, true);
             System.out.println("Passwort richtig");
             System.out.println(textfieldRBenutzername.getText());
             System.out.println(passwordField[1].getText());
@@ -319,6 +319,7 @@ public class Controller {
             fr.append(" ");
             fr.append(benutzer.getPasswort());
             fr.append("\n");
+            fr.close();
 
         } else {
             textfehler.setVisible(true);
@@ -331,19 +332,9 @@ public class Controller {
             }
         }
         updateUI();
-        fr.close();
         if (loggedIn){
             // Erstellen des Paths zum .ser File
             datenSpeichern(this);
-            //--------------
-            Tag t1 = new Tag(LocalDate.of(2023,5,1));
-            System.out.println(t1.getInsgesamteNaehrwerte());
-            Tag t2 = new Tag(LocalDate.of(2023, 5, 2));
-            benutzer.getHome().getTagebuch().addTag(t1);
-            benutzer.getHome().getTagebuch().addTag(t2);
-
-            //----------------
-
 
             //Main.stage.setScene(new Scene(home.getKonto().datenAnsicht()));
             Main.switchScene(new Scene(benutzer.getHome().getKonto().datenAnsicht(true)));
@@ -353,8 +344,6 @@ public class Controller {
 
     /**
      * Die Methode passt die Position der UI-Bauteile an die Größe des Fensters an.
-     *
-     * @author  René Weissteiner
      */
     public void updateUI(){
         double midx = Main.stage.getScene().getWidth();
@@ -419,8 +408,6 @@ public class Controller {
 
     /**
      * Die Methode passt die Größe vom Hintergrunf an die Fenstergröße an.
-     *
-     * @author  René Weissteiner
      */
     public void adjustBackgroundSize(){
         // Binden Sie die Breite und Höhe der ImageView an die Breite und Höhe der Pane
@@ -444,7 +431,6 @@ public class Controller {
      * Die Methode speichert die Daten von <code>Home</code> im <code>(benutzername)_(passwort).ser</code> File.
      *
      * @serialData Die gesamte Klasse <code>Home</code>, samt den Attribute, werden serialisiert und in ein File geschrieben.
-     *
      */
     public static void datenSpeichern(Object o){
         Path path;
@@ -468,7 +454,7 @@ public class Controller {
 
     /**
      * Die Methode ist für das login zuständig.
-     * Dabei überprüft sie, ob im <code>Benutzer.txt</code> der Benutzername und
+     * Dabei überprüft sie, ob im File <code>Benutzer.txt</code> der Benutzername und
      * das dazugehörige Passwort abgespeichert sind.
      *
      * @throws IOException Die Exception wird geworfen, falls es einen Fehler beim Lesen/Schreiben des Benutzer.txt files gibt.
@@ -485,7 +471,8 @@ public class Controller {
         while(zeile != null){
             String[] benutzerDaten = zeile.split(" ");
             if (Objects.equals(textfieldLBenutzer.getText(), benutzerDaten[0]) && Objects.equals(textfieldLPasswort.getText(), benutzerDaten[1])) {
-                textfehler.setText("");
+                //textfehler.setText("");
+                textfehler.setVisible(false);
                 System.out.println("Passwort und Benutzer stimmen überein");
 
                 benutzer.setBenutzername(textfieldLBenutzer.getText());
@@ -495,6 +482,7 @@ public class Controller {
             }
             zeile = br.readLine();
         }
+        br.close();
 
         if (loggedIn){
             auslesenSer();
@@ -515,11 +503,19 @@ public class Controller {
      * gespeichert.
      */
     private void auslesenSer(){
+        Path path = null;
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
+        if (is == null) {
+            path = Paths.get("src/main/resources/com/example/fitnessapp/"+benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
+        }
         // path wieder erstellen evt methode?
-        Path path = Paths.get(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
-        try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
-            benutzer.setHome((Home) whereToReadFrom.readObject());
-            System.out.println("auslesen vom file");
+        //Path path = Paths.get(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
+        try {
+            assert path != null;
+            try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
+                benutzer.setHome((Home) whereToReadFrom.readObject());
+                System.out.println("auslesen vom file");
+            }
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Fehler beim Auslesen aus dem Tagebuch" + e.getMessage());
         }

@@ -103,6 +103,7 @@ public class Home implements Serializable {
           topUIspacer.getChildren().add(iconImg);
           topUIspacer.getChildren().add(new Rectangle(0 , randobenunten));
 
+          iconHolder.setSpacing(20);
           iconHolder.getChildren().add(profileImg);
           iconHolder.getChildren().add(tagebuchImg);
           iconHolder.getChildren().add(statImg);
@@ -163,16 +164,7 @@ public class Home implements Serializable {
       *
       */
      private void addTage2Tagebuch(){
-          if (tagebuch.getAnzahlTage() < 1){
-               Tag t1 = new Tag(LocalDate.now());
-               //tagebuch.addTag(t1);        wieder einfügen
-
-               //-----------
-               tagebuch.addTag(new Tag(LocalDate.of(2023,5,3)));
-               tagebuch.addTag(new Tag(LocalDate.of(2023,5,4)));
-               tagebuch.addTag(t1);
-               //-------
-          } else if (!Objects.equals(tagebuch.getLastDay(), LocalDate.now())){
+          if (tagebuch.getAnzahlTage() < 1 || !Objects.equals(tagebuch.getLastDay(), LocalDate.now())){
                Tag t1 = new Tag(LocalDate.now());
                tagebuch.addTag(t1);
           }
@@ -212,10 +204,10 @@ public class Home implements Serializable {
           XYChart.Series<Number, Number> seriesFette = new XYChart.Series<>();
 
           xAxis.setTickLabelsVisible(false);
-          yAxis.setLabel("Aufgenommen");
+          yAxis.setLabel("Menge");
           LineChart<Number,Number> lineChart = new LineChart<>(xAxis, yAxis);
 
-          lineChart.setTitle("Übersicht Nährwerte");
+          lineChart.setTitle("Übersicht der aufgenommenen Nährwerte");
           lineChart.setScaleX(0.85);
           lineChart.setScaleY(0.85);
 
