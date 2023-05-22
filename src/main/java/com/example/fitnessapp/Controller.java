@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -272,7 +273,8 @@ public class Controller {
 
     private boolean isBenutzernameFrei(String benutzername){
         try {
-            FileReader fr = new FileReader("Benutzer.txt");
+            File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
+            FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             String line = br.readLine();
 
@@ -300,8 +302,9 @@ public class Controller {
     private void speichern() throws IOException {
         boolean loggedIn = false;
         // Speichern im File, wo alle Benutzernamen und Passwörter stehen
-        FileWriter fr = new FileWriter("Benutzer.txt", true);
-
+        File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
+        FileWriter fr = new FileWriter(file, true);
+        //###
         //BufferedWriter br = new BufferedWriter(fr);
         textfehler.setFill(Color.RED);
         if (passwordField[0].getText().equals(passwordField[1].getText()) && textfieldRBenutzername.getText().length() != 0 && passwordField[0].getText().length()!=0 &&passwordField[1].getText().length()!=0) {
@@ -464,8 +467,8 @@ public class Controller {
      */
     public void einloggen() throws IOException {
         pane.requestFocus();
-        FileReader fr = new FileReader("Benutzer.txt");
-        BufferedReader br = new BufferedReader(fr);
+        File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
+        BufferedReader br = new BufferedReader(new FileReader(file));
         textfehler.setVisible(false);
         benutzer.setBenutzername(textfieldLBenutzer.getText());
         benutzer.setPasswort(textfieldLPasswort.getText());

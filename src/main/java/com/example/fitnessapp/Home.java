@@ -203,7 +203,6 @@ public class Home implements Serializable {
       */
      public Pane loadStat() {
           Pane pane = new Pane();
-
           final NumberAxis xAxis = new NumberAxis();
           final NumberAxis yAxis = new NumberAxis();
 
@@ -222,10 +221,10 @@ public class Home implements Serializable {
 
           Tagebuch tagebuch = Controller.benutzer.getHome().getTagebuch();
 
-          seriesKcal.setName("Kcal");
-          seriesKohlenhydrate.setName("Kohlenhydrate");
-          seriesProteine.setName("Proteine");
-          seriesFette.setName("Fette");
+          seriesKcal.setName("\tKcal\t");
+          seriesKohlenhydrate.setName("\tKohlenhydrate\t");
+          seriesProteine.setName("\tProteine\t");
+          seriesFette.setName("\tFette\t");
           for (int i = 0; i < tagebuch.getAnzahlTage(); i++) {
                seriesKcal.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getKcal()));
                seriesKohlenhydrate.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getKohlenhydrate()));
@@ -233,10 +232,6 @@ public class Home implements Serializable {
                seriesFette.getData().add(new XYChart.Data<>(tagebuch.getTag(i).getDate().toEpochDay(), tagebuch.getTag(i).getInsgesamteNaehrwerte().getFette()));
 
           }
-
-
-
-
 
           lineChart.getData().add(seriesKcal);
           lineChart.getData().add(seriesKohlenhydrate);

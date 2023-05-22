@@ -36,15 +36,16 @@ public class Konto implements Serializable {
      * Laden die UI-Komponenten mit den Log-In-Daten, BMI, täglichen Nährwerte und den Körperdaten in die HBox.
      * @return Gibt die HBox mit den UI-Komponenten zurück
      */
-    public HBox loadKonto() {
+    public Pane loadKonto() {
         HBox hBox = new HBox();
-        hBox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
+        Pane pane = new Pane(hBox);
+        hBox.setMaxSize(Main.stage.getScene().getWidth()*0.8, Main.stage.getScene().getHeight());
         gridPaneCalcPart = new GridPane();
         calcPart(gridPaneCalcPart);
         hBox.getChildren().add(0,datenAnsicht());
         hBox.getChildren().add(1, gridPaneCalcPart);
 
-        return hBox;
+        return pane;
     }
 
     /**
@@ -89,6 +90,7 @@ public class Konto implements Serializable {
     public GridPane datenAnsicht(boolean... ifbackground) {
         GridPane gridPane = new GridPane();
         Button speichernBtn = new Button("speichern");
+        gridPane.setPrefSize(Main.stage.getScene().getWidth()/2, Main.stage.getScene().getHeight());
         //NumericTextField alterTextField = new NumericTextField();
         DatePicker alterDatePicker = new DatePicker();
         NumericTextField groesseTextField = new NumericTextField();

@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.Serializable;
@@ -36,8 +37,10 @@ public class Tagebuch implements Serializable {
      * Im Tagebuch gibt es zwei Tabs (Heute und Vergangenheit) wo man informationen zum jeweiligen Tag erhällt.
      *
      */
-    public TabPane loadTagebuch() {
+    public Pane loadTagebuch() {
         tabPane = new TabPane();
+        tabPane.setPrefHeight(Main.stage.getScene().getHeight()/1.5);
+        Pane pane = new Pane(tabPane);
         Tab heute = new Tab("Heute", loadHeute());
         Tab vergangeneTage = new Tab("Vergangenheit", loadVergangeneTage());
 
@@ -48,7 +51,7 @@ public class Tagebuch implements Serializable {
         heute.setClosable(false);
         vergangeneTage.setClosable(false);
         tabPane.getTabs().addAll(heute, vergangeneTage);
-        return tabPane;
+        return pane;
     }
 
     /**

@@ -27,16 +27,13 @@ public class Main extends Application {
     @Override
     public void start(Stage stage1) {
         stage = stage1;
-        stage.setMinWidth(500);
-        stage.setMinHeight(500);
-        stage.setMaxWidth(750);
-        stage.setMaxHeight(500);
 
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("logo.png")));
         stage.getIcons().add(icon);
         stage.setTitle("Ernährungsapp");
         Pane pane = new Pane();
-        pane.setPrefSize(750, 500);
+        pane.setPrefSize(700, 500);
+        stage.setResizable(false);
 
 
         Scene scene = new Scene(pane);
