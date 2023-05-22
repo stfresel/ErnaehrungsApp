@@ -94,7 +94,8 @@ public class Konto implements Serializable {
         NumericTextField groesseTextField = new NumericTextField();
         NumericTextField gewichtTextField = new NumericTextField();
         ComboBox<String> geschlechtCombobox = new ComboBox<>();
-        Text textfehler = new Text();
+        Text textfehler = new Text("Bitte gib die Daten vollständig und korrekt an");
+        textfehler.setVisible(false);
         geschlechtCombobox.getItems().addAll("weiblich", "männlich");
 
 
@@ -221,7 +222,8 @@ public class Konto implements Serializable {
         gridPane.addRow(6, labellist.get(5), gewichtTextField);
         gridPane.addRow(7, labellist.get(6), alterDatePicker);
         gridPane.addRow(8, labellist.get(7), geschlechtCombobox);
-        gridPane.addRow(9, textfehler,speichernBtn);
+        gridPane.addRow(9, speichernBtn);
+        gridPane.addRow(10, textfehler);
 
         //gridPane.setPrefSize(Main.stage.getScene().getWidth()/1.5, Main.stage.getScene().getHeight()/2);
 
@@ -234,7 +236,6 @@ public class Konto implements Serializable {
      */
     private void setFehlermeldung(Text text){
         text.setFill(Color.RED);
-        text.setText("Bitte gib die Daten vollständig und korrekt an");
         text.setVisible(true);
     }
 
