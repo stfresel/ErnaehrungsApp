@@ -57,7 +57,7 @@ public class Meal implements Serializable{
         //background
         InputStream stream;
         try {
-            stream = new FileInputStream("src/main/resources/com/example/fitnessapp/backgroundGreen.png");
+            stream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource("backgroundGreen.png")).getPath());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -115,7 +115,7 @@ public class Meal implements Serializable{
         //background
         InputStream stream;
         try {
-            stream = new FileInputStream("src/main/resources/com/example/fitnessapp/backgroundGreen.png");
+            stream =new FileInputStream(Objects.requireNonNull(this.getClass().getResource("backgroundGreen.png")).getPath());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Ermöglicht es die Körperdaten anzuzeigen und zu verändern.
@@ -108,7 +109,7 @@ public class Konto implements Serializable {
         if (ifbackground.length > 0) {
                 InputStream stream;
             try {
-                stream = new FileInputStream("src/main/resources/com/example/fitnessapp/backgroundGreen.png");
+                stream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource("backgroundGreen.png")).getPath());
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }

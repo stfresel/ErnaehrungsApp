@@ -75,11 +75,11 @@ public class Home implements Serializable {
           uiBackground.display(borderPane);
 
           //Bild
-          ImageView statImg = loadImg("src/main/resources/com/example/fitnessapp/statsIcon.png");
-          ImageView profileImg = loadImg("src/main/resources/com/example/fitnessapp/profilIcon.png");
-          ImageView tagebuchImg = loadImg("src/main/resources/com/example/fitnessapp/tagebuchIcon.png");
-          ImageView settingsImg = loadImg("src/main/resources/com/example/fitnessapp/settingsIcon.png");
-          ImageView iconImg = loadImg("src/main/resources/com/example/fitnessapp/logo.png");
+          ImageView statImg = loadImg("statsIcon.png");
+          ImageView profileImg = loadImg("profilIcon.png");
+          ImageView tagebuchImg = loadImg("tagebuchIcon.png");
+          ImageView settingsImg = loadImg("settingsIcon.png");
+          ImageView iconImg = loadImg("logo.png");
 
 
           double iconsize = 50;
@@ -178,7 +178,7 @@ public class Home implements Serializable {
           //laden Hintergrund
           InputStream stream;
           try {
-               stream = new FileInputStream(src);
+               stream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource(src)).getPath());
           } catch (FileNotFoundException e) {
                throw new RuntimeException(e);
           }

@@ -29,7 +29,6 @@ public class Main extends Application {
         pane.setPrefSize(700, 500);
         stage.setResizable(false);
 
-
         Scene scene = new Scene(pane);
         String css = Objects.requireNonNull(this.getClass().getResource("styles.css")).toExternalForm();
         scene.getStylesheets().add(css);

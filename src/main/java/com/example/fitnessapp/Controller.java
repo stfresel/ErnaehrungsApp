@@ -80,7 +80,8 @@ public class Controller {
         //laden Hintergrund
         InputStream stream;
         try {
-            stream = new FileInputStream("src/main/resources/com/example/fitnessapp/backgroundLogin.png");
+            stream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource("backgroundLogin.png")).getPath());
+            //stream = new FileInputStream("src/main/resources/com/example/fitnessapp/backgroundLogin.png");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -97,7 +98,8 @@ public class Controller {
         //Laden des Icons
         InputStream iconstream;
         try {
-            iconstream = new FileInputStream("src/main/resources/com/example/fitnessapp/logo.png");
+            //iconstream = new FileInputStream("src/main/resources/com/example/fitnessapp/logo.png");
+            iconstream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource("logo.png")).getPath());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
