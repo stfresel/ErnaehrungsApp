@@ -55,13 +55,12 @@ public class Home implements Serializable {
      public void startHome(){
           Main.gespeicherteZutaten = gespeicherteZutaten;
 
-          //Main.benutzer.datenSpeichern();
-          Controller.datenSpeichern(this);
+          Main.controller.datenSpeichern();
           Main.stage.setOnCloseRequest(new EventHandler<>(){
                @Override
                public void handle(WindowEvent windowEvent) {
                     System.out.println("closing");
-                    Controller.datenSpeichern(this);
+                    Main.controller.datenSpeichern();
                     Platform.exit();
                }
           });
@@ -248,14 +247,6 @@ public class Home implements Serializable {
           return konto;
      }
 
-     /**
-      * Setzt das Konto.
-      * @param konto Gibt das neue Konto an
-      */
-     public void setKonto(Konto konto) {
-          this.konto = konto;
-     }
-
 
      /**
       * Gibt das Tagebuch zurück.
@@ -265,11 +256,4 @@ public class Home implements Serializable {
           return tagebuch;
      }
 
-     /**
-      * Setzt das Tagebuch.
-      * @param tagebuch Gibt das neue Tagebuch an
-      */
-     public void setTagebuch(Tagebuch tagebuch) {
-          this.tagebuch = tagebuch;
-     }
 }

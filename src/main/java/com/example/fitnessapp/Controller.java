@@ -34,6 +34,9 @@ public class Controller {
      */
     static Benutzer benutzer;
 
+    File ordner;
+    File file_benutzer;
+    Path benutzerTxt;
     public Pane pane = new Pane();
     private TextField textfieldRBenutzername = new TextField();
     private Button buttonReg = new Button();
@@ -56,6 +59,21 @@ public class Controller {
      * Der Hintergrund wird geladen und es werden alle Komponenten hinzugefügt.
      */
     public void initialize() {
+        benutzerTxt = Paths.get("C:\\ErnaehrungsApp\\Benutzer.txt");
+        ordner = new File("C:\\ErnaehrungsApp");
+        file_benutzer = new File("C:\\ErnaehrungsApp\\Benutzer.txt");
+        try{
+            if (!ordner.exists()){
+                System.out.println("Ordner gibt es nicht");
+                ordner.mkdir();
+                file_benutzer.createNewFile();
+
+            } else if (!file_benutzer.exists()) {
+                file_benutzer.createNewFile();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         benutzer = new Benutzer();
         pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
@@ -277,8 +295,9 @@ public class Controller {
     private boolean isBenutzernameFrei(String benutzername){
         try {
             //File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
-            File file = new File("src/main/resources/com/example/fitnessapp/Benutzer.txt");
-            FileReader fr = new FileReader(file);
+            //File file = new File("src/main/resources/com/example/fitnessapp/Benutzer.txt");
+
+            FileReader fr = new FileReader(file_benutzer);
             BufferedReader br = new BufferedReader(fr);
             String line = br.readLine();
 
@@ -307,15 +326,16 @@ public class Controller {
     private void speichern() throws IOException {
         boolean loggedIn = false;
         // Speichern im File, wo alle Benutzernamen und Passwörter stehen
-        //File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
-        File file = new File("src/main/resources/com/example/fitnessapp/Benutzer.txt");
+
+        //URL url = this.getClass().getResource("Benutzer.txt");
+
 
         //###
         //BufferedWriter br = new BufferedWriter(fr);
         textfehler.setFill(Color.RED);
         if (passwordField[0].getText().equals(passwordField[1].getText()) && textfieldRBenutzername.getText().length() != 0 && passwordField[0].getText().length()!=0 &&passwordField[1].getText().length()!=0) {
             loggedIn = true;
-            BufferedWriter fr = new BufferedWriter(new FileWriter(file, true));
+            BufferedWriter fr = new BufferedWriter(new FileWriter(file_benutzer, true));
             System.out.println("Passwort richtig");
 
             benutzer.setBenutzername(textfieldRBenutzername.getText());
@@ -338,7 +358,7 @@ public class Controller {
         updateUI();
         if (loggedIn){
             // Erstellen des Paths zum .ser File
-            datenSpeichern(this);
+            datenSpeichern();
 
             //Main.stage.setScene(new Scene(home.getKonto().datenAnsicht()));
             Main.switchScene(new Scene(benutzer.getHome().getKonto().datenAnsicht(true)));
@@ -436,16 +456,18 @@ public class Controller {
      *
      * @serialData Die gesamte Klasse <code>Home</code>, samt den Attribute, werden serialisiert und in ein File geschrieben.
      */
-    public static void datenSpeichern(Object o){
-        Path path;
-        InputStream is = o.getClass().getClassLoader().getResourceAsStream(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
-        if (is == null) {
-            path = Paths.get("src/main/resources/com/example/fitnessapp/"+benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
-
-        }else {
-            File file = new File(is.toString());
-            path = Path.of(file.getPath());
+    public void datenSpeichern(){
+        File serFile = new File(ordner.getPath() + "\\" + benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
+        System.out.println(serFile);
+        if (!serFile.exists()){
+            try {
+                serFile.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
+
+        Path path = serFile.toPath();
 
         try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path, StandardOpenOption.CREATE))) {
             whereToWrite.writeObject(benutzer.getHome());
@@ -465,9 +487,8 @@ public class Controller {
      */
     public void einloggen() throws IOException {
         pane.requestFocus();
-        //File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
-        File file = new File("src/main/resources/com/example/fitnessapp/Benutzer.txt");
-        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        BufferedReader br = new BufferedReader(new FileReader(benutzerTxt.toFile()));
         textfehler.setVisible(false);
         benutzer.setBenutzername(textfieldLBenutzer.getText());
         benutzer.setPasswort(textfieldLPasswort.getText());
@@ -508,15 +529,23 @@ public class Controller {
      * gespeichert.
      */
     private void auslesenSer(){
+        /*
         Path path = null;
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
         if (is == null) {
             path = Paths.get("src/main/resources/com/example/fitnessapp/"+benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
         }
+
+         */
+
+        File serFile = new File(ordner.getPath() + "\\" + benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
+        System.out.println(serFile);
+        Path path = serFile.toPath();
+
+
         // path wieder erstellen evt methode?
         //Path path = Paths.get(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
         try {
-            assert path != null;
             try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
                 benutzer.setHome((Home) whereToReadFrom.readObject());
                 System.out.println("auslesen vom file");

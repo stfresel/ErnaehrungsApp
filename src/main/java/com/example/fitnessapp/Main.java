@@ -24,6 +24,7 @@ import java.util.Objects;
 public class Main extends Application {
     static ArrayList<Zutat> gespeicherteZutaten = new ArrayList<>();
     static Stage stage;
+    static Controller controller;
     @Override
     public void start(Stage stage1) {
         stage = stage1;
@@ -41,8 +42,8 @@ public class Main extends Application {
         System.out.println(scene.getStylesheets());
         stage.setScene(scene);
         stage.show();
-        Controller c = new Controller();
-        c.initialize();
+        controller = new Controller();
+        controller.initialize();
     }
 
     /**
