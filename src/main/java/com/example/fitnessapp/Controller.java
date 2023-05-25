@@ -294,9 +294,6 @@ public class Controller {
 
     private boolean isBenutzernameFrei(String benutzername){
         try {
-            //File file = new File(Objects.requireNonNull(this.getClass().getResource("Benutzer.txt")).getFile());
-            //File file = new File("src/main/resources/com/example/fitnessapp/Benutzer.txt");
-
             FileReader fr = new FileReader(file_benutzer);
             BufferedReader br = new BufferedReader(fr);
             String line = br.readLine();
@@ -313,7 +310,6 @@ public class Controller {
             fr.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
-            //##### fehlermeldung setzten??
         }
         return true;
     }
@@ -529,22 +525,10 @@ public class Controller {
      * gespeichert.
      */
     private void auslesenSer(){
-        /*
-        Path path = null;
-        InputStream is = this.getClass().getClassLoader().getResourceAsStream(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
-        if (is == null) {
-            path = Paths.get("src/main/resources/com/example/fitnessapp/"+benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
-        }
-
-         */
-
         File serFile = new File(ordner.getPath() + "\\" + benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
         System.out.println(serFile);
         Path path = serFile.toPath();
 
-
-        // path wieder erstellen evt methode?
-        //Path path = Paths.get(benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
         try {
             try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
                 benutzer.setHome((Home) whereToReadFrom.readObject());
@@ -553,7 +537,6 @@ public class Controller {
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Fehler beim Auslesen aus dem Tagebuch" + e.getMessage());
         }
-        //homeStarten();
 
         benutzer.getHome().startHome();
     }
