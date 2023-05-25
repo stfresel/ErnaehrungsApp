@@ -54,7 +54,6 @@ public class Konto implements Serializable {
      * @param gridPane Auf dieses Pane werden die Änderungen gespeichert.
      */
     public void calcPart(GridPane gridPane) {
-        System.out.println("-------------------------------------------");
         koerperdaten.tagesUmsatzBerechnen();
         gridPane.setPrefSize(Main.stage.getWidth()/2, Main.stage.getHeight()/2);
         gridPane.getChildren().clear();
@@ -105,13 +104,12 @@ public class Konto implements Serializable {
         // Größe vom Konto, beim Öffnen vom Konto Tab
         gridPane.setPrefSize(Main.stage.getScene().getWidth()/1.5, Main.stage.getScene().getHeight()/2);
 
-        System.out.println(Main.stage.getScene().getWidth());
         if (ifbackground.length > 0) {
-                InputStream stream;
+                InputStream stream = null;
             try {
                 stream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource("backgroundGreen.png")).getPath());
             } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
             }
             Image background = new Image(stream);
 
@@ -130,7 +128,6 @@ public class Konto implements Serializable {
             speichernBtn.setOnMouseClicked(new EventHandler<>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    System.out.println(gewichtTextField.getText().length());
                     if (geschlechtCombobox.getSelectionModel().getSelectedItem()==null ||
                             alterDatePicker.getValue() == null ||
                             alterDatePicker.getValue().isAfter(LocalDate.now())
@@ -138,7 +135,6 @@ public class Konto implements Serializable {
                         setFehlermeldung(textfehler);
 
                     }else {
-                        System.out.println("Combobox Geschlecht id: " + geschlechtCombobox.getValue());
                         koerperdaten.setKoerperdaten(groesseTextField.getDouble(), gewichtTextField.getDouble(),
                                 alterDatePicker.getValue(), geschlechtCombobox.getValue());
                         //Main.benutzer.getHome().startHome();

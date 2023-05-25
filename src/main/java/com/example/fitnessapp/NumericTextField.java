@@ -15,7 +15,6 @@ public class NumericTextField extends TextField {
                     ObservableValue<? extends String> observable,
                     String oldValue, String newValue) {
                 if (!newValue.matches("-?(([1-9][0-9]*)|0)?(\\.[0-9]*)?")) {
-                    System.out.println("f");
                     NumericTextField.super.setText(oldValue);
                     //NumericTextField.super.setText(newValue.replaceAll("[^-?(([1-9][0-9]*)|0)?(\\\\.[0-9]*)?]", ""));
                 }

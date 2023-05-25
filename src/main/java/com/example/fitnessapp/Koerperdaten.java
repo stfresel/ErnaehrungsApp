@@ -69,10 +69,7 @@ public class Koerperdaten implements Serializable {
      * @return Der Rückgabewert entspricht dem BMI der Person. Dabei wird dieser auf zwei Nachkommastellen gerundet.
      */
     public double getBMI(){
-        System.out.println("Gewicht: " + gewicht);
-        System.out.println("Groesse: " + groesse);
         bmi = gewicht / (groesse * groesse);
-        System.out.println("BMI: " + bmi);
 
         // um auf zwei Nachkommastellen zu runden
         return Math.round(bmi * 100.0)/100.0;
@@ -107,7 +104,6 @@ public class Koerperdaten implements Serializable {
      * @return Alter in Jahren
      */
     public double getAlter() {
-        System.out.println("alter: " + Period.between(birthday, LocalDate.now()).getYears());
         return Period.between(birthday, LocalDate.now()).getYears();
     }
 

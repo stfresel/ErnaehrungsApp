@@ -69,7 +69,6 @@ public class Tagebuch implements Serializable {
         addMealBtn.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("add meal");
                 Meal meal = new Meal();
                 meal.loadMealScene(tage.get(tage.size()-1));
             }

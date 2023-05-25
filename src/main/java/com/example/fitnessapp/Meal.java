@@ -55,11 +55,11 @@ public class Meal implements Serializable{
         gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
         //background
-        InputStream stream;
+        InputStream stream = null;
         try {
             stream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource("backgroundGreen.png")).getPath());
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
         Image background = new Image(stream);
 
@@ -79,22 +79,15 @@ public class Meal implements Serializable{
         addZutatBtn.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                //---tempName = nameTextField.getText();
                 name = nameTextField.getText();
-
-                // evt abfrage??? mit fehlertext
-
-                System.out.println("neue Zutat");
                 loadZutatenScene(tag);
             }
         });
 
         // sie sollten immer die letzten elemente im gridPane sein
         gridPane.addRow(1, addZutatBtn);
-        //gridPane.addRow(2, mealFertig);
         gridPane.setId("label-konto");
         Main.switchScene(scene);
-        //Main.stage.setScene(scene);
     }
 
     /**
@@ -113,11 +106,11 @@ public class Meal implements Serializable{
         checkbox.setSelected(true);
 
         //background
-        InputStream stream;
+        InputStream stream = null;
         try {
             stream =new FileInputStream(Objects.requireNonNull(this.getClass().getResource("backgroundGreen.png")).getPath());
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
         Image background = new Image(stream);
 
@@ -200,10 +193,8 @@ public class Meal implements Serializable{
         checkbox.selectedProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                System.out.println("change");
                 zutaten.clear();
                 if (checkbox.isSelected()){ // neue Zutat erstellen
-                    //zutatenPane.getChildren().remove(loadZutate);
                     int x = zutatenPane.getChildren().indexOf(loadZutate);
                     zutatenPane.getChildren().set(x, zutatErstellen);
 
@@ -234,7 +225,6 @@ public class Meal implements Serializable{
                                     fehlermeldung.setVisible(true);
                                 }else {
                                     fehlermeldung.setVisible(false);
-                                    System.out.println("aus array holen");
                                     Zutat arrZutat = Main.gespeicherteZutaten.get(i);
                                     int menge = (int) mengeGespeicherteZutat.getDouble();    // Menge der Zutat die gerade gegessen wird
                                     Zutat z = calcNaehrwerteZutat(arrZutat, menge);
@@ -245,11 +235,8 @@ public class Meal implements Serializable{
                             }
                         }
                     }
-
-                    System.out.println("fertiggg");
                 } else {
                     // Zutat neu Hinzufügen
-                    System.out.println("neue Zutat erstellt");
                     if (textFieldName.getText().isEmpty() || textFieldGegessen.getText().isEmpty() ||
                             kcalTextField.getText().isEmpty() || fetteTextField.getText().isEmpty() ||
                             kolenhydrateTextField.getText().isEmpty() || proteineTextField.getText().isEmpty()){
@@ -260,7 +247,6 @@ public class Meal implements Serializable{
                         Zutat z = new Zutat(textFieldName.getText(), (int) Math.round(textFieldGegessen.getDouble()),
                                 new Naehrwerte((int) Math.round(kcalTextField.getDouble()), (int) Math.round(fetteTextField.getDouble()),
                                         (int) Math.round(kolenhydrateTextField.getDouble()), (int) Math.round(proteineTextField.getDouble())));
-                        System.out.println(z);
                         Main.gespeicherteZutaten.add(z);
                         comboBox.getItems().add(z.getName());
                         textFieldName.setText("");
@@ -284,10 +270,7 @@ public class Meal implements Serializable{
         alle_zutaten_wurden_eingegeben.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                //123456789
-                System.out.println("fertigggg");
                 tag.addMeal(Meal.this);
-                //name = nameTextField.getText();
                 Controller.benutzer.getHome().startHome();
             }
         });
@@ -334,20 +317,14 @@ public class Meal implements Serializable{
         naehrwerteMeal.setKohlenhydrate(naehrwerteMeal.getKohlenhydrate() + zutat.getNaehrwerte().getKohlenhydrate());
         naehrwerteMeal.setFette(naehrwerteMeal.getFette() + zutat.getNaehrwerte().getFette());
         naehrwerteMeal.setProtein(naehrwerteMeal.getProtein() + zutat.getNaehrwerte().getProtein());
-        System.out.println("insgesamt NW" + naehrwerteMeal);
         HBox hBox = new HBox();
         Button delZutatBtn = new Button("-");
         delZutatBtn.setId("textfield-login");
         delZutatBtn.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("delete Zutat");
-                System.out.println(zutaten);
                 delZutat(zutat);
                 bereitsHinzugefuegteZutaten.getChildren().remove(hBox);
-                //hBox.getChildren().removeAll();     // achtung beim löschen--> evt alle zutaten in ein VBox tun
-                System.out.println("a-" + zutaten);
-
             }
         });
         hBox.getChildren().add(delZutatBtn);

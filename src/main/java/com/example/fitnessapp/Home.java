@@ -59,7 +59,6 @@ public class Home implements Serializable {
           Main.stage.setOnCloseRequest(new EventHandler<>(){
                @Override
                public void handle(WindowEvent windowEvent) {
-                    System.out.println("closing");
                     Main.controller.datenSpeichern();
                     Platform.exit();
                }
@@ -176,11 +175,11 @@ public class Home implements Serializable {
       */
      public ImageView loadImg(String src){
           //laden Hintergrund
-          InputStream stream;
+          InputStream stream = null;
           try {
                stream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource(src)).getPath());
           } catch (FileNotFoundException e) {
-               throw new RuntimeException(e);
+               //throw new RuntimeException(e);
           }
           Image image = new Image(stream);
           ImageView imageView = new ImageView();

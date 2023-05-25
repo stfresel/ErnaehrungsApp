@@ -34,9 +34,9 @@ public class Controller {
      */
     static Benutzer benutzer;
 
-    File ordner;
-    File file_benutzer;
-    Path benutzerTxt;
+    private File ordner;
+    private File file_benutzer;
+    private Path benutzerTxt;
     public Pane pane = new Pane();
     private TextField textfieldRBenutzername = new TextField();
     private Button buttonReg = new Button();
@@ -64,26 +64,25 @@ public class Controller {
         file_benutzer = new File("C:\\ErnaehrungsApp\\Benutzer.txt");
         try{
             if (!ordner.exists()){
-                System.out.println("Ordner gibt es nicht");
-                ordner.mkdir();
+                //System.out.println("Ordner gibt es nicht");
+                ordner.mkdirs();
                 file_benutzer.createNewFile();
 
             } else if (!file_benutzer.exists()) {
                 file_benutzer.createNewFile();
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
         benutzer = new Benutzer();
         pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
         //laden Hintergrund
-        InputStream stream;
+        InputStream stream = null;
         try {
             stream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource("backgroundLogin.png")).getPath());
-            //stream = new FileInputStream("src/main/resources/com/example/fitnessapp/backgroundLogin.png");
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
         Image background = new Image(stream);
         imageView = new ImageView();
@@ -96,12 +95,11 @@ public class Controller {
         imageView.setPreserveRatio(true);
 
         //Laden des Icons
-        InputStream iconstream;
+        InputStream iconstream = null;
         try {
-            //iconstream = new FileInputStream("src/main/resources/com/example/fitnessapp/logo.png");
             iconstream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource("logo.png")).getPath());
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
         Image icon = new Image(iconstream);
         iconView = new ImageView();
@@ -131,7 +129,6 @@ public class Controller {
      * für das Passwort (<code>textfieldLPasswort</code>).
      */
     public void loginfun(){
-        System.out.println("loginfunnnnnnn");
         textfehler.setVisible(false);
         pane.requestFocus();
         textfieldLBenutzer.setVisible(true);
@@ -155,7 +152,6 @@ public class Controller {
         buttonLLogin.setText("Login");
         buttonLLogin.setPrefHeight(sizeOfObjectsY);     // Size Button "Login" Loginfenster
         buttonLLogin.setPrefWidth(sizeOfObjectsX);
-        //login.getStyleClass().set(0, "logreg");
         buttonLLogin.setId("button-login");
 
         //Rechteck Hintergrund
@@ -178,12 +174,12 @@ public class Controller {
         }
         passwordField[0].setPromptText("Passwort");
         passwordField[1].setPromptText("Passwort wiederholen");
-//--------------------------------------------------------------------------------------------------------\\
+
         buttonLLogin.setOnMouseClicked(mouseEvent -> {
             try {
                 einloggen();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
             }
         });
 
@@ -198,7 +194,6 @@ public class Controller {
             neuesKonto();
         });
 
-        // achtung!!!!!!!!!!!!! scene net stage!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         Main.stage.getScene().widthProperty().addListener((obs, oldVal, newVal) -> updateUI());
 
         Main.stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> updateUI());
@@ -214,9 +209,7 @@ public class Controller {
      * eventuelle Tippfehler zu vermeiden.
      */
     public void neuesKonto() {
-        //benutzer.setHome(new Home());
         textfehler.setVisible(false);
-        //int counter = 400;
         pane.requestFocus();
         textfieldLBenutzer.setVisible(false);
         textfieldLPasswort.setVisible(false);
@@ -227,15 +220,12 @@ public class Controller {
         passwordField[0].setVisible(true);
         passwordField[1].setVisible(true);
 
-        //registrierungsbutton
+        //Registrierungsbutton
         buttonReg = new Button();
         buttonReg.setText("Registrieren");
-        System.out.println();
         buttonReg.setPrefHeight(sizeOfObjectsY);        // Size Button "registrieren" Registrierungsfenster
         buttonReg.setPrefWidth(sizeOfObjectsX);
         buttonReg.setId("button-login");
-
-
 
         pane.getChildren().add(buttonReg);
 
@@ -246,8 +236,6 @@ public class Controller {
         textfieldRBenutzername.setPrefHeight(sizeOfObjectsY);       // Size Textfeld Benutzername Registrierungsfenster
         textfieldRBenutzername.setPrefWidth(sizeOfObjectsX);
         textfieldRBenutzername.setId("textfield-login");
-        //double x = pane.getWidth() / 2 - textfieldRBenutzername.getMinWidth() / 2;
-        //double y = pane.getHeight() - counter;
         textfieldRBenutzername.setPromptText("Benutzername");
 
         updateUI();
@@ -261,8 +249,6 @@ public class Controller {
                     if (isBenutzernameFrei(textfieldRBenutzername.getText())){
                         speichern();
                     }else{
-                        //########Textfehler stezten!!!!!!!!
-                        System.out.println("Benutzername bereits vergeben");
                         textfehler.setText("Benutzername bereits vergeben");
                         textfehler.setVisible(true);
                         textfehler.setFill(Color.RED);
@@ -270,7 +256,7 @@ public class Controller {
                         updateUI();
                     }
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
             }
         });
@@ -301,7 +287,6 @@ public class Controller {
             String line = br.readLine();
 
             while(line != null){
-                System.out.println(line);
                 String[] userdata = line.split(" ");
                 if (Objects.equals(userdata[0], benutzername)){
                     return false;
@@ -311,7 +296,7 @@ public class Controller {
             br.close();
             fr.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
         return true;
     }
@@ -334,7 +319,6 @@ public class Controller {
         if (passwordField[0].getText().equals(passwordField[1].getText()) && textfieldRBenutzername.getText().length() != 0 && passwordField[0].getText().length()!=0 &&passwordField[1].getText().length()!=0) {
             loggedIn = true;
             BufferedWriter fr = new BufferedWriter(new FileWriter(file_benutzer, true));
-            System.out.println("Passwort richtig");
 
             benutzer.setBenutzername(textfieldRBenutzername.getText());
             benutzer.setPasswort(passwordField[1].getText());
@@ -370,8 +354,6 @@ public class Controller {
     public void updateUI(){
         double midx = Main.stage.getScene().getWidth();
         double midy = Main.stage.getScene().getHeight();
-        System.out.println(midx);
-        System.out.println(midy);
 
         //Loginfenster
         textfieldLBenutzer.setLayoutX(midx/2 - sizeOfObjectsX/2);
@@ -393,7 +375,6 @@ public class Controller {
         passwordField[1].setLayoutX(midx/2 - sizeOfObjectsX/2);
         passwordField[1].setLayoutY(midy/2 + 30);
 
-        System.out.println(buttonReg.getWidth());
         buttonReg.setLayoutX(midx/2 - sizeOfObjectsX/2);
         buttonReg.setLayoutY(midy/2 + 80);
 
@@ -432,17 +413,7 @@ public class Controller {
      * Die Methode passt die Größe vom Hintergrund an die Fenstergröße an.
      */
     public void adjustBackgroundSize(){
-        // Binden Sie die Breite und Höhe der ImageView an die Breite und Höhe der Pane
-        /*
-        if (imageView.getFitHeight() > imageView.getFitWidth()){
-            imageView.fitHeightProperty().bind(Main.stage.getScene().getWindow().heightProperty());
-        }else {
-            imageView.fitWidthProperty().bind(Main.stage.getScene().getWindow().widthProperty());
-        }
-
-         */
         imageView.fitHeightProperty().bind(Main.stage.getScene().getWindow().heightProperty());
-
         // Setzen Sie den PreserveRatio-Parameter auf true, um das Seitenverhältnis des Bildes zu erhalten
         imageView.setPreserveRatio(true);
 
@@ -456,12 +427,11 @@ public class Controller {
      */
     public void datenSpeichern(){
         File serFile = new File(ordner.getPath() + "\\" + benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
-        System.out.println(serFile);
         if (!serFile.exists()){
             try {
                 serFile.createNewFile();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
             }
         }
 
@@ -469,9 +439,8 @@ public class Controller {
 
         try (ObjectOutputStream whereToWrite = new ObjectOutputStream(Files.newOutputStream(path, StandardOpenOption.CREATE))) {
             whereToWrite.writeObject(benutzer.getHome());
-            System.out.println("Saved Home");
         } catch (IOException e) {
-            System.out.println("Can't serialize " + path.getFileName() + ": " + e.getMessage());
+            //System.out.println("Can't serialize " + path.getFileName() + ": " + e.getMessage());
         }
     }
 
@@ -495,10 +464,7 @@ public class Controller {
         while(zeile != null){
             String[] benutzerDaten = zeile.split(" ");
             if (Objects.equals(textfieldLBenutzer.getText(), benutzerDaten[0]) && Objects.equals(textfieldLPasswort.getText(), benutzerDaten[1])) {
-                //textfehler.setText("");
                 textfehler.setVisible(false);
-                System.out.println("Passwort und Benutzer stimmen überein");
-
                 benutzer.setBenutzername(textfieldLBenutzer.getText());
                 benutzer.setPasswort(textfieldLPasswort.getText());
                 loggedIn = true;
@@ -528,16 +494,14 @@ public class Controller {
      */
     private void auslesenSer(){
         File serFile = new File(ordner.getPath() + "\\" + benutzer.getBenutzername() + "_" + benutzer.getPasswort() + ".ser");
-        System.out.println(serFile);
         Path path = serFile.toPath();
 
         try {
             try (ObjectInputStream whereToReadFrom = new ObjectInputStream(Files.newInputStream(path))) {
                 benutzer.setHome((Home) whereToReadFrom.readObject());
-                System.out.println("auslesen vom file");
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Fehler beim Auslesen aus dem Tagebuch" + e.getMessage());
+            //System.out.println("Fehler beim Auslesen aus dem Tagebuch" + e.getMessage());
         }
 
         benutzer.getHome().startHome();

@@ -22,9 +22,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage1) {
         stage = stage1;
+        stage.show();
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("logo.png")));
         stage.getIcons().add(icon);
-        stage.setTitle("Ernährungsapp");
+        stage.setTitle("Ernaehrungsapp");
         Pane pane = new Pane();
         pane.setPrefSize(700, 500);
         stage.setResizable(false);
@@ -32,9 +33,8 @@ public class Main extends Application {
         Scene scene = new Scene(pane);
         String css = Objects.requireNonNull(this.getClass().getResource("styles.css")).toExternalForm();
         scene.getStylesheets().add(css);
-        System.out.println(scene.getStylesheets());
         stage.setScene(scene);
-        stage.show();
+
         controller = new Controller();
         controller.initialize();
     }
@@ -45,11 +45,11 @@ public class Main extends Application {
      */
     public static void switchScene(Scene s){
         try {
-            String cssStyleFile = Objects.requireNonNull( Main.class.getResource("styles.css").toExternalForm() );
+            String cssStyleFile = Objects.requireNonNull(Main.class.getResource("styles.css").toExternalForm());
             s.getStylesheets().add(cssStyleFile);
             Main.stage.setScene(s);
         } catch(Exception e) {
-            System.out.println("Exception @ switchScene()");
+            //System.out.println("Exception @ switchScene()");
         }
     }
 

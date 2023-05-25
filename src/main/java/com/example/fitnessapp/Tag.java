@@ -56,10 +56,7 @@ public class Tag implements Serializable {
      * @return Gibt ein ScrollPane mit allen gegessenen Mahlzeiten.
      */
     public VBox ladeDetailansichtTag() {
-        System.out.println(date);
         VBox vBox = new VBox();
-        //vBox.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
-
 
         Label naehrwerteLabel = new Label("Nährwerte: ");
         Label kalorienLabel = new Label("Kalorien: " + insgesamteNaehrwerte.getKcal() + " / " + Controller.getNaehrwerte().getKcal());
