@@ -105,20 +105,12 @@ public class Konto implements Serializable {
         gridPane.setPrefSize(Main.stage.getScene().getWidth()/1.5, Main.stage.getScene().getHeight()/2);
 
         if (ifbackground.length > 0) {
-                InputStream stream = null;
-            try {
-                stream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource("backgroundGreen.png")).getPath());
-            } catch (FileNotFoundException e) {
-                //throw new RuntimeException(e);
-            }
-            Image background = new Image(stream);
+            Image background = new Image(Objects.requireNonNull(getClass().getResourceAsStream("backgroundGreen.png")));
 
             gridPane.setBackground(new Background(new BackgroundImage(background, null, null, null, new BackgroundSize(100, 100, true, true, false, true))));
             // Größe vom Konto gleich nach dem registrieren
             gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
         }
-
-        //gridPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#B6CC95"), null, null)));
 
         // Wenn es direkt nach dem Registrieren geöffnet wird
         if (koerperdaten == null){

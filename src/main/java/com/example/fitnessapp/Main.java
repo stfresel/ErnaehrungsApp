@@ -22,7 +22,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage1) {
         stage = stage1;
-        stage.show();
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("logo.png")));
         stage.getIcons().add(icon);
         stage.setTitle("Ernaehrungsapp");
@@ -35,6 +34,7 @@ public class Main extends Application {
         scene.getStylesheets().add(css);
         stage.setScene(scene);
 
+        stage.show();
         controller = new Controller();
         controller.initialize();
     }

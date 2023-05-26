@@ -175,13 +175,8 @@ public class Home implements Serializable {
       */
      public ImageView loadImg(String src){
           //laden Hintergrund
-          InputStream stream = null;
-          try {
-               stream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource(src)).getPath());
-          } catch (FileNotFoundException e) {
-               //throw new RuntimeException(e);
-          }
-          Image image = new Image(stream);
+
+          Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(src)));
           ImageView imageView = new ImageView();
           imageView.setImage(image);
           return imageView;

@@ -77,14 +77,8 @@ public class Controller {
         benutzer = new Benutzer();
         pane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
-        //laden Hintergrund
-        InputStream stream = null;
-        try {
-            stream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource("backgroundLogin.png")).getPath());
-        } catch (FileNotFoundException e) {
-            //throw new RuntimeException(e);
-        }
-        Image background = new Image(stream);
+
+        Image background = new Image(Objects.requireNonNull(getClass().getResourceAsStream("backgroundLogin.png")));
         imageView = new ImageView();
         imageView.setImage(background);
         imageView.setX(0);
@@ -94,14 +88,8 @@ public class Controller {
         adjustBackgroundSize();
         imageView.setPreserveRatio(true);
 
-        //Laden des Icons
-        InputStream iconstream = null;
-        try {
-            iconstream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource("logo.png")).getPath());
-        } catch (FileNotFoundException e) {
-            //throw new RuntimeException(e);
-        }
-        Image icon = new Image(iconstream);
+
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("logo.png")));
         iconView = new ImageView();
         iconView.setImage(icon);
         Main.switchScene(new Scene(pane));

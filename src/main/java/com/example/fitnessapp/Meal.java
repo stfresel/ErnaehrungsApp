@@ -38,9 +38,7 @@ public class Meal implements Serializable{
      */
     private Naehrwerte naehrwerteMeal = new Naehrwerte(0,0,0,0);
 
-
     private transient VBox zutatenPane;
-
     private final transient VBox bereitsHinzugefuegteZutaten = new VBox();
     private transient Text fehlermeldung = new Text();
 
@@ -55,13 +53,7 @@ public class Meal implements Serializable{
         gridPane.setPrefSize(Main.stage.getScene().getWidth(), Main.stage.getScene().getHeight());
 
         //background
-        InputStream stream = null;
-        try {
-            stream = new FileInputStream(Objects.requireNonNull(this.getClass().getResource("backgroundGreen.png")).getPath());
-        } catch (FileNotFoundException e) {
-            //throw new RuntimeException(e);
-        }
-        Image background = new Image(stream);
+        Image background = new Image(Objects.requireNonNull(getClass().getResourceAsStream("backgroundGreen.png")));
 
         gridPane.setBackground(new Background(new BackgroundImage(background, null, null, null, new BackgroundSize(100, 100, true, true, false, true))));
 
@@ -106,13 +98,7 @@ public class Meal implements Serializable{
         checkbox.setSelected(true);
 
         //background
-        InputStream stream = null;
-        try {
-            stream =new FileInputStream(Objects.requireNonNull(this.getClass().getResource("backgroundGreen.png")).getPath());
-        } catch (FileNotFoundException e) {
-            //throw new RuntimeException(e);
-        }
-        Image background = new Image(stream);
+        Image background = new Image(Objects.requireNonNull(getClass().getResourceAsStream("backgroundGreen.png")));
 
         zutatenPane.setBackground(new Background(new BackgroundImage(background, null, null, null, new BackgroundSize(100, 100, true, true, false, true))));
 
